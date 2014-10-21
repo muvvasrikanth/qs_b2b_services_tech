@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -52,8 +53,8 @@ public class SecurityControllerTest extends AbstractJUnit4SpringContextTests {
 		HttpServletResponse response = new MockHttpServletResponse() ;
 		when(request.getPathInfo()).thenReturn("/authenticate") ;
 		when(request.getParameter("x-auth")).thenReturn("connect_user:password") ;
-		when(service.authenticate("connect_user", "password")).thenReturn(Boolean.TRUE) ;
-//		verify(service).authenticate("connect_user", "password") ;
+		when(service.authenticate(Mockito.anyString(), Mockito.anyString())).thenReturn(Boolean.TRUE) ;
+//		verify(service).authenticate(Mockito.anyString(), Mockito.anyString()) ;
 		
 		Boolean actual = controller.authenticate(request, response) ;
 		assertNotNull(actual) ;

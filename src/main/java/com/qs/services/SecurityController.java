@@ -38,15 +38,20 @@ public class SecurityController {
 	public Boolean authenticate(HttpServletRequest request, HttpServletResponse response){
 		logger.info(getClass().getSimpleName() + ".authenticate(...)");
 		
-		try{
-			String auth = request.getParameter("x-auth") ;
-			logger.info("x-auth:" + auth);
-			response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED);
-		} catch(IOException e){
-			logger.error(e.getMessage(), e) ;
-		}
-		 
-		return true ;
+		String auth = request.getParameter("x-auth") ;
+		logger.info("x-auth:" + auth);
+		
+		String[] authTokens = request.getParameter("x-auth").split(":") ;
+		String userId = authTokens[0] ;
+		String password = authTokens[1] ;
+		
+		logger.info("userId=[" + userId + "] || password=[" + password + "]");
+		
+		Boolean result = service.authenticate(userId, password) ;
+		
+		logger.info("result=" + result) ;
+		
+		return result ;
 	}
 	
 	// add another end point to take a token and the password for the user

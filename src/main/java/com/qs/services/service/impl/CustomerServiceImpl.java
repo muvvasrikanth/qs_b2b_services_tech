@@ -16,7 +16,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public CustomerList getCustomers(String salesRepId) {
 		// TODO Auto-generated method stub
-		return null;
+		return sao.getCustomers(salesRepId);
 	}
 
 }

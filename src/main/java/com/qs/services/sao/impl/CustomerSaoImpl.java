@@ -32,14 +32,11 @@ public class CustomerSaoImpl implements CustomerSao {
 	
 	@Override
 	public CustomerList getCustomers(String salesRepId) {
-		//FIXME the GET request either with a json body or query parameter is not returning data.
 		String url =config.getSapServiceUrl() + "/CONNECT_MOBILE/RepCustomers?sap-client=300";
-		Map<String, String> vars = new HashMap<String, String>();
-		vars.put("I_SALES_REP", salesRepId);
 		String body="{\"I_SALES_REP\":\"" + salesRepId + "\"}";
 	    HttpEntity<String> httpEntity = new HttpEntity<String>(body, createHeaders());
-		ResponseEntity<CustomerList> result = restTemplate.exchange(url, HttpMethod.GET, 
-	    		httpEntity, CustomerList.class, vars);
+		ResponseEntity<CustomerList> result = restTemplate.exchange(url, HttpMethod.POST, 
+	    		httpEntity, CustomerList.class);
 	    return result.getBody();
 	}
 	

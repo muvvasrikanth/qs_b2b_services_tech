@@ -54,8 +54,8 @@ public class CustomerSaoImplTest extends AbstractJUnit4SpringContextTests {
 		String salesRepId = "salesrep";
 		CustomerList expected = new CustomerList();
 		ResponseEntity<CustomerList> entity = new ResponseEntity<CustomerList>(expected, HttpStatus.OK);
-		when(template.exchange(Mockito.anyString(), Mockito.eq(HttpMethod.GET), (HttpEntity)Mockito.any(), 
-				Mockito.eq(CustomerList.class), Mockito.anyMap())).thenReturn(entity) ;
+		when(template.exchange(Mockito.anyString(), Mockito.eq(HttpMethod.POST), (HttpEntity)Mockito.any(), 
+				Mockito.eq(CustomerList.class))).thenReturn(entity) ;
 		CustomerList result = sao.getCustomers(salesRepId);
 		assertEquals(expected, result);
 	}

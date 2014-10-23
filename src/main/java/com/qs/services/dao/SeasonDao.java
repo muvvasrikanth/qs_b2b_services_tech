@@ -1,9 +1,9 @@
 package com.qs.services.dao;
 
-import com.qs.services.domain.SeasonList;
+import com.qs.services.domain.Season;
 
 public interface SeasonDao {
 	
-	public SeasonList getSeasonsBySalesRep(String salesRepId) ;
+	public Season getSeason(String salesOrg, String seasonId, String collection) ;
 
 }

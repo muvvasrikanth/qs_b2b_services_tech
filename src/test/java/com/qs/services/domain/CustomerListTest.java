@@ -1,6 +1,6 @@
 package com.qs.services.domain;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.InputStream;
 
@@ -26,9 +26,40 @@ public class CustomerListTest {
         String result = ow.writeValueAsString(customerList);
         
         assertEquals(5, customerList.getCustomerDetails().size());
+        CustomerDetail detail = customerList.getCustomerDetails().get(0);
+        assertEquals("0001000001", detail.getCustomer());
+        assertEquals("HENDERSON SALES ASSOC. INC", detail.getName());
+        assertEquals("4100 Belmont Drive", detail.getStreet());
+        assertEquals("Hood River", detail.getCity());
+        assertEquals("OR", detail.getRegion());
+        assertEquals("US", detail.getCountry());
+        assertEquals("USA", detail.getCountryName());
+        assertEquals("97031", detail.getPostalCode());
+        assertEquals("", detail.getTelephone());
+        assertEquals("", detail.getBlocked());
+
         assertEquals(5, customerList.getCustomers().size());
+        CustomerSalesrep customer = customerList.getCustomers().get(0);
+        assertEquals("0001000001", customer.getCustomer());
+        assertEquals("0001002117", customer.getSalesRep());
+
         assertEquals(5, customerList.getCustomerSalesAreas().size());
+        CustomerSalesArea salesArea = customerList.getCustomerSalesAreas().get(0);
+        assertEquals("0001000815", salesArea.getCustomer());
+        assertEquals("10", salesArea.getDistributionChannel());
+        assertEquals("", salesArea.getPriceList());
+        assertEquals("1000", salesArea.getSalesOrg());
+        assertEquals("01", salesArea.getBrand());
+        assertEquals("X", salesArea.getBlocked());
+
+        
         assertEquals(5, customerList.getCustomerShiptos().size());
+        CustomerShipTo shipTo = customerList.getCustomerShiptos().get(0);
+        assertEquals("0001000815", shipTo.getCustomer());
+        assertEquals("0001000815", shipTo.getShipTo());
+        assertEquals("10", shipTo.getDistributionChannel());
+        assertEquals("1000", shipTo.getSalesOrg());
+        assertEquals("01", shipTo.getBrand());
         
         assertEquals(json, result);
     }

@@ -1,4 +1,4 @@
-package com.qs.services.dao.impl;
+package com.qs.services.sao.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

@@ -14,8 +14,19 @@ public class Config {
     
     @Value("${sap_service_url:127.0.0.1}")
     private String sapServiceUrl;
+    
+    @Value("${sap_client}")
+    private String sapClient ;
 
-    public String getSapUser() {
+    public String getSapClient() {
+		return sapClient;
+	}
+
+	public void setSapClient(String sapClient) {
+		this.sapClient = sapClient;
+	}
+
+	public String getSapUser() {
 		return sapUser;
 	}
 

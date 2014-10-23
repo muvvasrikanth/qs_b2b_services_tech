@@ -25,6 +25,6 @@
 	
 	<beans:bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />
 	
-    <context:property-placeholder location="classpath:qs.config" ignore-resource-not-found="true"/>
+    <context:property-placeholder location="classpath:config.properties" ignore-resource-not-found="true"/>
 	
 </beans:beans>

@@ -5,7 +5,9 @@ import java.nio.charset.Charset;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ServiceUtil {
 	
 	@Autowired

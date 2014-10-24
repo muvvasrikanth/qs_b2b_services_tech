@@ -33,6 +33,9 @@ public class SalesRep {
 
 	@JsonProperty("email") 
 	private String email ;
+	
+	@JsonProperty("sales_rep_id")
+	private String salesRepId ;
 
 	public Integer getId() {
 		return id;
@@ -104,6 +107,14 @@ public class SalesRep {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSalesRepId() {
+		return salesRepId;
+	}
+
+	public void setSalesRepId(String salesRepId) {
+		this.salesRepId = salesRepId;
 	}
 
 

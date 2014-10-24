@@ -27,11 +27,7 @@ public class SalesRepDaoImpl implements SalesRepDao {
 	
 	@Override
 	public SalesRep getProfile(String salesRepLoginId) {
-		String sql = "SELECT um.id, udm.first_name, udm.last_name, udm.country, " 
-				+ "um.CURRENCY_CODE, um.CURRENCY_FORMAT, um.LANGUAGE_CODE, " 
-				+ "um.date_format, udm.email FROM BGX_USER_MASTER AS um "
-				+ "LEFT OUTER JOIN BGX_USER_DESC_MASTER AS udm ON udm.user_id "
-				+ "= um.id WHERE um.loginid = '" + salesRepLoginId + "'" ;
+		String sql = "SELECT um.id, udm.first_name, udm.last_name, udm.country, um.CURRENCY_CODE, um.CURRENCY_FORMAT, um.LANGUAGE_CODE, um.date_format, udm.email, utb.sales_rep_id FROM BGX_USER_MASTER AS um LEFT OUTER JOIN BGX_USER_DESC_MASTER AS udm ON udm.user_id = um.id left outer join BGX_USER_TO_BUSINESSENTITY as utb on utb.user_id = um.id WHERE um.loginid = '" + salesRepLoginId + "'" ;
 		
 		logger.info("Executing: " + sql);
 		

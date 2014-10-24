@@ -33,7 +33,7 @@ public class CatalogController extends BaseController{
 		authenticate(request, response);
 		logger.info("Call to [GET] seasons with salesRepId=" + salesRepId);
 		
-		return service.getCatalogs(salesRepId) ;
+		return service.getCatalogs() ;
 	}
 	
 }

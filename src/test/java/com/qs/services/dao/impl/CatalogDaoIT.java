@@ -33,8 +33,7 @@ public class CatalogDaoIT extends AbstractJUnit4SpringContextTests {
 
 	@Test
 	public void testGetCatalogs() throws JsonGenerationException, JsonMappingException, IOException{
-		String salesRepLoginId = "superadmin" ;
-		CatalogList list = dao.getCatalogs(salesRepLoginId) ;
+		CatalogList list = dao.getCatalogs() ;
 		assertNotNull(list) ;
 		assertTrue(list.getCatalogs().size() > 0) ;
 		logger.info("There are (" + list.getCatalogs().size() + ") catalogs in the list");

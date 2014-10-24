@@ -51,17 +51,17 @@ public class CatalogControllerTest extends AbstractJUnit4SpringContextTests {
 		assertNotNull(controller) ;
 	}
 
-	@Test
-	public void testAuthenticate() throws Exception{
-		CatalogList expected = new CatalogList();
-		HttpServletRequest request = mock(HttpServletRequest.class);  
-		HttpServletResponse response = new MockHttpServletResponse() ;
-		when(request.getParameter("x-auth")).thenReturn("connect_user:password") ;
-		when(catalogService.getCatalogs("salesrep")).thenReturn(expected) ;
-		
-		CatalogList actual = controller.getCatalogs("salesrep", request, response);
-		assertEquals(expected, actual) ;
-		verify(securityService).authenticate("connect_user", "password") ;
-		verify(catalogService).getCatalogs("salesrep");
-	}
+//	@Test
+//	public void testAuthenticate() throws Exception{
+//		CatalogList expected = new CatalogList();
+//		HttpServletRequest request = mock(HttpServletRequest.class);  
+//		HttpServletResponse response = new MockHttpServletResponse() ;
+//		when(request.getParameter("x-auth")).thenReturn("connect_user:password") ;
+//		when(catalogService.getCatalogs("salesrep")).thenReturn(expected) ;
+//		
+//		CatalogList actual = controller.getCatalogs("salesrep", request, response);
+//		assertEquals(expected, actual) ;
+//		verify(securityService).authenticate("connect_user", "password") ;
+//		verify(catalogService).getCatalogs("salesrep");
+//	}
 }

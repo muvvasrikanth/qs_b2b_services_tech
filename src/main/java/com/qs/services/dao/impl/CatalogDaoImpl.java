@@ -30,8 +30,8 @@ public class CatalogDaoImpl implements CatalogDao {
 	private JdbcTemplate template ;
 
 	@Override
-	public CatalogList getCatalogs(String salesRepLoginId) {
-		String sql = "SELECT * FROM bgx_catalogue_master AS cm LEFT OUTER JOIN bgx_catalogue_desc_master AS cdm ON cdm.catalog_id = cm.id WHERE cm.createdby = '" + salesRepLoginId + "'" ;
+	public CatalogList getCatalogs() {
+		String sql = "SELECT * FROM bgx_catalogue_master AS cm LEFT OUTER JOIN bgx_catalogue_desc_master AS cdm ON cdm.catalog_id = cm.id" ;
 		logger.debug("Executing: " + sql);
 		CatalogList list = new CatalogList() ;
 		list.setCatalogs((List<Catalog>) template.query(sql, new CatalogRowMapper()));

@@ -1,6 +1,5 @@
 package com.qs.services;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -15,32 +14,30 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-import com.qs.services.domain.CustomerList;
-import com.qs.services.service.CustomerService;
+import com.qs.services.domain.Cart;
+import com.qs.services.service.CartService;
 import com.qs.services.service.SecurityService;
 
 @ContextConfiguration(locations={"/test-context.xml"})
 @RunWith(MockitoJUnitRunner.class)
-public class CustomerControllerTest extends AbstractJUnit4SpringContextTests {
+public class CartControllerTest extends AbstractJUnit4SpringContextTests {
 	
-	private static final Logger logger = Logger.getLogger(CustomerControllerTest.class); 
+	private static final Logger logger = Logger.getLogger(CartControllerTest.class); 
 	
 	@InjectMocks
-	private CustomerController controller = new CustomerController() ;
+	private CartController controller = new CartController() ;
 	
 	@Mock
-	private CustomerService customerService ;
+	private CartService cartService ;
 	
 	@Mock
 	private SecurityService securityService ;
-	
 	
 	@Before
 	public void before(){
@@ -55,16 +52,13 @@ public class CustomerControllerTest extends AbstractJUnit4SpringContextTests {
 
 	@Test
 	public void testAuthenticate() throws Exception{
-		CustomerList expected = new CustomerList();
+		Cart cart = new Cart();
 		HttpServletRequest request = mock(HttpServletRequest.class);  
 		HttpServletResponse response = new MockHttpServletResponse() ;
-		when(request.getPathInfo()).thenReturn("/authenticate") ;
 		when(request.getParameter("x-auth")).thenReturn("connect_user:password") ;
-		when(securityService.authenticate(Mockito.anyString(), Mockito.anyString())).thenReturn(Boolean.TRUE) ;
-		when(customerService.getCustomers("salesrep")).thenReturn(expected) ;
-		
-		CustomerList actual = controller.getCustomers("salesrep", request, response);
-		assertEquals(expected, actual) ;
+
+		controller.saveCarts(cart, request, response);
 		verify(securityService).authenticate("connect_user", "password") ;
+		verify(cartService).insertCart(cart);
 	}
 }

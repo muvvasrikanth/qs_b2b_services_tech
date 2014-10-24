@@ -1,9 +1,7 @@
 package com.qs.services.service;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,19 +13,19 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-import com.qs.services.domain.CustomerList;
-import com.qs.services.sao.CustomerSao;
-import com.qs.services.service.impl.CustomerServiceImpl;
+import com.qs.services.dao.CartDao;
+import com.qs.services.domain.Cart;
+import com.qs.services.service.impl.CartServiceImpl;
 
 @ContextConfiguration(locations={"/test-context.xml"})
 @RunWith(MockitoJUnitRunner.class)
-public class CustomerServiceTest extends AbstractJUnit4SpringContextTests {
+public class CartServiceTest extends AbstractJUnit4SpringContextTests {
 
 	@InjectMocks
-	private CustomerService service = new CustomerServiceImpl() ;
+	private CartService service = new CartServiceImpl() ;
 	
 	@Mock
-	private CustomerSao sao ;
+	private CartDao dao ;
 	
 	@Before
 	public void before(){
@@ -40,13 +38,11 @@ public class CustomerServiceTest extends AbstractJUnit4SpringContextTests {
 	}
 	
 	@Test
-	public void testGetCustomers() {
-		String salesRepId = "salesrep";
-		CustomerList expected = new CustomerList();
-		when(sao.getCustomers("salesrep")).thenReturn(expected) ;
-		CustomerList result = service.getCustomers(salesRepId);
-		assertEquals(expected, result);
-		verify(sao).getCustomers("salesrep");
+	public void testInsertCart() {
+		Cart cart = new Cart();
+		
+		service.insertCart(cart);
+		verify(dao).insertCart(cart);
 	}
 
 }

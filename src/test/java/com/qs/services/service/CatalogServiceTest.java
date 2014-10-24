@@ -15,19 +15,19 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-import com.qs.services.domain.CustomerList;
-import com.qs.services.sao.CustomerSao;
-import com.qs.services.service.impl.CustomerServiceImpl;
+import com.qs.services.dao.CatalogDao;
+import com.qs.services.domain.CatalogList;
+import com.qs.services.service.impl.CatalogServiceImpl;
 
 @ContextConfiguration(locations={"/test-context.xml"})
 @RunWith(MockitoJUnitRunner.class)
-public class CustomerServiceTest extends AbstractJUnit4SpringContextTests {
+public class CatalogServiceTest extends AbstractJUnit4SpringContextTests {
 
 	@InjectMocks
-	private CustomerService service = new CustomerServiceImpl() ;
+	private CatalogService service = new CatalogServiceImpl() ;
 	
 	@Mock
-	private CustomerSao sao ;
+	private CatalogDao dao ;
 	
 	@Before
 	public void before(){
@@ -40,13 +40,13 @@ public class CustomerServiceTest extends AbstractJUnit4SpringContextTests {
 	}
 	
 	@Test
-	public void testGetCustomers() {
+	public void testGetCatalogs() {
 		String salesRepId = "salesrep";
-		CustomerList expected = new CustomerList();
-		when(sao.getCustomers("salesrep")).thenReturn(expected) ;
-		CustomerList result = service.getCustomers(salesRepId);
+		CatalogList expected = new CatalogList();
+		when(dao.getCatalogs("salesrep")).thenReturn(expected) ;
+		CatalogList result = service.getCatalogs(salesRepId);
 		assertEquals(expected, result);
-		verify(sao).getCustomers("salesrep");
+		verify(dao).getCatalogs("salesrep");
 	}
 
 }

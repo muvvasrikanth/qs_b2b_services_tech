@@ -15,19 +15,19 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-import com.qs.services.domain.CustomerList;
-import com.qs.services.sao.CustomerSao;
-import com.qs.services.service.impl.CustomerServiceImpl;
+import com.qs.services.dao.SalesRepDao;
+import com.qs.services.domain.SalesRep;
+import com.qs.services.service.impl.ProfileServiceImpl;
 
 @ContextConfiguration(locations={"/test-context.xml"})
 @RunWith(MockitoJUnitRunner.class)
-public class CustomerServiceTest extends AbstractJUnit4SpringContextTests {
+public class ProfileServiceTest extends AbstractJUnit4SpringContextTests {
 
 	@InjectMocks
-	private CustomerService service = new CustomerServiceImpl() ;
+	private ProfileService service = new ProfileServiceImpl() ;
 	
 	@Mock
-	private CustomerSao sao ;
+	private SalesRepDao dao ;
 	
 	@Before
 	public void before(){
@@ -40,13 +40,13 @@ public class CustomerServiceTest extends AbstractJUnit4SpringContextTests {
 	}
 	
 	@Test
-	public void testGetCustomers() {
+	public void testGetProfile() {
 		String salesRepId = "salesrep";
-		CustomerList expected = new CustomerList();
-		when(sao.getCustomers("salesrep")).thenReturn(expected) ;
-		CustomerList result = service.getCustomers(salesRepId);
+		SalesRep expected = new SalesRep();
+		when(dao.getProfile("salesrep")).thenReturn(expected) ;
+		SalesRep result = service.getSalesRep(salesRepId);
 		assertEquals(expected, result);
-		verify(sao).getCustomers("salesrep");
+		verify(dao).getProfile("salesrep");
 	}
 
 }

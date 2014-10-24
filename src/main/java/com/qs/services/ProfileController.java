@@ -14,32 +14,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.qs.services.domain.CustomerList;
-import com.qs.services.service.CustomerService;
-import com.qs.services.service.SecurityService;
+import com.qs.services.domain.SalesRep;
+import com.qs.services.service.ProfileService;
 
 @Controller
-public class CustomerController extends BaseController{
+public class ProfileController extends BaseController{
 	
-	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
-	
-	@Autowired
-	private CustomerService service ;
+	private static final Logger logger = LoggerFactory.getLogger(ProfileController.class);
 	
 	@Autowired
-	private SecurityService securityService ;
+	private ProfileService service ;
 	
-	@RequestMapping(value = "/customers/salesrep/{salesRepId}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/salesreps/{salesRepId:.+}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public CustomerList getCustomers(@PathVariable String salesRepId, 
+	public SalesRep getProfile(@PathVariable String salesRepId, 
 	        HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
 		authenticate(request, response);
+		logger.info("Call to [GET] SalesRep with salesRepId=" + salesRepId);
 		
-		logger.info("Call to [GET] customer with salesRepId=" + salesRepId);
-		
-		return service.getCustomers(salesRepId) ;
+		return service.getSalesRep(salesRepId) ;
 	}
-	
 	
 }

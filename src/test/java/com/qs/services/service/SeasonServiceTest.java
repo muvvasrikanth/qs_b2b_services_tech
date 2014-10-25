@@ -16,8 +16,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import com.qs.services.dao.SeasonDao;
-import com.qs.services.domain.SalesRep;
+import com.qs.services.domain.SAPActiveSeasonProductList;
+import com.qs.services.domain.SAPPrebookSeason;
+import com.qs.services.domain.SAPPrebookSeasonList;
+import com.qs.services.domain.Season;
 import com.qs.services.domain.SeasonList;
+import com.qs.services.sao.SeasonSao;
 import com.qs.services.service.impl.SeasonServiceImpl;
 
 @ContextConfiguration(locations={"/test-context.xml"})
@@ -30,6 +34,9 @@ public class SeasonServiceTest extends AbstractJUnit4SpringContextTests {
 	@Mock
 	private SeasonDao dao ;
 	
+	@Mock
+	private SeasonSao sao ;
+	
 	@Before
 	public void before(){
 		MockitoAnnotations.initMocks(this);
@@ -41,13 +48,28 @@ public class SeasonServiceTest extends AbstractJUnit4SpringContextTests {
 	}
 	
 	@Test
-	public void testGetSeasons() {
-//		String salesRepId = "salesrep";
-//		SeasonList expected = new SalesRep();
-//		when(dao.getSeasons("salesrep")).thenReturn(expected) ;
-//		SeasonList result = service.getSeasons(salesRepId);
-//		assertEquals(expected, result);
-//		verify(dao).getSeasons("salesrep");
+	public void testGetSeasons() throws Exception {
+		String salesRepId = "salesrep";
+		SAPPrebookSeasonList preSeasonList = new SAPPrebookSeasonList();
+		SAPPrebookSeason prebookSeason = new SAPPrebookSeason();
+		prebookSeason.setSalesOrg("org");
+		prebookSeason.setSeason("season");
+		prebookSeason.setCollection("collection");
+		preSeasonList.getPrebookSeasons().add(prebookSeason);
+		
+		SAPActiveSeasonProductList activeProductList = new SAPActiveSeasonProductList();
+		
+		when(sao.getRepPrebkSeasons("salesrep")).thenReturn(preSeasonList) ;
+		when(sao.getActiveSeasonProducts(preSeasonList)).thenReturn(activeProductList) ;
+		
+		Season season = new Season();
+		when(dao.getSeason("org", "season", "collection")).thenReturn(season) ;
+		
+		SeasonList result = service.getSeasons(salesRepId);
+		assertEquals(season, result.getSeasons().get(0));
+		assertEquals(activeProductList, result.getSeasonProducts());
+		verify(sao).getRepPrebkSeasons("salesrep");
+		verify(sao).getActiveSeasonProducts(preSeasonList);
+		verify(dao).getSeason("org", "season", "collection");
 	}
-
 }

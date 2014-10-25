@@ -25,6 +25,9 @@ public class SAPActiveSeasonProductList {
 	@JsonProperty("ET_LOOKUP_TABLE")
 	private List<Lookup> lookups = new ArrayList<Lookup>() ;
 
+    @JsonProperty("ET_RETURN")
+    private List etReturn = new ArrayList<>();
+    
 	public List<SAPActiveSeason> getActiveSeasons() {
 		return activeSeasons;
 	}

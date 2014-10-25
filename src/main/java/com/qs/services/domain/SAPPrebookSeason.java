@@ -51,6 +51,4 @@ public class SAPPrebookSeason {
 	public void setSeasonText(String seasonText) {
 		this.seasonText = seasonText;
 	}
-	
-	
 }

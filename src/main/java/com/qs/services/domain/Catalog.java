@@ -51,6 +51,17 @@ public class Catalog {
 	@JsonProperty("LEVEL")
 	private Integer level ;
 
+	@JsonProperty("CATALOG_SEARCH_CRITERIA_LIST")
+	private CatalogSearchCriteriaList catalogSearchCriteriaList;
+
+	public void setCatalogSearchCriteriaList(CatalogSearchCriteriaList csc) {
+		this.catalogSearchCriteriaList = csc;
+	}
+	
+	public CatalogSearchCriteriaList GetCatalogSearchCriteriaList() {
+		return this.catalogSearchCriteriaList;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -162,7 +173,4 @@ public class Catalog {
 	public void setLevel(Integer level) {
 		this.level = level;
 	}
-	
-	
-
 }

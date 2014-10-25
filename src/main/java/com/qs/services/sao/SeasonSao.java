@@ -7,7 +7,6 @@ import org.codehaus.jackson.map.JsonMappingException;
 
 import com.qs.services.domain.SAPActiveSeasonProductList;
 import com.qs.services.domain.SAPPrebookSeasonList;
-import com.qs.services.domain.SeasonList;
 
 public interface SeasonSao {
 

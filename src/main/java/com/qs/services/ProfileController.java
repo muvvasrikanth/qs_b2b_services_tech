@@ -31,7 +31,7 @@ public class ProfileController extends BaseController{
 	        HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
 		authenticate(request, response);
-		logger.info("Call to [GET] SalesRep with salesRepId=" + salesRepId);
+		logger.info("Call to [GET] profile with salesRepId=" + salesRepId);
 		
 		return service.getSalesRep(salesRepId) ;
 	}

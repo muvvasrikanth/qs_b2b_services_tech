@@ -33,7 +33,8 @@ public class SeasonController extends BaseController{
 		authenticate(request, response);
 		logger.info("Call to [GET] seasons with salesRepId=" + salesRepId);
 		
-		return service.getSeasons(salesRepId) ;
+		SeasonList seasonList = service.getSeasons(salesRepId) ;
+		return seasonList;
 	}
 	
 }

@@ -21,7 +21,9 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
+import com.qs.services.domain.Catalog;
 import com.qs.services.domain.CatalogList;
+import com.qs.services.domain.CatalogSearchCriteriaList;
 import com.qs.services.service.CatalogService;
 import com.qs.services.service.SecurityService;
 
@@ -51,17 +53,24 @@ public class CatalogControllerTest extends AbstractJUnit4SpringContextTests {
 		assertNotNull(controller) ;
 	}
 
-//	@Test
-//	public void testAuthenticate() throws Exception{
-//		CatalogList expected = new CatalogList();
-//		HttpServletRequest request = mock(HttpServletRequest.class);  
-//		HttpServletResponse response = new MockHttpServletResponse() ;
-//		when(request.getParameter("x-auth")).thenReturn("connect_user:password") ;
-//		when(catalogService.getCatalogs("salesrep")).thenReturn(expected) ;
-//		
-//		CatalogList actual = controller.getCatalogs("salesrep", request, response);
-//		assertEquals(expected, actual) ;
-//		verify(securityService).authenticate("connect_user", "password") ;
-//		verify(catalogService).getCatalogs("salesrep");
-//	}
+	@Test
+	public void testGetCatalogs() throws Exception{
+		CatalogList expected = new CatalogList();
+		Catalog cat1 = new Catalog();
+		cat1.setId(1);
+		expected.getCatalogs().add(cat1);
+		HttpServletRequest request = mock(HttpServletRequest.class);  
+		HttpServletResponse response = new MockHttpServletResponse() ;
+		when(request.getParameter("x-auth")).thenReturn("connect_user:password") ;
+		when(catalogService.getCatalogs()).thenReturn(expected) ;
+		CatalogSearchCriteriaList cscl = new CatalogSearchCriteriaList();
+		when(catalogService.getCatalogSearchCriteria(1)).thenReturn(cscl) ;
+		
+		CatalogList actual = controller.getCatalogs(request, response);
+		assertEquals(expected, actual) ;
+		verify(securityService).authenticate("connect_user", "password") ;
+		verify(catalogService).getCatalogs();
+		verify(catalogService).getCatalogSearchCriteria(1);
+		assertEquals(cscl, cat1.GetCatalogSearchCriteriaList());
+	}
 }

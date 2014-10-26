@@ -41,12 +41,13 @@ public class CatalogServiceTest extends AbstractJUnit4SpringContextTests {
 	
 	@Test
 	public void testGetCatalogs() {
+		//TODO: Refactor to work with the changes to the dao
 		String salesRepId = "salesrep";
 		CatalogList expected = new CatalogList();
-		when(dao.getCatalogs()).thenReturn(expected) ;
+		when(dao.getCatalogs(null, null, null)).thenReturn(expected) ;
 		CatalogList result = service.getCatalogs();
 		assertEquals(expected, result);
-		verify(dao).getCatalogs();
+		verify(dao).getCatalogs(null, null, null);
 	}
 
 }

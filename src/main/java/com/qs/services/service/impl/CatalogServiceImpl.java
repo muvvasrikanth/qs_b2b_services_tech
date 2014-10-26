@@ -16,7 +16,8 @@ public class CatalogServiceImpl implements CatalogService {
 
 	@Override
 	public CatalogList getCatalogs() {
-		return dao.getCatalogs();
+		//TODO Refactor to work with the changes to the dao
+		return dao.getCatalogs(null, null, null);
 	}
 
 	@Override

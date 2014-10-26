@@ -5,7 +5,7 @@ import com.qs.services.domain.CatalogSearchCriteriaList;
 
 public interface CatalogDao {
 	
-	public CatalogList getCatalogs() ;
+	public CatalogList getCatalogs(String brandId, String salesOrg, String distCh) ;
 	
 	public CatalogSearchCriteriaList getCatalogSearchCriterias(Integer catalogId) ;
 

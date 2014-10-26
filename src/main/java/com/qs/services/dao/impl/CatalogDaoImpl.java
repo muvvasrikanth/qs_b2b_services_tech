@@ -1,6 +1,9 @@
 package com.qs.services.dao.impl;
 
+import java.sql.Types;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -8,6 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.SqlParameter;
+import org.springframework.jdbc.core.SqlReturnResultSet;
+import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Component;
 
 import com.qs.services.dao.CatalogDao;
@@ -29,12 +36,17 @@ public class CatalogDaoImpl implements CatalogDao {
 	@Autowired
 	private JdbcTemplate template ;
 
+	/**
+	 * The getCatalogs() method calls the GET_CATALOGS stored procedure. The 
+	 * stored procedure assumes the following parameters
+	 * brand_id (a list of comma separated brand id's ie. "'01','02','03'" [brand's allowed for the sales rep]
+	 * sales_org (a list of comma separated sales org's ie. "'1050','1030',..." [sales orgs for the sales rep]
+	 * dist_ch (a list of distribution channels "'10','20',..." [distribution channels for the sales rep]
+	 */
 	@Override
-	public CatalogList getCatalogs() {
-		String sql = "SELECT * FROM bgx_catalogue_master AS cm LEFT OUTER JOIN bgx_catalogue_desc_master AS cdm ON cdm.catalog_id = cm.id" ;
-		logger.debug("Executing: " + sql);
-		CatalogList list = new CatalogList() ;
-		list.setCatalogs((List<Catalog>) template.query(sql, new CatalogRowMapper()));
+	public CatalogList getCatalogs(String brandId, String salesOrg, String distCh) {		
+		logger.debug("Executing: GET_CATALOGS");
+		CatalogList list = new GetCatalogsSP(template).execute(brandId, salesOrg, distCh) ;
 		return list ;
 	}
 
@@ -47,4 +59,38 @@ public class CatalogDaoImpl implements CatalogDao {
 		return list ;
 	}
 
+}
+
+class GetCatalogsSP extends StoredProcedure {
+	protected GetCatalogsSP(){}
+	
+	@SuppressWarnings("rawtypes")
+	protected GetCatalogsSP(JdbcTemplate template){
+		super(template, "GET_CATALOGS") ;
+		
+		RowMapper mapper = new CatalogRowMapper() ;
+		
+		declareParameter(new SqlReturnResultSet("catalogs", mapper)) ;
+		declareParameter(new SqlParameter("brand_id", Types.VARCHAR)) ;
+		declareParameter(new SqlParameter("sales_org", Types.VARCHAR)) ;
+		declareParameter(new SqlParameter("dist_ch", Types.VARCHAR)) ;
+		
+		compile() ;
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public CatalogList execute(String brandId, String salesOrg, String distCh){
+		Map in = new HashMap() ;
+		in.put("brand_id", brandId) ;
+		in.put("sales_org", salesOrg) ;
+		in.put("dist_ch", distCh) ;
+		
+		Map result = execute(in) ;
+		
+		CatalogList list = new CatalogList() ;
+		
+		list.setCatalogs((List<Catalog>) result.get("catalogs")) ;
+		
+		return list ;
+	}
 }

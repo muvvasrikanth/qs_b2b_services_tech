@@ -12,7 +12,6 @@ import com.qs.services.domain.SAPActiveSeasonProductList;
 import com.qs.services.domain.SAPPrebookSeason;
 import com.qs.services.domain.SAPPrebookSeasonList;
 import com.qs.services.domain.Season;
-import com.qs.services.domain.SeasonList;
 import com.qs.services.sao.SeasonSao;
 import com.qs.services.service.SeasonService;
 
@@ -44,19 +43,17 @@ public class SeasonServiceImpl implements SeasonService {
 	 * 
 	 */
 	@Override
-	public SeasonList getSeasons(String salesRepId) throws JsonGenerationException, 
+	public SAPActiveSeasonProductList getSeasons(String salesRepId) throws JsonGenerationException, 
 								JsonMappingException, IOException {
-		SeasonList seasonList = new SeasonList();
 		SAPPrebookSeasonList prebookSeasons = sao.getRepPrebkSeasons(salesRepId);
 		SAPActiveSeasonProductList activeSeasonProducts = sao.getActiveSeasonProducts(prebookSeasons);
 		
 		for (SAPPrebookSeason prebookSeason : prebookSeasons.getPrebookSeasons()) {
 			Season season = dao.getSeason(prebookSeason.getSalesOrg(), prebookSeason.getSeason(), 
 					prebookSeason.getCollection());
-			seasonList.getSeasons().add(season);
+			activeSeasonProducts.getSeasons().add(season);
 		}
-		seasonList.setSeasonProducts(activeSeasonProducts);
-		return seasonList;
+		return activeSeasonProducts;
 	}
 
 }

@@ -10,7 +10,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonAutoDetect
 public class SAPActiveSeasonProductList {
 
-	@JsonProperty("ET_PREEBOOK_SEASON_PRODUCTS")
+	@JsonProperty("ET_SEASONS")
+	private List <Season> seasons = new ArrayList <Season> () ;
+	
+	@JsonProperty("ET_PREBOOK_SEASON_PRODUCTS")
 	private List<SAPActiveSeason> activeSeasons = new ArrayList<SAPActiveSeason>() ;
 	
 	@JsonProperty("ET_PRODUCTS")
@@ -25,6 +28,12 @@ public class SAPActiveSeasonProductList {
 	@JsonProperty("ET_LOOKUP_TABLE")
 	private List<Lookup> lookups = new ArrayList<Lookup>() ;
 
+    @JsonProperty("ET_PRODUCT_SALES_AREAS")
+    private List<ProductSalesArea> productSalesAreas = new ArrayList<>();
+    
+    @JsonProperty("ET_PRODUCT_SEARCH_DROPDOWNS")
+    private List<ProductSearchDropdown> searchDropdowns = new ArrayList<>();
+    
     @JsonProperty("ET_RETURN")
     private List etReturn = new ArrayList<>();
     
@@ -68,5 +77,12 @@ public class SAPActiveSeasonProductList {
 		this.lookups = lookups;
 	}
 	
-	
+	public List<Season> getSeasons() {
+		return seasons;
+	}
+
+	public void setSeasons(List<Season> seasons) {
+		this.seasons = seasons;
+	}
+
 }

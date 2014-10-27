@@ -3,7 +3,7 @@ package com.qs.services.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

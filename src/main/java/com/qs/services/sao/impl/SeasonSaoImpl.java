@@ -1,10 +1,5 @@
 package com.qs.services.sao.impl;
 
-import java.io.IOException;
-
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qs.services.domain.ItSAPPrebookSeasonList;
 import com.qs.services.domain.SAPActiveSeasonProductList;
+import com.qs.services.domain.SAPPrebookSeason;
 import com.qs.services.domain.SAPPrebookSeasonList;
 import com.qs.services.sao.SeasonSao;
 import com.qs.services.util.Config;
@@ -45,12 +44,18 @@ public class SeasonSaoImpl implements SeasonSao {
 	}
 
 	@Override
-	public SAPActiveSeasonProductList getActiveSeasonProducts(SAPPrebookSeasonList seasons) throws JsonGenerationException, JsonMappingException, IOException {
-		String url = config.getSapServiceUrl() + "/CONNECT_MOBILE/RepPrebkSeasons?sap-client=" + config.getSapClient() ;
+	public SAPActiveSeasonProductList getActiveSeasonProducts(SAPPrebookSeasonList seasons) throws JsonProcessingException {
+		String url = config.getSapServiceUrl() + "/CONNECT_MOBILE/ActiveSeasnProd?sap-client=" + config.getSapClient() ;
+		
+		ItSAPPrebookSeasonList itSasonList = new ItSAPPrebookSeasonList();
+		for (SAPPrebookSeason season : seasons.getPrebookSeasons()) {
+			itSasonList.addItPrebookActiveSeason(season.getSalesOrg(), season.getSeason(), season.getCollection());
+		}
 		ObjectMapper mapper = new ObjectMapper() ;
-		String body = mapper.writeValueAsString(seasons) ;
+		String body = mapper.writeValueAsString(itSasonList) ;
 		logger.info("Calling [ " + url + " ] with :: " + body);
 		HttpEntity<String> httpEntity = new HttpEntity<String>(body, serviceUtil.createHeaders()) ;
 		ResponseEntity<SAPActiveSeasonProductList> result = restTemplate.exchange(url,  HttpMethod.POST, httpEntity, SAPActiveSeasonProductList.class) ;
-		return result.getBody() ;	}
+		return result.getBody();
+	}
 }

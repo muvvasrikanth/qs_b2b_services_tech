@@ -27,13 +27,16 @@ public class CartController extends BaseController{
 	
 	@RequestMapping(value = "/carts", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public void saveCarts(@RequestBody Cart cart, HttpServletRequest request, 
+//	public String saveCarts(@RequestBody Cart cart, HttpServletRequest request, 
+//			HttpServletResponse response) throws IOException{
+	public String saveCarts(HttpServletRequest request, 
 			HttpServletResponse response) throws IOException{
 		
 		authenticate(request, response);
 		logger.info("Call to sync carts.");
 		
-		service.insertCart(cart) ;
+//		service.insertCart(cart) ;
+		return "{\"success\":\"true\"}";
 	}
 	
 }

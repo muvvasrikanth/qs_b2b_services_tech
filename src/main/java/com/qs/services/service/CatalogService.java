@@ -5,7 +5,7 @@ import com.qs.services.domain.CatalogSearchCriteriaList;
 
 public interface CatalogService {
 
-	public CatalogList getCatalogs() ;
+	public CatalogList getCatalogs(String salesRepId) ;
 	
 	public CatalogSearchCriteriaList getCatalogSearchCriteria(Integer catalogId) ;
 	

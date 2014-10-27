@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.qs.services.domain.SeasonList;
+import com.qs.services.domain.SAPActiveSeasonProductList;
 import com.qs.services.service.SeasonService;
 
 @Controller
@@ -27,13 +27,13 @@ public class SeasonController extends BaseController{
 	
 	@RequestMapping(value = "/seasons/salesrep/{salesRepId}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public SeasonList getSeasons(@PathVariable String salesRepId, 
+	public SAPActiveSeasonProductList getSeasons(@PathVariable String salesRepId, 
 	        HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
 		authenticate(request, response);
 		logger.info("Call to [GET] seasons with salesRepId=" + salesRepId);
 		
-		SeasonList seasonList = service.getSeasons(salesRepId) ;
+		SAPActiveSeasonProductList seasonList = service.getSeasons(salesRepId) ;
 		return seasonList;
 	}
 	

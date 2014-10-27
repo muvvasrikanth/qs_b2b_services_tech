@@ -21,7 +21,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-import com.qs.services.domain.SeasonList;
+import com.qs.services.domain.SAPActiveSeasonProductList;
 import com.qs.services.service.SeasonService;
 import com.qs.services.service.SecurityService;
 
@@ -53,13 +53,13 @@ public class SeasonControllerTest extends AbstractJUnit4SpringContextTests {
 
 	@Test
 	public void testAuthenticate() throws Exception{
-		SeasonList expected = new SeasonList();
+		SAPActiveSeasonProductList expected = new SAPActiveSeasonProductList();
 		HttpServletRequest request = mock(HttpServletRequest.class);  
 		HttpServletResponse response = new MockHttpServletResponse() ;
 		when(request.getParameter("x-auth")).thenReturn("connect_user:password") ;
 		when(seasonService.getSeasons("salesrep")).thenReturn(expected) ;
 		
-		SeasonList actual = controller.getSeasons("salesrep", request, response);
+		SAPActiveSeasonProductList actual = controller.getSeasons("salesrep", request, response);
 		assertEquals(expected, actual) ;
 		verify(securityService).authenticate("connect_user", "password") ;
 		verify(seasonService).getSeasons("salesrep");

@@ -20,7 +20,6 @@ import com.qs.services.domain.SAPActiveSeasonProductList;
 import com.qs.services.domain.SAPPrebookSeason;
 import com.qs.services.domain.SAPPrebookSeasonList;
 import com.qs.services.domain.Season;
-import com.qs.services.domain.SeasonList;
 import com.qs.services.sao.SeasonSao;
 import com.qs.services.service.impl.SeasonServiceImpl;
 
@@ -65,9 +64,9 @@ public class SeasonServiceTest extends AbstractJUnit4SpringContextTests {
 		Season season = new Season();
 		when(dao.getSeason("org", "season", "collection")).thenReturn(season) ;
 		
-		SeasonList result = service.getSeasons(salesRepId);
+		SAPActiveSeasonProductList result = service.getSeasons(salesRepId);
 		assertEquals(season, result.getSeasons().get(0));
-		assertEquals(activeProductList, result.getSeasonProducts());
+		assertEquals(activeProductList, result);
 		verify(sao).getRepPrebkSeasons("salesrep");
 		verify(sao).getActiveSeasonProducts(preSeasonList);
 		verify(dao).getSeason("org", "season", "collection");

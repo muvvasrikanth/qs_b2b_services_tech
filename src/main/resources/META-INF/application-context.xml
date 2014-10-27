@@ -10,7 +10,7 @@
 
 	<context:component-scan base-package="com.qs.services" />
 
-	<context:property-placeholder location="classpath:config.properties" />
+	<context:property-placeholder location="file:D:/qs_b2b_services/config/config.properties"/>
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
@@ -31,7 +31,7 @@
 		</property>
 		<property name="arguments">
 			<list>
-				<value>classpath:log4j.xml</value>
+				<value>file:D:/qs_b2b_services/config/log4j.xml</value>
 			</list>
 		</property>
 	</bean>

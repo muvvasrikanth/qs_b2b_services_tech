@@ -7,6 +7,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@SuppressWarnings("rawtypes")
 @JsonAutoDetect
 public class SAPActiveSeasonProductList {
 
@@ -34,7 +35,7 @@ public class SAPActiveSeasonProductList {
     @JsonProperty("ET_PRODUCT_SEARCH_DROPDOWNS")
     private List<ProductSearchDropdown> searchDropdowns = new ArrayList<>();
     
-    @JsonProperty("ET_RETURN")
+	@JsonProperty("ET_RETURN")
     private List etReturn = new ArrayList<>();
     
 	public List<SAPActiveSeason> getActiveSeasons() {

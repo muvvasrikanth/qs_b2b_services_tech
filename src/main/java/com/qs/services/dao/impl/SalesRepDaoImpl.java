@@ -31,7 +31,7 @@ public class SalesRepDaoImpl implements SalesRepDao {
 		
 		logger.info("Executing: " + sql);
 		
-		List<SalesRep> list = (List<SalesRep>) template.query(sql, new SalesRepRowMapper());
+		List<SalesRep> list = template.query(sql, new SalesRepRowMapper());
 		
 		if(list.size() != 1){
 			throw new IllegalStateException("Incorrect number of records (" + list.size() + ") returned for " + salesRepLoginId + " should be (1)") ;

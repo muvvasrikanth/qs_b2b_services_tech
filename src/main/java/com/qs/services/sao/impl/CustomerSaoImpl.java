@@ -42,6 +42,11 @@ public class CustomerSaoImpl implements CustomerSao {
 	
 	private HttpHeaders createHeaders() {
 		return new HttpHeaders() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			{
 				String auth = config.getSapUser() + ":"
 						+ config.getSapPassword();

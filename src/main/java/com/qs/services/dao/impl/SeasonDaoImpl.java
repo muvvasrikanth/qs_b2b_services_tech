@@ -30,8 +30,8 @@ public class SeasonDaoImpl implements SeasonDao {
 		String sql = "SELECT * FROM qs_season_master WHERE sales_org = '" + salesOrg + "' AND season_id = '" + seasonId + "' and collection = '" + collection + "'" ;
 		logger.info("Executing: " + sql);
 		
-		List<Season> list = (List<Season>) template.query(sql, new SeasonRowMapper()) ;
-		
+		List<Season> list = template.query(sql, new SeasonRowMapper()) ;
+
 		if(null != list && list.size() != 1){
 			throw new IllegalStateException("Incorrect number of seasons (" + list.size() + ") returned") ;
 		} else {

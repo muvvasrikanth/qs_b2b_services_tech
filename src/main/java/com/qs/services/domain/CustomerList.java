@@ -8,6 +8,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@SuppressWarnings("rawtypes")
 @JsonAutoDetect
 public class CustomerList {
 
@@ -25,7 +26,7 @@ public class CustomerList {
     @JsonProperty("ET_CUSTOMER_SHIPTOS")
     private List<CustomerShipTo> customerShiptos = new ArrayList<CustomerShipTo>();
 
-    @JsonProperty("ET_RETURN")
+	@JsonProperty("ET_RETURN")
     private List etReturn = new ArrayList<>();
     
 	public List<CustomerSalesrep> getCustomers() {

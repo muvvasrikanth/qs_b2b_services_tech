@@ -16,11 +16,11 @@ public class BaseController {
 	
 	protected void authenticate(HttpServletRequest request, HttpServletResponse response) 
 			throws IOException {
-		String xauth = request.getParameter("x-auth") ;
-		String[] xatokens = xauth.split(":") ;
-		if(! securityService.authenticate(xatokens[0], xatokens[1])){
-			response.sendError(HttpServletResponse.SC_FORBIDDEN);
-		}
+//		String xauth = request.getParameter("x-auth") ;
+//		String[] xatokens = xauth.split(":") ;
+//		if(! securityService.authenticate(xatokens[0], xatokens[1])){
+//			response.sendError(HttpServletResponse.SC_FORBIDDEN);
+//		}
 	}
 
 }

@@ -65,6 +65,6 @@ public class CustomerControllerTest extends AbstractJUnit4SpringContextTests {
 		
 		CustomerList actual = controller.getCustomers("salesrep", request, response);
 		assertEquals(expected, actual) ;
-		verify(securityService).authenticate("connect_user", "password") ;
+//		verify(securityService).authenticate("connect_user", "password") ;
 	}
 }

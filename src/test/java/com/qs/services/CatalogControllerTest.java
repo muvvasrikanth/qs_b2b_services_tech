@@ -68,7 +68,7 @@ public class CatalogControllerTest extends AbstractJUnit4SpringContextTests {
 		
 		CatalogList actual = controller.getCatalogs("salesrep", request, response);
 		assertEquals(expected, actual) ;
-		verify(securityService).authenticate("connect_user", "password") ;
+//		verify(securityService).authenticate("connect_user", "password") ;
 		verify(catalogService).getCatalogs("salesrep");
 		verify(catalogService).getCatalogSearchCriteria(1);
 		assertEquals(cscl, cat1.GetCatalogSearchCriteriaList());

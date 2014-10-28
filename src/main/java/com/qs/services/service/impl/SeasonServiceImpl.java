@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ import com.qs.services.service.SeasonService;
 @Service("SeasonService")
 public class SeasonServiceImpl implements SeasonService {
 	
+	private static final Logger logger = LoggerFactory.getLogger(SeasonServiceImpl.class);
+
 	@Autowired
 	private SeasonDao dao ;
 
@@ -49,9 +53,15 @@ public class SeasonServiceImpl implements SeasonService {
 		SAPActiveSeasonProductList activeSeasonProducts = sao.getActiveSeasonProducts(prebookSeasons);
 		
 		for (SAPPrebookSeason prebookSeason : prebookSeasons.getPrebookSeasons()) {
-			Season season = dao.getSeason(prebookSeason.getSalesOrg(), prebookSeason.getSeason(), 
-					prebookSeason.getCollection());
-			activeSeasonProducts.getSeasons().add(season);
+			try {
+				Season season = dao.getSeason(prebookSeason.getSalesOrg(), prebookSeason.getSeason(), 
+						prebookSeason.getCollection());
+				activeSeasonProducts.getSeasons().add(season);
+			} catch (IllegalStateException ise) {
+				logger.error("Failed to get season, salesOrg: " + prebookSeason.getSalesOrg()
+						+ ", season: " +  prebookSeason.getSeason() 
+						+ ", collection: " + prebookSeason.getCollection(), ise);
+			}
 		}
 		return activeSeasonProducts;
 	}

@@ -25,6 +25,9 @@ public class CustomerList {
     
     @JsonProperty("ET_CUSTOMER_SHIPTOS")
     private List<CustomerShipTo> customerShiptos = new ArrayList<CustomerShipTo>();
+    
+    @JsonProperty("ET_SALES_REP_SALESAREAS")
+    private List salesrepSalesAreas = new ArrayList();
 
 	@JsonProperty("ET_RETURN")
     private List etReturn = new ArrayList<>();

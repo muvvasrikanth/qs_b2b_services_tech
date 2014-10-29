@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +20,9 @@ public class SeasonDaoImpl implements SeasonDao {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SeasonDaoImpl.class) ;
 	
-	@Autowired
-	private DataSource dataSource ;
+//	@Autowired
+//	@Qualifier(value="dataSource")
+//	private DataSource dataSource ;
 	
 	@Autowired
 	private JdbcTemplate template ;

@@ -3,6 +3,7 @@ package com.qs.services.dao.impl;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +16,9 @@ import com.qs.services.domain.CartProductSizeRddList;
 @Component
 public class CartDaoImpl implements CartDao {
 
-	@Autowired
-	private DataSource dataSource ;
+//	@Autowired
+//	@Qualifier(value="dataSource")
+//	private DataSource dataSource ;
 	
 	@Autowired
 	private JdbcTemplate template ;

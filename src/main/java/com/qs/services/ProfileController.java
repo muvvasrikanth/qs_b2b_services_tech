@@ -18,7 +18,7 @@ import com.qs.services.domain.SalesRep;
 import com.qs.services.service.ProfileService;
 
 @Controller
-public class ProfileController extends BaseController{
+public class ProfileController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ProfileController.class);
 	
@@ -30,7 +30,6 @@ public class ProfileController extends BaseController{
 	public SalesRep getProfile(@PathVariable String salesRepId, 
 	        HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
-		authenticate(request, response);
 		logger.info("Call to [GET] profile with salesRepId=" + salesRepId);
 		
 		return service.getSalesRep(salesRepId) ;

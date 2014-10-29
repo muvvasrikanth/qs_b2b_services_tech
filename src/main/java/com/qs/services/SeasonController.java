@@ -18,7 +18,7 @@ import com.qs.services.domain.SAPActiveSeasonProductList;
 import com.qs.services.service.SeasonService;
 
 @Controller
-public class SeasonController extends BaseController{
+public class SeasonController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SeasonController.class);
 	
@@ -30,7 +30,6 @@ public class SeasonController extends BaseController{
 	public SAPActiveSeasonProductList getSeasons(@PathVariable String salesRepId, 
 	        HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
-		authenticate(request, response);
 		logger.info("Call to [GET] seasons with salesRepId=" + salesRepId);
 		
 		SAPActiveSeasonProductList seasonList = service.getSeasons(salesRepId) ;

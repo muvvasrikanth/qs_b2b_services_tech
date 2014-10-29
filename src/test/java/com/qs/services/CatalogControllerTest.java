@@ -25,7 +25,6 @@ import com.qs.services.domain.Catalog;
 import com.qs.services.domain.CatalogList;
 import com.qs.services.domain.CatalogSearchCriteriaList;
 import com.qs.services.service.CatalogService;
-import com.qs.services.service.SecurityService;
 
 @ContextConfiguration(locations={"/test-context.xml"})
 @RunWith(MockitoJUnitRunner.class)
@@ -38,9 +37,6 @@ public class CatalogControllerTest extends AbstractJUnit4SpringContextTests {
 	
 	@Mock
 	private CatalogService catalogService ;
-	
-	@Mock
-	private SecurityService securityService ;
 	
 	@Before
 	public void before(){
@@ -61,14 +57,12 @@ public class CatalogControllerTest extends AbstractJUnit4SpringContextTests {
 		expected.getCatalogs().add(cat1);
 		HttpServletRequest request = mock(HttpServletRequest.class);  
 		HttpServletResponse response = new MockHttpServletResponse() ;
-		when(request.getParameter("x-auth")).thenReturn("connect_user:password") ;
 		when(catalogService.getCatalogs("salesrep")).thenReturn(expected) ;
 		CatalogSearchCriteriaList cscl = new CatalogSearchCriteriaList();
 		when(catalogService.getCatalogSearchCriteria(1)).thenReturn(cscl) ;
 		
 		CatalogList actual = controller.getCatalogs("salesrep", request, response);
 		assertEquals(expected, actual) ;
-//		verify(securityService).authenticate("connect_user", "password") ;
 		verify(catalogService).getCatalogs("salesrep");
 		verify(catalogService).getCatalogSearchCriteria(1);
 		assertEquals(cscl, cat1.GetCatalogSearchCriteriaList());

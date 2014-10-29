@@ -36,9 +36,6 @@ public class CartControllerTest extends AbstractJUnit4SpringContextTests {
 	@Mock
 	private CartService cartService ;
 	
-	@Mock
-	private SecurityService securityService ;
-	
 	@Before
 	public void before(){
 		MockitoAnnotations.initMocks(this);
@@ -58,7 +55,6 @@ public class CartControllerTest extends AbstractJUnit4SpringContextTests {
 //		when(request.getParameter("x-auth")).thenReturn("connect_user:password") ;
 //
 //		controller.saveCarts(cart, request, response);
-//		verify(securityService).authenticate("connect_user", "password") ;
 //		verify(cartService).insertCart(cart);
 	}
 }

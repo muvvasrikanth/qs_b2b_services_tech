@@ -15,13 +15,16 @@ public class CustomerDetail {
     @JsonProperty("NAME")
     private String name;
 
-    @JsonProperty("STREET")
-    private String street;
+    @JsonProperty("ADDRESS1")
+    private String addr1;
+
+    @JsonProperty("ADDRESS2")
+    private String addr2;
 
     @JsonProperty("CITY")
     private String city;
 
-    @JsonProperty("REGION")
+    @JsonProperty("STATE")
     private String region;
 
     @JsonProperty("COUNTRY")
@@ -30,7 +33,7 @@ public class CustomerDetail {
     @JsonProperty("COUNTRY_NAME")
     private String countryName;
 
-    @JsonProperty("POSTAL_CODE")
+    @JsonProperty("ZIP_CODE")
     private String postalCode;
 
     @JsonProperty("TELEPHONE")
@@ -51,11 +54,17 @@ public class CustomerDetail {
     public void setName(String name) {
         this.name = name;
     }
-    public String getStreet() {
-        return street;
+    public String getAddress1() {
+        return addr1;
     }
-    public void setStreet(String street) {
-        this.street = street;
+    public void setAddress1(String address) {
+        this.addr1 = address;
+    }
+    public String getAddress2() {
+    	return addr2;
+    }
+    public void setAddress2(String address) {
+    	this.addr2 = address;
     }
     public String getCity() {
         return city;

@@ -37,9 +37,6 @@ public class SeasonControllerTest extends AbstractJUnit4SpringContextTests {
 	@Mock
 	private SeasonService seasonService ;
 	
-	@Mock
-	private SecurityService securityService ;
-	
 	@Before
 	public void before(){
 		MockitoAnnotations.initMocks(this);
@@ -56,12 +53,10 @@ public class SeasonControllerTest extends AbstractJUnit4SpringContextTests {
 		SAPActiveSeasonProductList expected = new SAPActiveSeasonProductList();
 		HttpServletRequest request = mock(HttpServletRequest.class);  
 		HttpServletResponse response = new MockHttpServletResponse() ;
-		when(request.getParameter("x-auth")).thenReturn("connect_user:password") ;
 		when(seasonService.getSeasons("salesrep")).thenReturn(expected) ;
 		
 		SAPActiveSeasonProductList actual = controller.getSeasons("salesrep", request, response);
 		assertEquals(expected, actual) ;
-//		verify(securityService).authenticate("connect_user", "password") ;
 		verify(seasonService).getSeasons("salesrep");
 	}
 }

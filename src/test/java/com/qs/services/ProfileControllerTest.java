@@ -21,10 +21,8 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-import com.qs.services.domain.CatalogList;
 import com.qs.services.domain.SalesRep;
 import com.qs.services.service.ProfileService;
-import com.qs.services.service.SecurityService;
 
 @ContextConfiguration(locations={"/test-context.xml"})
 @RunWith(MockitoJUnitRunner.class)
@@ -37,9 +35,6 @@ public class ProfileControllerTest extends AbstractJUnit4SpringContextTests {
 	
 	@Mock
 	private ProfileService profileService ;
-	
-	@Mock
-	private SecurityService securityService ;
 	
 	@Before
 	public void before(){
@@ -57,12 +52,10 @@ public class ProfileControllerTest extends AbstractJUnit4SpringContextTests {
 		SalesRep expected = new SalesRep();
 		HttpServletRequest request = mock(HttpServletRequest.class);  
 		HttpServletResponse response = new MockHttpServletResponse() ;
-		when(request.getParameter("x-auth")).thenReturn("connect_user:password") ;
 		when(profileService.getSalesRep("salesrep")).thenReturn(expected) ;
 		
 		SalesRep actual = controller.getProfile("salesrep", request, response);
 		assertEquals(expected, actual) ;
-//		verify(securityService).authenticate("connect_user", "password") ;
 		verify(profileService).getSalesRep("salesrep");
 	}
 }

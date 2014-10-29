@@ -20,7 +20,7 @@ import com.qs.services.domain.CatalogSearchCriteriaList;
 import com.qs.services.service.CatalogService;
 
 @Controller
-public class CatalogController extends BaseController{
+public class CatalogController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CatalogController.class);
 	
@@ -32,7 +32,6 @@ public class CatalogController extends BaseController{
 	public CatalogList getCatalogs(@PathVariable String salesRepId, 
 	        HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
-		authenticate(request, response);
 		logger.info("Call to [GET] catalogs with salesRepId=" + salesRepId);
 		
 		CatalogList catalogList = service.getCatalogs(salesRepId);

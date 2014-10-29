@@ -19,7 +19,7 @@ import com.qs.services.service.CustomerService;
 import com.qs.services.service.SecurityService;
 
 @Controller
-public class CustomerController extends BaseController{
+public class CustomerController{
 	
 	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 	
@@ -33,8 +33,6 @@ public class CustomerController extends BaseController{
 	@ResponseBody
 	public CustomerList getCustomers(@PathVariable String salesRepId, 
 	        HttpServletRequest request, HttpServletResponse response) throws IOException{
-		
-		authenticate(request, response);
 		
 		logger.info("Call to [GET] customer with salesRepId=" + salesRepId);
 		

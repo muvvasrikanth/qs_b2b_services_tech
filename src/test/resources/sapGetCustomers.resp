@@ -1,139 +1,154 @@
 {
   "ET_CUSTOMERS" : [ {
-    "SALES_REP" : "0001002117",
-    "CUSTOMER" : "0001000001"
+    "SALES_REP" : "1002117",
+    "CUSTOMER" : "1000001"
   }, {
-    "SALES_REP" : "0001002117",
-    "CUSTOMER" : "0001000003"
+    "SALES_REP" : "1002117",
+    "CUSTOMER" : "1000003"
   }, {
-    "SALES_REP" : "0001002117",
-    "CUSTOMER" : "0001000005"
+    "SALES_REP" : "1002117",
+    "CUSTOMER" : "1000005"
   }, {
-    "SALES_REP" : "0001002117",
-    "CUSTOMER" : "0001000016"
+    "SALES_REP" : "1002117",
+    "CUSTOMER" : "1000016"
   }, {
-    "SALES_REP" : "0001002117",
-    "CUSTOMER" : "0001000125"
+    "SALES_REP" : "1002117",
+    "CUSTOMER" : "1000125"
   } ],
   "ET_CUSTOMER_DETAILS" : [ {
-    "CUSTOMER" : "0001000001",
+    "address1" : "4100 Belmont Drive",
+    "address2" : "",
+    "CUSTOMER" : "1000001",
     "NAME" : "HENDERSON SALES ASSOC. INC",
-    "STREET" : "4100 Belmont Drive",
+    "ADDRESS1" : "4100 Belmont Drive",
+    "ADDRESS2" : "",
     "CITY" : "Hood River",
-    "REGION" : "OR",
+    "STATE" : "OR",
     "COUNTRY" : "US",
     "COUNTRY_NAME" : "USA",
-    "POSTAL_CODE" : "97031",
+    "ZIP_CODE" : "97031",
     "TELEPHONE" : "",
     "BLOCKED" : ""
   }, {
-    "CUSTOMER" : "0001000003",
+    "address1" : "5064 SOUTH HWY A1A",
+    "address2" : "",
+    "CUSTOMER" : "1000003",
     "NAME" : "JASON ROBERSON",
-    "STREET" : "5064 SOUTH HWY A1A",
+    "ADDRESS1" : "5064 SOUTH HWY A1A",
+    "ADDRESS2" : "",
     "CITY" : "MELBOURNE BEACH",
-    "REGION" : "FL",
+    "STATE" : "FL",
     "COUNTRY" : "US",
     "COUNTRY_NAME" : "USA",
-    "POSTAL_CODE" : "32951",
+    "ZIP_CODE" : "32951",
     "TELEPHONE" : "321-159-5276",
     "BLOCKED" : ""
   }, {
-    "CUSTOMER" : "0001000005",
+    "address1" : "118 W Avenida Gaviota",
+    "address2" : "",
+    "CUSTOMER" : "1000005",
     "NAME" : "LAZAR, JOE",
-    "STREET" : "118 W Avenida Gaviota",
+    "ADDRESS1" : "118 W Avenida Gaviota",
+    "ADDRESS2" : "",
     "CITY" : "San Clemente",
-    "REGION" : "CA",
+    "STATE" : "CA",
     "COUNTRY" : "US",
     "COUNTRY_NAME" : "USA",
-    "POSTAL_CODE" : "92672",
+    "ZIP_CODE" : "92672",
     "TELEPHONE" : "949-935-5775",
     "BLOCKED" : "X"
   }, {
-    "CUSTOMER" : "0001000016",
+    "address1" : "15202 Graham Street",
+    "address2" : "",
+    "CUSTOMER" : "1000016",
     "NAME" : "REP: NICHOLE BURKE",
-    "STREET" : "15202 Graham Street",
+    "ADDRESS1" : "15202 Graham Street",
+    "ADDRESS2" : "",
     "CITY" : "Huntington Beach",
-    "REGION" : "CA",
+    "STATE" : "CA",
     "COUNTRY" : "US",
     "COUNTRY_NAME" : "USA",
-    "POSTAL_CODE" : "92649",
+    "ZIP_CODE" : "92649",
     "TELEPHONE" : "",
     "BLOCKED" : ""
   }, {
-    "CUSTOMER" : "0001000125",
+    "address1" : "PO Box 415774",
+    "address2" : "",
+    "CUSTOMER" : "1000125",
     "NAME" : "MACYS",
-    "STREET" : "PO Box 415774",
+    "ADDRESS1" : "PO Box 415774",
+    "ADDRESS2" : "",
     "CITY" : "Cincinnati",
-    "REGION" : "OH",
+    "STATE" : "OH",
     "COUNTRY" : "US",
     "COUNTRY_NAME" : "USA",
-    "POSTAL_CODE" : "45241",
+    "ZIP_CODE" : "45241",
     "TELEPHONE" : "",
     "BLOCKED" : ""
   } ],
   "ET_CUSTOMER_SALESAREAS" : [ {
-    "CUSTOMER" : "0001000815",
-    "SALES_ORG" : "1000",
-    "DISTRIBUTION_CHANNEL" : "10",
-    "BRAND" : "01",
-    "PRICE_LIST" : "",
-    "BLOCKED" : "X"
-  }, {
-    "CUSTOMER" : "0001000814",
-    "SALES_ORG" : "1000",
-    "DISTRIBUTION_CHANNEL" : "10",
-    "BRAND" : "01",
-    "PRICE_LIST" : "",
-    "BLOCKED" : "X"
-  }, {
-    "CUSTOMER" : "0001000813",
+    "CUSTOMER" : "1000001",
     "SALES_ORG" : "1000",
     "DISTRIBUTION_CHANNEL" : "10",
     "BRAND" : "01",
     "PRICE_LIST" : "",
     "BLOCKED" : ""
   }, {
-    "CUSTOMER" : "0001000812",
+    "CUSTOMER" : "1000003",
     "SALES_ORG" : "1000",
     "DISTRIBUTION_CHANNEL" : "10",
     "BRAND" : "01",
     "PRICE_LIST" : "",
     "BLOCKED" : ""
   }, {
-    "CUSTOMER" : "0001000811",
+    "CUSTOMER" : "1000005",
     "SALES_ORG" : "1000",
     "DISTRIBUTION_CHANNEL" : "10",
     "BRAND" : "01",
     "PRICE_LIST" : "",
-    "BLOCKED" : "X"
+    "BLOCKED" : ""
+  }, {
+    "CUSTOMER" : "1000016",
+    "SALES_ORG" : "1000",
+    "DISTRIBUTION_CHANNEL" : "10",
+    "BRAND" : "01",
+    "PRICE_LIST" : "",
+    "BLOCKED" : ""
+  }, {
+    "CUSTOMER" : "1000125",
+    "SALES_ORG" : "1000",
+    "DISTRIBUTION_CHANNEL" : "10",
+    "BRAND" : "01",
+    "PRICE_LIST" : "",
+    "BLOCKED" : ""
   } ],
   "ET_CUSTOMER_SHIPTOS" : [ {
-    "CUSTOMER" : "0001000815",
-    "SHIPTO" : "0001000815",
+    "CUSTOMER" : "1000001",
+    "SHIPTO" : "1000001",
     "SALES_ORG" : "1000",
     "DISTRIBUTION_CHANNEL" : "10",
     "BRAND" : "01"
   }, {
-    "CUSTOMER" : "0001000815",
-    "SHIPTO" : "0002002529",
+    "CUSTOMER" : "1000001",
+    "SHIPTO" : "2002602",
     "SALES_ORG" : "1000",
     "DISTRIBUTION_CHANNEL" : "10",
     "BRAND" : "01"
   }, {
-    "CUSTOMER" : "0001000815",
-    "SHIPTO" : "0002002530",
+    "CUSTOMER" : "1000003",
+    "SHIPTO" : "1000003",
     "SALES_ORG" : "1000",
     "DISTRIBUTION_CHANNEL" : "10",
     "BRAND" : "01"
   }, {
-    "CUSTOMER" : "0001000814",
-    "SHIPTO" : "0001000814",
+    "CUSTOMER" : "1000003",
+    "SHIPTO" : "2002604",
     "SALES_ORG" : "1000",
     "DISTRIBUTION_CHANNEL" : "10",
     "BRAND" : "01"
   }, {
-    "CUSTOMER" : "0001000814",
-    "SHIPTO" : "0002002592",
+    "CUSTOMER" : "1000005",
+    "SHIPTO" : "1000005",
     "SALES_ORG" : "1000",
     "DISTRIBUTION_CHANNEL" : "10",
     "BRAND" : "01"

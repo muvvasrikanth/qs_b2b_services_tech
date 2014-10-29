@@ -38,10 +38,6 @@ public class CustomerControllerTest extends AbstractJUnit4SpringContextTests {
 	@Mock
 	private CustomerService customerService ;
 	
-	@Mock
-	private SecurityService securityService ;
-	
-	
 	@Before
 	public void before(){
 		MockitoAnnotations.initMocks(this);
@@ -59,12 +55,9 @@ public class CustomerControllerTest extends AbstractJUnit4SpringContextTests {
 		HttpServletRequest request = mock(HttpServletRequest.class);  
 		HttpServletResponse response = new MockHttpServletResponse() ;
 		when(request.getPathInfo()).thenReturn("/authenticate") ;
-		when(request.getParameter("x-auth")).thenReturn("connect_user:password") ;
-		when(securityService.authenticate(Mockito.anyString(), Mockito.anyString())).thenReturn(Boolean.TRUE) ;
 		when(customerService.getCustomers("salesrep")).thenReturn(expected) ;
 		
 		CustomerList actual = controller.getCustomers("salesrep", request, response);
 		assertEquals(expected, actual) ;
-//		verify(securityService).authenticate("connect_user", "password") ;
 	}
 }

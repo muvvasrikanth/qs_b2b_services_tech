@@ -32,6 +32,7 @@ public class SalesRepRowMapper implements RowMapper<SalesRep> {
 		rep.setLanguageCode(rs.getString("language_code"));
 		rep.setDateFormat(rs.getString("date_format"));
 		rep.setEmail(rs.getString("email"));
+		rep.setSalesRepId(rs.getString("sales_rep_id"));
 		return rep ;
 	}
 

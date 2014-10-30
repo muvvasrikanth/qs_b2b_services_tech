@@ -5,12 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.sql.DataSource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SqlParameter;
@@ -25,11 +22,17 @@ import com.qs.services.domain.Catalog;
 import com.qs.services.domain.CatalogList;
 import com.qs.services.domain.CatalogSearchCriteria;
 import com.qs.services.domain.CatalogSearchCriteriaList;
+import com.qs.services.domain.SalesArea;
+import com.qs.services.domain.SalesAreaList;
+import com.qs.services.sao.SalesRepSao;
 
 @Component
 public class CatalogDaoImpl implements CatalogDao {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CartDaoImpl.class) ;
+	
+	@Autowired
+	private SalesRepSao salesRepSao ;
 	
 //	@Autowired
 //	@Qualifier(value="dataSource")
@@ -47,9 +50,28 @@ public class CatalogDaoImpl implements CatalogDao {
 	 */
 	@Override
 	public CatalogList getCatalogs(String brandId, String salesOrg, String distCh) {		
-		logger.debug("Executing: GET_CATALOGS");
+		logger.info("Executing: GET_CATALOGS (brandId=" + brandId + " : salesOrg=" + salesOrg + " : distCh=" + distCh + ")" );
 		CatalogList list = new GetCatalogsSP(template).execute(brandId, salesOrg, distCh) ;
 		return list ;
+	}
+	
+	/**
+	 * This getCatalogs() method takes a salesRepId and returns all of the
+	 * catalogs for the sales areas in that list.
+	 */
+	@Override
+	public CatalogList getCatalogs(SalesAreaList salesAreaList){
+		CatalogList catalogList = new CatalogList() ;
+		
+		CatalogList list = null ;
+		for(SalesArea sa : salesAreaList.getSalesAreas()){
+			list = new GetCatalogsSP(template).execute(sa.getBrand(), sa.getSalesOrg(), sa.getDistributionChannel()) ;
+			if(list != null){
+				catalogList.getCatalogs().addAll(list.getCatalogs()) ;
+			}
+		}
+		
+		return catalogList ;
 	}
 
 	@Override

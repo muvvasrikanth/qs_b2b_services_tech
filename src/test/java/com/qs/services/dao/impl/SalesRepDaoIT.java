@@ -36,12 +36,13 @@ public class SalesRepDaoIT extends AbstractJUnit4SpringContextTests {
 
 	@Test
 	public void testGet() throws JsonGenerationException, JsonMappingException, IOException{
-		SalesRep rep = dao.getProfile("timothy.sullivan@quiksilver.com") ;
+		SalesRep rep = dao.getProfile("jay.lightburne@quiksilver.com") ;
 		assertNotNull(rep) ;
 		assertNotNull(rep.getId()) ;
 		assertNotNull(rep.getFirstName()) ;
-		assertEquals("TIM", rep.getFirstName()) ;
-		assertEquals("SULLIVAN", rep.getLastName()) ;
+		assertEquals("JAY", rep.getFirstName()) ;
+		assertEquals("LIGHTBURNE", rep.getLastName()) ;
+		assertEquals("1002912", rep.getSalesRepId()) ;
 		ObjectMapper mapper = new ObjectMapper() ;
 		logger.info(mapper.writeValueAsString(rep));
 	}

@@ -17,6 +17,9 @@ public class Config {
     
     @Value("${sap_client}")
     private String sapClient ;
+    
+    @Value("${base.s3.url}")
+    private String s3Url ;
 
     public String getSapClient() {
 		return sapClient;
@@ -49,4 +52,14 @@ public class Config {
 	public void setSapServiceUrl(String sapServiceUrl) {
 		this.sapServiceUrl = sapServiceUrl;
 	}
+
+	public String getS3Url() {
+		return s3Url;
+	}
+
+	public void setS3Url(String s3Url) {
+		this.s3Url = s3Url;
+	}
+	
+	
 }

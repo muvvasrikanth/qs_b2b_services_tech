@@ -1,6 +1,5 @@
 package com.qs.services.service.impl;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -11,9 +10,9 @@ import org.springframework.stereotype.Service;
 import com.qs.services.dao.CatalogDao;
 import com.qs.services.domain.CatalogList;
 import com.qs.services.domain.CatalogSearchCriteriaList;
-import com.qs.services.domain.CustomerList;
-import com.qs.services.domain.CustomerSalesArea;
+import com.qs.services.domain.SalesAreaList;
 import com.qs.services.sao.CustomerSao;
+import com.qs.services.sao.SalesRepSao;
 import com.qs.services.sao.SeasonSao;
 import com.qs.services.service.CatalogService;
 
@@ -31,28 +30,13 @@ public class CatalogServiceImpl implements CatalogService {
 	@Autowired
 	private CustomerSao customerSo ;
 	
+	@Autowired
+	private SalesRepSao salesRepSao ;
+	
 	@Override
 	public CatalogList getCatalogs(String salesRepId) {
-		//use customer list to find out salesOrg/brand/channel/
-		CustomerList customerList = customerSo.getCustomers(salesRepId);
-		
-		Set<String> brandSet = new HashSet<String>();
-		Set<String> salesOrgSet = new HashSet<String>();
-		Set<String> channelSet = new HashSet<String>();
-		for (CustomerSalesArea csa : customerList.getCustomerSalesAreas()) {
-			brandSet.add(csa.getBrand());
-			salesOrgSet.add(csa.getSalesOrg());
-			channelSet.add(csa.getDistributionChannel());
-		}
-
-		String brandParam = fromSet(brandSet);
-		String salesOrgParam = fromSet(salesOrgSet);
-		String channelParam = fromSet(channelSet);
-		
-		logger.info("Calling dao.getCatalogs() with (" + brandParam + ","
-					+ salesOrgParam + "," + channelParam + ")" );
-		
-		return dao.getCatalogs(brandParam, salesOrgParam, channelParam);
+		SalesAreaList saList = salesRepSao.getSalesAreas(salesRepId) ;
+		return dao.getCatalogs(saList) ;
 	}
 	
 	private String fromSet(Set<String> set) {

@@ -52,6 +52,7 @@ public class ProfileControllerTest extends AbstractJUnit4SpringContextTests {
 		SalesRep expected = new SalesRep();
 		HttpServletRequest request = mock(HttpServletRequest.class);  
 		HttpServletResponse response = new MockHttpServletResponse() ;
+		when(request.getHeader("x-auth")).thenReturn("mobile_user:Quiksilver1") ;
 		when(profileService.getSalesRep("salesrep")).thenReturn(expected) ;
 		
 		SalesRep actual = controller.getProfile("salesrep", request, response);

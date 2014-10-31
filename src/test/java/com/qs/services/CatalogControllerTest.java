@@ -60,6 +60,7 @@ public class CatalogControllerTest extends AbstractJUnit4SpringContextTests {
 		when(catalogService.getCatalogs("salesrep")).thenReturn(expected) ;
 		CatalogSearchCriteriaList cscl = new CatalogSearchCriteriaList();
 		when(catalogService.getCatalogSearchCriteria(1)).thenReturn(cscl) ;
+		when(request.getHeader("x-auth")).thenReturn("mobile_user:Quiksilver1") ;
 		
 		CatalogList actual = controller.getCatalogs("salesrep", request, response);
 		assertEquals(expected, actual) ;

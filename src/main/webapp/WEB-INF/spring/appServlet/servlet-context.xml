@@ -23,6 +23,8 @@
 	<mvc:annotation-driven/>
 
 	<context:component-scan base-package="com.qs.services"/>
+	
+<!-- 	<import resource="classpath:security-context.xml"/> -->
 
     <context:property-placeholder location="file:C:\qs_b2b_services\config\config.properties" ignore-resource-not-found="false"/>
 
@@ -61,19 +63,19 @@
 	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />
 	
 	<!-- Security Configuration -->
-	<security:http>
-		<security:intercept-url pattern="/**" access="ROLE_USER"/>
-		<security:form-login/>
-		<security:logout/>
-	</security:http>
+<!-- 	<security:http> -->
+<!-- 		<security:intercept-url pattern="/**" access="ROLE_USER"/> -->
+<!-- 		<security:form-login/> -->
+<!-- 		<security:logout/> -->
+<!-- 	</security:http> -->
 	
-	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="mobile_user" password="Quiksilver1" authorities="ROLE_USER"/>
-			</security:user-service>
-		</security:authentication-provider>
-	</security:authentication-manager>
+<!-- 	<security:authentication-manager> -->
+<!-- 		<security:authentication-provider> -->
+<!-- 			<security:user-service> -->
+<!-- 				<security:user name="mobile_user" password="Quiksilver1" authorities="ROLE_USER"/> -->
+<!-- 			</security:user-service> -->
+<!-- 		</security:authentication-provider> -->
+<!-- 	</security:authentication-manager> -->
 	<!-- End Security Configuration -->
 	
 </beans>

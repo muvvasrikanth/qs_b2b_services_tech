@@ -56,6 +56,7 @@ public class CustomerControllerTest extends AbstractJUnit4SpringContextTests {
 		HttpServletResponse response = new MockHttpServletResponse() ;
 		when(request.getPathInfo()).thenReturn("/authenticate") ;
 		when(customerService.getCustomers("salesrep")).thenReturn(expected) ;
+		when(request.getHeader("x-auth")).thenReturn("mobile_user:Quiksilver1") ;
 		
 		CustomerList actual = controller.getCustomers("salesrep", request, response);
 		assertEquals(expected, actual) ;

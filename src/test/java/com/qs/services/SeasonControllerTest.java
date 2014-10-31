@@ -54,6 +54,7 @@ public class SeasonControllerTest extends AbstractJUnit4SpringContextTests {
 		HttpServletRequest request = mock(HttpServletRequest.class);  
 		HttpServletResponse response = new MockHttpServletResponse() ;
 		when(seasonService.getSeasons("salesrep")).thenReturn(expected) ;
+		when(request.getHeader("x-auth")).thenReturn("mobile_user:Quiksilver1") ;
 		
 		SAPActiveSeasonProductList actual = controller.getSeasons("salesrep", request, response);
 		assertEquals(expected, actual) ;

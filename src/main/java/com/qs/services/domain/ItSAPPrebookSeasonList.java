@@ -9,6 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonAutoDetect
 public class ItSAPPrebookSeasonList {
+	
+	@JsonProperty("I_SALES_REP")
+	private String salesRep ;
 
 	@JsonProperty("IT_PREBOOK_ACTIVE_SEASONS")
 	private List<ItPrebookActiveSeason> activeSeasons = new ArrayList<ItPrebookActiveSeason> () ;
@@ -24,4 +27,14 @@ public class ItSAPPrebookSeasonList {
 	public void addItPrebookActiveSeason(String salesOrg, String season, String collection) {
 		this.activeSeasons.add(new ItPrebookActiveSeason(salesOrg, season, collection));
 	}
+
+	public String getSalesRep() {
+		return salesRep;
+	}
+
+	public void setSalesRep(String salesRep) {
+		this.salesRep = salesRep;
+	}
+	
+	
 }

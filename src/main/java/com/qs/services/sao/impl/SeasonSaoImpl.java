@@ -44,10 +44,11 @@ public class SeasonSaoImpl implements SeasonSao {
 	}
 
 	@Override
-	public SAPActiveSeasonProductList getActiveSeasonProducts(SAPPrebookSeasonList seasons) throws JsonProcessingException {
+	public SAPActiveSeasonProductList getActiveSeasonProducts(String salesRepId, SAPPrebookSeasonList seasons) throws JsonProcessingException {
 		String url = config.getSapServiceUrl() + "/CONNECT_MOBILE/ActiveSeasnProd?sap-client=" + config.getSapClient() ;
 		
 		ItSAPPrebookSeasonList itSasonList = new ItSAPPrebookSeasonList();
+		itSasonList.setSalesRep(salesRepId);
 		for (SAPPrebookSeason season : seasons.getPrebookSeasons()) {
 			itSasonList.addItPrebookActiveSeason(season.getSalesOrg(), season.getSeason(), season.getCollection());
 		}

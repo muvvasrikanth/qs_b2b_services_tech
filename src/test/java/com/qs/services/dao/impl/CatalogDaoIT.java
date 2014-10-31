@@ -1,5 +1,6 @@
 package com.qs.services.dao.impl;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -51,6 +52,15 @@ public class CatalogDaoIT extends AbstractJUnit4SpringContextTests {
 		logger.info("There are (" + actual.getCatalogs().size() + " ) catalogs in the list");
 		ObjectMapper mapper = new ObjectMapper() ;
 		logger.info(mapper.writeValueAsString(actual));
+	}
+	
+	@Test 
+	public void testGetEmptyCatalogs() throws JsonGenerationException, JsonMappingException, IOException{
+		CatalogList actual = new CatalogList() ;
+		String actualJson = new ObjectMapper().writeValueAsString(actual) ;
+		assertNotNull(actualJson) ;
+		assertEquals("{\"catalogs\":[]}", actualJson) ;
+		logger.info(actualJson) ;
 	}
 	
 	@Test

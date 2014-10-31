@@ -1,10 +1,14 @@
 package com.qs.services.dao.impl;
 
+import java.io.IOException;
 import java.sql.Types;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,13 +62,17 @@ public class CatalogDaoImpl implements CatalogDao {
 	/**
 	 * This getCatalogs() method takes a salesRepId and returns all of the
 	 * catalogs for the sales areas in that list.
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonGenerationException 
 	 */
 	@Override
-	public CatalogList getCatalogs(SalesAreaList salesAreaList){
+	public CatalogList getCatalogs(SalesAreaList salesAreaList) throws JsonGenerationException, JsonMappingException, IOException{
 		CatalogList catalogList = new CatalogList() ;
 		
 		CatalogList list = null ;
 		for(SalesArea sa : salesAreaList.getSalesAreas()){
+			logger.info("Getting catalogs for (" + new ObjectMapper().writeValueAsString(sa));
 			list = new GetCatalogsSP(template).execute(sa.getBrand(), sa.getSalesOrg(), sa.getDistributionChannel()) ;
 			if(list != null){
 				catalogList.getCatalogs().addAll(list.getCatalogs()) ;

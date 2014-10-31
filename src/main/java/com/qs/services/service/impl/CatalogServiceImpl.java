@@ -1,7 +1,10 @@
 package com.qs.services.service.impl;
 
+import java.io.IOException;
 import java.util.Set;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +37,14 @@ public class CatalogServiceImpl implements CatalogService {
 	private SalesRepSao salesRepSao ;
 	
 	@Override
-	public CatalogList getCatalogs(String salesRepId) {
+	public CatalogList getCatalogs(String salesRepId) throws JsonGenerationException, JsonMappingException, IOException {
+		CatalogList catalogs = new CatalogList() ;
 		SalesAreaList saList = salesRepSao.getSalesAreas(salesRepId) ;
-		return dao.getCatalogs(saList) ;
+
+		logger.info("Calling CatalogDao.getCatalogs with (" + saList.getSalesAreas().size() + ") sales areas");
+		catalogs = dao.getCatalogs(saList) ;
+
+		return catalogs ;
 	}
 	
 	private String fromSet(Set<String> set) {

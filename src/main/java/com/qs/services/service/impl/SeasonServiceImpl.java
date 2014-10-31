@@ -1,6 +1,7 @@
 package com.qs.services.service.impl;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.qs.services.dao.ProductDao;
 import com.qs.services.dao.SeasonDao;
-import com.qs.services.domain.Product;
 import com.qs.services.domain.SAPActiveSeasonProductList;
 import com.qs.services.domain.SAPPrebookSeason;
 import com.qs.services.domain.SAPPrebookSeasonList;
@@ -55,10 +55,16 @@ public class SeasonServiceImpl implements SeasonService {
 	public SAPActiveSeasonProductList getSeasons(String salesRepId) throws JsonGenerationException, 
 								JsonMappingException, IOException {
 		SAPPrebookSeasonList prebookSeasons = sao.getRepPrebkSeasons(salesRepId);
-		SAPActiveSeasonProductList activeSeasonProducts = sao.getActiveSeasonProducts(prebookSeasons);
+		SAPActiveSeasonProductList activeSeasonProducts = sao.getActiveSeasonProducts(salesRepId, prebookSeasons);
 		
-		for(Product p : activeSeasonProducts.getProducts()){
-			p.setImageUrl(productDao.getMediumHeroImageUrl(p));
+		if(activeSeasonProducts != null && activeSeasonProducts.getProducts() != null){
+			Map <String, String> imageUrls = productDao.getMediumHeroImageUrls(activeSeasonProducts.getProducts()) ;
+			String url = null ;
+			for(int i=0; i<activeSeasonProducts.getProducts().size(); i++){
+				url = imageUrls.get(activeSeasonProducts.getProducts().get(i).getProduct()) ;
+				logger.info("Adding (" + url + ") to (" + activeSeasonProducts.getProducts().get(i).getProduct() + ")");
+				activeSeasonProducts.getProducts().get(i).setImageUrl(url);
+			}
 		}
 		
 		for (SAPPrebookSeason prebookSeason : prebookSeasons.getPrebookSeasons()) {

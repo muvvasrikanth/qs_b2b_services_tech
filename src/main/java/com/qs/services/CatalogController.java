@@ -33,12 +33,20 @@ public class CatalogController {
 	        HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
 		logger.info("Call to [GET] catalogs with salesRepId=" + salesRepId);
+		CatalogList catalogList = new CatalogList() ;
 		
-		CatalogList catalogList = service.getCatalogs(salesRepId);
-		for (Catalog cat : catalogList.getCatalogs()) {
-			CatalogSearchCriteriaList csc = service.getCatalogSearchCriteria(cat.getId());
-			cat.setCatalogSearchCriteriaList(csc);
+		try{
+			catalogList = service.getCatalogs(salesRepId);
+			for (Catalog cat : catalogList.getCatalogs()) {
+				CatalogSearchCriteriaList csc = service.getCatalogSearchCriteria(cat.getId());
+				cat.setCatalogSearchCriteriaList(csc);
+			}
 		}
+		catch(Exception e){
+			logger.error(e.getMessage(), e);
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+		
 		return catalogList;
 	}
 	

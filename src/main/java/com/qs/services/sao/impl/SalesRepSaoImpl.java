@@ -1,8 +1,12 @@
 package com.qs.services.sao.impl;
 
+import java.io.IOException;
 import java.nio.charset.Charset;
 
 import org.apache.commons.codec.binary.Base64;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.qs.services.domain.CustomerList;
 import com.qs.services.domain.SalesAreaList;
 import com.qs.services.sao.SalesRepSao;
 import com.qs.services.util.Config;
@@ -31,12 +34,17 @@ public class SalesRepSaoImpl  implements SalesRepSao {
 	
 	@Override
 	public SalesAreaList getSalesAreas(String salesRepId) {
-		String url = config.getSapServiceUrl() + "CONNECT_MOBILE/RepSalesAreas?sap-client=" + config.getSapClient() ;
+		String url = config.getSapServiceUrl() + "/CONNECT_MOBILE/RepSalesAreas?sap-client=" + config.getSapClient() ;
 		String body="{\"I_SALES_REP\":\"" + salesRepId + "\"}";
+		logger.info("Calling (" + url + ") with [" + body + "]") ;
 	    HttpEntity<String> httpEntity = new HttpEntity<String>(body, createHeaders());
-		ResponseEntity<SalesAreaList> result = restTemplate.exchange(url, HttpMethod.POST, 
-	    		httpEntity, SalesAreaList.class);
-	    return result.getBody();
+		ResponseEntity<SalesAreaList> salesAreas = restTemplate.exchange(url, HttpMethod.POST, httpEntity, SalesAreaList.class);
+		try {
+			logger.info(new ObjectMapper().writeValueAsString(salesAreas));
+		} catch (IOException e) {
+			logger.error(e.getMessage(), e);
+		}
+	    return salesAreas.getBody();
 	}
 
 	private HttpHeaders createHeaders() {

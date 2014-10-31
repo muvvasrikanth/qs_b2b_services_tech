@@ -2,9 +2,11 @@ package com.qs.services.domain;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonAutoDetect
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class SalesArea {
 
 	@JsonProperty("BRAND")

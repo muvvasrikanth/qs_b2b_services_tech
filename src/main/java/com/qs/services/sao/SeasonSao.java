@@ -12,6 +12,6 @@ public interface SeasonSao {
 
 	public SAPPrebookSeasonList getRepPrebkSeasons(String salesRepId) ;
 	
-	public SAPActiveSeasonProductList getActiveSeasonProducts(SAPPrebookSeasonList seasons) throws JsonGenerationException, JsonMappingException, IOException ;
+	public SAPActiveSeasonProductList getActiveSeasonProducts(String salesRepId, SAPPrebookSeasonList seasons) throws JsonGenerationException, JsonMappingException, IOException ;
 	
 }

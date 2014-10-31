@@ -1,6 +1,8 @@
 package com.qs.services.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,20 +28,29 @@ public class ProductDaoImpl implements ProductDao {
 	private Config config ;
 
 	@Override
-	public String getMediumHeroImageUrl(Product p) {
+	public Map <String, String> getMediumHeroImageUrls(List<Product> products) {
+		
+		StringBuilder sql = new StringBuilder("SELECT * FROM bgx_product_images WHERE material_number in ('") ;
+		int index = 0 ;
+		for(Product p : products){
+			sql.append(p.getProduct()) ;
+			sql.append((index++ < products.size()-1 ? "', '" : "'")) ;
+		}
+		sql.append(")  AND angle='FRT1' AND size = 420") ;
 
-		String sql = "SELECT * FROM bgx_product_images WHERE material_number='" + p.getProduct() + "' AND angle='FRT1' AND size between 400 and 600" ; 
+//		String sql = "SELECT * FROM bgx_product_images WHERE material_number='" + p.getProduct() + "' AND angle='FRT1' AND size between 400 and 600" ; 
 		
 		logger.info("Executing: " + sql);
 		
-		List<ProductImage> piList = template.query(sql, new ProductImageRowMapper()) ;
+		List<ProductImage> piList = template.query(sql.toString(), new ProductImageRowMapper()) ;
 		
-		if(piList == null || piList.size() == 0){
-			logger.warn("Incorrect number of records (" + piList.size() + ") returned for " + p.getProduct() + " should be (1)") ;
-			return null ;
-		} else {		
-			return config.getS3Url() + piList.get(0).getS3Path() ;
+		Map <String, String> m = new HashMap <String, String> () ;
+		
+		for(ProductImage pi : piList){
+			m.put(pi.getMaterialNumber(), config.getS3Url() + pi.getS3Path()) ;
 		}
+		
+		return m ;
 	}
 
 }

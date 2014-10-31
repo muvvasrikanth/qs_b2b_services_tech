@@ -14,6 +14,9 @@ public class CatalogRowMapper implements RowMapper<Catalog> {
 		Catalog cat = new Catalog() ;
 		cat.setId(rs.getInt("ID"));
 		cat.setName(rs.getString("NAME")) ;
+		cat.setBrand(rs.getString("BRAND"));
+		cat.setSalesOrg(rs.getString("SALESORG"));
+		cat.setDistributionChannel(rs.getString("DISTCH"));
 		cat.setLanguageCode(rs.getString("LANGUAGE_CODE"));
 		cat.setValidFrom(rs.getDate("VALIDFROM"));
 		cat.setValidTo(rs.getDate("VALIDTO"));

@@ -54,6 +54,18 @@ public class CatalogDaoIT extends AbstractJUnit4SpringContextTests {
 		logger.info(mapper.writeValueAsString(actual));
 	}
 	
+	@Test
+	public void testGetCatalogsForSalesAreasEricGraciet() throws JsonGenerationException, JsonMappingException, IOException{
+		CatalogList actual = dao.getCatalogs(mockEricGracietSalesAreaList()) ;
+		assertNotNull(actual) ;
+		assertTrue(actual.getCatalogs().size() > 0) ;
+		logger.info("There are (" + actual.getCatalogs().size() + " ) catalogs in the list");
+		ObjectMapper mapper = new ObjectMapper() ;
+		logger.info(mapper.writeValueAsString(actual));
+	}
+	
+
+	
 	@Test 
 	public void testGetEmptyCatalogs() throws JsonGenerationException, JsonMappingException, IOException{
 		CatalogList actual = new CatalogList() ;
@@ -72,6 +84,30 @@ public class CatalogDaoIT extends AbstractJUnit4SpringContextTests {
 		logger.info("There are (" + criteriaList.getCatalogSearchCriterias().size() + ") catalog search criteria in the list");
 		ObjectMapper mapper = new ObjectMapper() ;
 		logger.info(mapper.writeValueAsString(criteriaList));
+	}
+	
+	private SalesAreaList mockEricGracietSalesAreaList(){
+		SalesAreaList list = new SalesAreaList() ;
+		
+		SalesArea sa0 = new SalesArea() ;
+		sa0.setBrand("02");
+		sa0.setSalesOrg("2000");
+		sa0.setDistributionChannel("10");
+		list.getSalesAreas().add(sa0) ;
+		
+		SalesArea sa1 = new SalesArea() ;
+		sa1.setBrand("03");
+		sa1.setSalesOrg("2000");
+		sa1.setDistributionChannel("10");
+		list.getSalesAreas().add(sa1) ;
+		
+		SalesArea sa2 = new SalesArea() ;
+		sa2.setBrand("02");
+		sa2.setSalesOrg("2140");
+		sa2.setDistributionChannel("10");
+		list.getSalesAreas().add(sa2) ;
+		
+		return list ;
 	}
 	
 	private SalesAreaList mockSalesAreaList(){

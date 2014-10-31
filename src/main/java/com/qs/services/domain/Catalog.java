@@ -14,6 +14,15 @@ public class Catalog {
 	
 	@JsonProperty("NAME")
 	private String name ;
+	
+	@JsonProperty("BRAND")
+	private String brand ;
+
+	@JsonProperty("SALES_ORG")
+	private String salesOrg ;
+
+	@JsonProperty("DIST_CH")
+	private String distributionChannel ;
 
 	@JsonProperty("LANGUAGE_CODE")
 	private String languageCode ;
@@ -173,4 +182,34 @@ public class Catalog {
 	public void setLevel(Integer level) {
 		this.level = level;
 	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public String getSalesOrg() {
+		return salesOrg;
+	}
+
+	public void setSalesOrg(String salesOrg) {
+		this.salesOrg = salesOrg;
+	}
+
+	public String getDistributionChannel() {
+		return distributionChannel;
+	}
+
+	public void setDistributionChannel(String distributionChannel) {
+		this.distributionChannel = distributionChannel;
+	}
+
+	public CatalogSearchCriteriaList getCatalogSearchCriteriaList() {
+		return catalogSearchCriteriaList;
+	}
+	
+	
 }

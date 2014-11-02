@@ -19,16 +19,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleTheRest(Exception ex, WebRequest request) {
         logException(ex);
 		HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-		String bodyOfResponse = error(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
+		Object bodyOfResponse = ServiceUtil.errorResult(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
 		return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(),
 				status, request);
-    }
-    
-    public static String error(HttpStatus status, String moreInfo) {
-        String error = "{\"status\":\"" + status.value() + "\", " +
-                "\"message\":\"" + status.getReasonPhrase() + "\", " +
-        		"\"more_info\":\"" + moreInfo + "\"}";
-        return error;
     }
     
     private void logException(Exception ex) {

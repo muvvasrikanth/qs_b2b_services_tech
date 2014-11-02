@@ -16,10 +16,10 @@ public class CustomerDetail {
     private String name;
 
     @JsonProperty("ADDRESS1")
-    private String addr1;
+    private String address1;
 
     @JsonProperty("ADDRESS2")
-    private String addr2;
+    private String address2;
 
     @JsonProperty("CITY")
     private String city;
@@ -55,16 +55,16 @@ public class CustomerDetail {
         this.name = name;
     }
     public String getAddress1() {
-        return addr1;
+        return address1;
     }
     public void setAddress1(String address) {
-        this.addr1 = address;
+        this.address1 = address;
     }
     public String getAddress2() {
-    	return addr2;
+    	return address2;
     }
     public void setAddress2(String address) {
-    	this.addr2 = address;
+    	this.address2 = address;
     }
     public String getCity() {
         return city;

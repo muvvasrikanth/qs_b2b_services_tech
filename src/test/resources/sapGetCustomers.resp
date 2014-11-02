@@ -16,8 +16,6 @@
     "CUSTOMER" : "1000125"
   } ],
   "ET_CUSTOMER_DETAILS" : [ {
-    "address1" : "4100 Belmont Drive",
-    "address2" : "",
     "CUSTOMER" : "1000001",
     "NAME" : "HENDERSON SALES ASSOC. INC",
     "ADDRESS1" : "4100 Belmont Drive",
@@ -30,8 +28,6 @@
     "TELEPHONE" : "",
     "BLOCKED" : ""
   }, {
-    "address1" : "5064 SOUTH HWY A1A",
-    "address2" : "",
     "CUSTOMER" : "1000003",
     "NAME" : "JASON ROBERSON",
     "ADDRESS1" : "5064 SOUTH HWY A1A",
@@ -44,8 +40,6 @@
     "TELEPHONE" : "321-159-5276",
     "BLOCKED" : ""
   }, {
-    "address1" : "118 W Avenida Gaviota",
-    "address2" : "",
     "CUSTOMER" : "1000005",
     "NAME" : "LAZAR, JOE",
     "ADDRESS1" : "118 W Avenida Gaviota",
@@ -58,8 +52,6 @@
     "TELEPHONE" : "949-935-5775",
     "BLOCKED" : "X"
   }, {
-    "address1" : "15202 Graham Street",
-    "address2" : "",
     "CUSTOMER" : "1000016",
     "NAME" : "REP: NICHOLE BURKE",
     "ADDRESS1" : "15202 Graham Street",
@@ -72,8 +64,6 @@
     "TELEPHONE" : "",
     "BLOCKED" : ""
   }, {
-    "address1" : "PO Box 415774",
-    "address2" : "",
     "CUSTOMER" : "1000125",
     "NAME" : "MACYS",
     "ADDRESS1" : "PO Box 415774",

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.qs.services.domain.DataResult;
 import com.qs.services.service.CartService;
+import com.qs.services.util.ServiceUtil;
 
 @Controller
 public class CartController {
@@ -27,7 +29,7 @@ public class CartController {
 	@ResponseBody
 //	public String saveCarts(@RequestBody Cart cart, HttpServletRequest request, 
 //			HttpServletResponse response) throws IOException{
-	public String saveCarts(HttpServletRequest request, 
+	public DataResult saveCarts(HttpServletRequest request, 
 			HttpServletResponse response) throws IOException{
 		
 		String auth = request.getHeader("x-auth") ;
@@ -48,7 +50,7 @@ public class CartController {
 		logger.info("Call to sync carts.");
 		
 //		service.insertCart(cart) ;
-		return "{\"success\":\"true\"}";
+		return ServiceUtil.successResult("");
 	}
 	
 }

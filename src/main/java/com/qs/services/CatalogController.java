@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.qs.services.domain.Catalog;
 import com.qs.services.domain.CatalogList;
 import com.qs.services.domain.CatalogSearchCriteriaList;
+import com.qs.services.domain.DataResult;
 import com.qs.services.service.CatalogService;
+import com.qs.services.util.ServiceUtil;
 
 @Controller
 public class CatalogController {
@@ -29,7 +31,7 @@ public class CatalogController {
 	
 	@RequestMapping(value = "/catalogs/salesrep/{salesRepId}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public CatalogList getCatalogs(@PathVariable String salesRepId, 
+	public DataResult getCatalogs(@PathVariable String salesRepId, 
 	        HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
 		String auth = request.getHeader("x-auth") ;
@@ -61,7 +63,7 @@ public class CatalogController {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		
-		return catalogList;
+		return ServiceUtil.successResult(catalogList);
 	}
 	
 }

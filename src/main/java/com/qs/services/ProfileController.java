@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.qs.services.domain.DataResult;
 import com.qs.services.domain.SalesRep;
 import com.qs.services.service.ProfileService;
+import com.qs.services.util.ServiceUtil;
 
 @Controller
 public class ProfileController {
@@ -27,7 +29,7 @@ public class ProfileController {
 	
 	@RequestMapping(value = "/salesreps/{salesRepId:.+}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public SalesRep getProfile(@PathVariable String salesRepId, 
+	public DataResult getProfile(@PathVariable String salesRepId, 
 	        HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
 		String auth = request.getHeader("x-auth") ;
@@ -46,7 +48,8 @@ public class ProfileController {
 		
 		logger.info("Call to [GET] profile with salesRepId=" + salesRepId);
 		
-		return service.getSalesRep(salesRepId) ;
+		SalesRep result = service.getSalesRep(salesRepId);
+		return ServiceUtil.successResult(result);
 	}
 	
 }

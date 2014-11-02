@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qs.services.domain.CustomerList;
+import com.qs.services.domain.DataResult;
 import com.qs.services.service.CustomerService;
 import com.qs.services.service.SecurityService;
+import com.qs.services.util.ServiceUtil;
 
 @Controller
 public class CustomerController{
@@ -31,7 +33,7 @@ public class CustomerController{
 	
 	@RequestMapping(value = "/customers/salesrep/{salesRepId}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public CustomerList getCustomers(@PathVariable String salesRepId, 
+	public DataResult getCustomers(@PathVariable String salesRepId, 
 	        HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
 		String auth = request.getHeader("x-auth") ;
@@ -50,7 +52,8 @@ public class CustomerController{
 		
 		logger.info("Call to [GET] customer with salesRepId=" + salesRepId);
 		
-		return service.getCustomers(salesRepId) ;
+		CustomerList result = service.getCustomers(salesRepId);
+		return ServiceUtil.successResult(result);
 	}
 	
 	

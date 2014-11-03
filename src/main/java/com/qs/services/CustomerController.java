@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qs.services.domain.CustomerList;
+import com.qs.services.domain.DataResult;
 import com.qs.services.service.CustomerService;
 import com.qs.services.service.SecurityService;
+import com.qs.services.util.ServiceUtil;
 
 @Controller
 public class CustomerController{
@@ -31,26 +33,27 @@ public class CustomerController{
 	
 	@RequestMapping(value = "/customers/salesrep/{salesRepId}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public CustomerList getCustomers(@PathVariable String salesRepId, 
+	public DataResult getCustomers(@PathVariable String salesRepId, 
 	        HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
-		String auth = request.getHeader("x-auth") ;
-		if(auth == null){
-			logger.warn("Authentication header missing");
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-			return null ;
-		} else { 
-			String[] authTokens = auth.split(":") ;
-			if(authTokens == null || authTokens.length != 2 || ! "mobile_user".equals(authTokens[0]) || ! "Quiksilver1".equals(authTokens[1])){
-				logger.warn("Authentication header (" + auth + ") was bad authentication failed") ;
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-				return null ;
-			}
-		}
+//		String auth = request.getHeader("x-auth") ;
+//		if(auth == null){
+//			logger.warn("Authentication header missing");
+//			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+//			return null ;
+//		} else { 
+//			String[] authTokens = auth.split(":") ;
+//			if(authTokens == null || authTokens.length != 2 || ! "mobile_user".equals(authTokens[0]) || ! "Quiksilver1".equals(authTokens[1])){
+//				logger.warn("Authentication header (" + auth + ") was bad authentication failed") ;
+//				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+//				return null ;
+//			}
+//		}
 		
 		logger.info("Call to [GET] customer with salesRepId=" + salesRepId);
 		
-		return service.getCustomers(salesRepId) ;
+		CustomerList result = service.getCustomers(salesRepId);
+		return ServiceUtil.successResult(result);
 	}
 	
 	

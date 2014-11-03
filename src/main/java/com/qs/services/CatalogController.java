@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.qs.services.domain.Catalog;
 import com.qs.services.domain.CatalogList;
 import com.qs.services.domain.CatalogSearchCriteriaList;
+import com.qs.services.domain.DataResult;
 import com.qs.services.service.CatalogService;
+import com.qs.services.util.ServiceUtil;
 
 @Controller
 public class CatalogController {
@@ -29,22 +31,22 @@ public class CatalogController {
 	
 	@RequestMapping(value = "/catalogs/salesrep/{salesRepId}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public CatalogList getCatalogs(@PathVariable String salesRepId, 
+	public DataResult getCatalogs(@PathVariable String salesRepId, 
 	        HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
-		String auth = request.getHeader("x-auth") ;
-		if(auth == null){
-			logger.warn("Authentication header missing");
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-			return null ;
-		} else { 
-			String[] authTokens = auth.split(":") ;
-			if(authTokens == null || authTokens.length != 2 || ! "mobile_user".equals(authTokens[0]) || ! "Quiksilver1".equals(authTokens[1])){
-				logger.warn("Authentication header (" + auth + ") was bad authentication failed") ;
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-				return null ;
-			}
-		}
+//		String auth = request.getHeader("x-auth") ;
+//		if(auth == null){
+//			logger.warn("Authentication header missing");
+//			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+//			return null ;
+//		} else { 
+//			String[] authTokens = auth.split(":") ;
+//			if(authTokens == null || authTokens.length != 2 || ! "mobile_user".equals(authTokens[0]) || ! "Quiksilver1".equals(authTokens[1])){
+//				logger.warn("Authentication header (" + auth + ") was bad authentication failed") ;
+//				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+//				return null ;
+//			}
+//		}
 		
 		logger.info("Call to [GET] catalogs with salesRepId=" + salesRepId);
 		CatalogList catalogList = new CatalogList() ;
@@ -61,7 +63,7 @@ public class CatalogController {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		
-		return catalogList;
+		return ServiceUtil.successResult(catalogList);
 	}
 	
 }

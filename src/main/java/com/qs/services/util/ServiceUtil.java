@@ -5,7 +5,10 @@ import java.nio.charset.Charset;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+
+import com.qs.services.domain.DataResult;
 
 @Component
 public class ServiceUtil {
@@ -28,5 +31,16 @@ public class ServiceUtil {
 			}
 		};
 	}
-
+    
+    public static DataResult errorResult(HttpStatus status, String moreInfo) {
+    	DataResult dr = new DataResult(status.value(), status.getReasonPhrase(),
+    			moreInfo, "");
+        return dr;
+    }
+    
+    public static DataResult successResult(Object data) {
+    	DataResult dr = new DataResult(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(),
+    			"", data);
+    	return dr;
+    }
 }

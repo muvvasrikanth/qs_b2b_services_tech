@@ -24,6 +24,7 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import com.qs.services.domain.Catalog;
 import com.qs.services.domain.CatalogList;
 import com.qs.services.domain.CatalogSearchCriteriaList;
+import com.qs.services.domain.DataResult;
 import com.qs.services.service.CatalogService;
 
 @ContextConfiguration(locations={"/test-context.xml"})
@@ -62,7 +63,7 @@ public class CatalogControllerTest extends AbstractJUnit4SpringContextTests {
 		when(catalogService.getCatalogSearchCriteria(1)).thenReturn(cscl) ;
 		when(request.getHeader("x-auth")).thenReturn("mobile_user:Quiksilver1") ;
 		
-		CatalogList actual = controller.getCatalogs("salesrep", request, response);
+		CatalogList actual = (CatalogList)controller.getCatalogs("salesrep", request, response).getData();
 		assertEquals(expected, actual) ;
 		verify(catalogService).getCatalogs("salesrep");
 		verify(catalogService).getCatalogSearchCriteria(1);

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.qs.services.domain.DataResult;
 import com.qs.services.service.CartService;
+import com.qs.services.util.ServiceUtil;
 
 @Controller
 public class CartController {
@@ -27,28 +29,28 @@ public class CartController {
 	@ResponseBody
 //	public String saveCarts(@RequestBody Cart cart, HttpServletRequest request, 
 //			HttpServletResponse response) throws IOException{
-	public String saveCarts(HttpServletRequest request, 
+	public DataResult saveCarts(HttpServletRequest request, 
 			HttpServletResponse response) throws IOException{
 		
-		String auth = request.getHeader("x-auth") ;
-		if(auth == null){
-			logger.warn("Authentication header missing");
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-			return null ;
-		} else { 
-			String[] authTokens = auth.split(":") ;
-			if(authTokens == null || authTokens.length != 2 || ! "mobile_user".equals(authTokens[0]) || ! "Quiksilver1".equals(authTokens[1])){
-				logger.warn("Authentication header (" + auth + ") was bad authentication failed") ;
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-				return null ;
-			}
-		}
+//		String auth = request.getHeader("x-auth") ;
+//		if(auth == null){
+//			logger.warn("Authentication header missing");
+//			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+//			return null ;
+//		} else { 
+//			String[] authTokens = auth.split(":") ;
+//			if(authTokens == null || authTokens.length != 2 || ! "mobile_user".equals(authTokens[0]) || ! "Quiksilver1".equals(authTokens[1])){
+//				logger.warn("Authentication header (" + auth + ") was bad authentication failed") ;
+//				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+//				return null ;
+//			}
+//		}
 		
 
 		logger.info("Call to sync carts.");
 		
 //		service.insertCart(cart) ;
-		return "{\"success\":\"true\"}";
+		return ServiceUtil.successResult("");
 	}
 	
 }

@@ -56,7 +56,8 @@ public class SeasonControllerTest extends AbstractJUnit4SpringContextTests {
 		when(seasonService.getSeasons("salesrep")).thenReturn(expected) ;
 		when(request.getHeader("x-auth")).thenReturn("mobile_user:Quiksilver1") ;
 		
-		SAPActiveSeasonProductList actual = controller.getSeasons("salesrep", request, response);
+		SAPActiveSeasonProductList actual = (SAPActiveSeasonProductList)controller
+				.getSeasons("salesrep", request, response).getData();
 		assertEquals(expected, actual) ;
 		verify(seasonService).getSeasons("salesrep");
 	}

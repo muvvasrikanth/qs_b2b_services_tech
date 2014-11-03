@@ -21,7 +21,29 @@ public class Config {
     @Value("${base.s3.url}")
     private String s3Url ;
 
-    public String getSapClient() {
+    @Value("${sap_auth_url:127.0.0.1}")
+    private String authUrl;
+
+    @Value("${sap_auth_user:}")
+    private String authUser;
+    
+    public String getAuthUser() {
+		return authUser;
+	}
+
+	public void setAuthUser(String authUser) {
+		this.authUser = authUser;
+	}
+
+	public String getAuthUrl() {
+		return authUrl;
+	}
+
+	public void setAuthUrl(String authUrl) {
+		this.authUrl = authUrl;
+	}
+
+	public String getSapClient() {
 		return sapClient;
 	}
 

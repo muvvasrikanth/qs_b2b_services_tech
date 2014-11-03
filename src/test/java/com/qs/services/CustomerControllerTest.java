@@ -58,7 +58,8 @@ public class CustomerControllerTest extends AbstractJUnit4SpringContextTests {
 		when(customerService.getCustomers("salesrep")).thenReturn(expected) ;
 		when(request.getHeader("x-auth")).thenReturn("mobile_user:Quiksilver1") ;
 		
-		CustomerList actual = controller.getCustomers("salesrep", request, response);
+		CustomerList actual = (CustomerList)controller
+				.getCustomers("salesrep", request, response).getData();
 		assertEquals(expected, actual) ;
 	}
 }

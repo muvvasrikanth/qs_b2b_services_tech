@@ -1,5 +1,6 @@
 package com.qs.services.util;
 
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,38 +35,89 @@ public class SAPBasicAuthenticationProvider implements AuthenticationProvider {
 	@Override
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
+		
+		Authentication resultAuthentication = authentication ;
+
+		String user = authentication.getName(), password = (String) authentication.getCredentials(), auth=null ;
+		logger.info("Authentication (User=" + user + " : Password="+ password + ")");
+		
+		HttpClient httpClient = new DefaultHttpClient() ;
+		String soapBody = createSoapRequest(user) ;
+		
+		logger.info("Authenticate SOAP Envelope: " + soapBody);
+		
 		try {
-			HttpClient httpclient = new DefaultHttpClient();
-			String soapBody = this.createSoapRequest(config.getAuthUser());
-			StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
-			HttpPost post = new HttpPost(config.getAuthUrl());
-			post.setHeader("SOAPAction","getUser");
+			StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8") ;
+			HttpPost post = new HttpPost(config.getAuthUrl()) ;
+			post.setHeader("SOAPAction", "getUser");
 			post.setEntity(strEntity);
 			
-			String user = authentication.getName();
-			String password = authentication.getCredentials().toString();
-			String auth = user + ":" + password;
-			byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
-			String authHeader = "Basic " + new String(encodedAuth);
+			auth = user + ":" + password ;
+			logger.info("Authorization " + auth);
+			byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII"))) ;
+			String authHeader = "Basic " + new String(encodedAuth) ;
 			post.setHeader("Authorization", authHeader);
 			
-			HttpResponse response = httpclient.execute(post);
-			logger.info("SAP Auth return code: " + response.getStatusLine().getStatusCode());
-
-			HttpEntity respEntity = response.getEntity();
-			if (respEntity != null) {
-				logger.debug(EntityUtils.toString(respEntity));
-				if (response.getStatusLine().getStatusCode() == HttpStatus.OK.value()) {
-					Collection authorities = new ArrayList();
-					authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-					return new UsernamePasswordAuthenticationToken(user, password, authorities);
+			HttpResponse response = httpClient.execute(post) ;
+			int responseCode = response.getStatusLine().getStatusCode() ;
+			String reason = response.getStatusLine().getReasonPhrase() ;
+			logger.info("SAP Authentication return code: " + responseCode + " : " + reason); 
+			
+			HttpEntity respEntity = response.getEntity() ;
+			if(respEntity != null){
+				logger.debug(EntityUtils.toString(respEntity)) ;
+				if(responseCode == HttpStatus.OK.value()){
+					Collection <SimpleGrantedAuthority> authorities = new ArrayList <SimpleGrantedAuthority> () ;
+					authorities.add(new SimpleGrantedAuthority("ROLE_USER")) ;
+					resultAuthentication = new UsernamePasswordAuthenticationToken(user, password, authorities) ;
+				} else {
+					logger.info("Response code was not (OK), was [" + responseCode + "] - " + reason) ;
 				}
+			} else {
+				logger.info("Response entity was null");
 			}
-		} catch (Exception e) {
-			logger.error("Other exception = " + e.toString());
+		} catch (IOException e) {
+			logger.error(e.getMessage(), e);
 		} 
-		return authentication;
+		
+		return resultAuthentication ;
 	}
+
+//	JTryon - Leaving this code commented out for now, replaced with code above	
+//		try {
+//			HttpClient httpclient = new DefaultHttpClient();
+//			String soapBody = this.createSoapRequest(authentication.getName());
+//			logger.info(soapBody) ;
+//			StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
+//			HttpPost post = new HttpPost(config.getAuthUrl());
+//			post.setHeader("SOAPAction","getUser");
+//			post.setEntity(strEntity);
+//			
+//			String user = authentication.getName();
+//			String password = authentication.getCredentials().toString();
+//			String auth = user + ":" + password;
+//			logger.info(auth);
+//			byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
+//			String authHeader = "Basic " + new String(encodedAuth);
+//			post.setHeader("Authorization", authHeader);
+//			
+//			HttpResponse response = httpclient.execute(post);
+//			logger.info("SAP Auth return code: " + response.getStatusLine().getStatusCode());
+//
+//			HttpEntity respEntity = response.getEntity();
+//			if (respEntity != null) {
+//				logger.debug(EntityUtils.toString(respEntity));
+//				if (response.getStatusLine().getStatusCode() == HttpStatus.OK.value()) {
+//					Collection authorities = new ArrayList();
+//					authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+//					return new UsernamePasswordAuthenticationToken(user, password, authorities);
+//				}
+//			}
+//		} catch (Exception e) {
+//			logger.error("Other exception = " + e.toString(), e);
+//		} 
+//		return authentication;
+//	}
 	
 	private String createSoapRequest(String user) {
 		return "<soapenv:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "

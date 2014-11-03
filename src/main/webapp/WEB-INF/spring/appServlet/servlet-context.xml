@@ -26,8 +26,6 @@
 	
 	<context:property-placeholder location="file:C:\qs_b2b_services\config\config.properties" ignore-resource-not-found="false"/>
 	
-<!-- 	<import resource="classpath:security-context.xml"/> -->
-
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
@@ -49,21 +47,5 @@
 	</bean>
 
 	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />
-	
-	<!-- Security Configuration -->
-<!-- 	<security:http> -->
-<!-- 		<security:intercept-url pattern="/**" access="ROLE_USER"/> -->
-<!-- 		<security:form-login/> -->
-<!-- 		<security:logout/> -->
-<!-- 	</security:http> -->
-	
-<!-- 	<security:authentication-manager> -->
-<!-- 		<security:authentication-provider> -->
-<!-- 			<security:user-service> -->
-<!-- 				<security:user name="mobile_user" password="Quiksilver1" authorities="ROLE_USER"/> -->
-<!-- 			</security:user-service> -->
-<!-- 		</security:authentication-provider> -->
-<!-- 	</security:authentication-manager> -->
-	<!-- End Security Configuration -->
 	
 </beans>

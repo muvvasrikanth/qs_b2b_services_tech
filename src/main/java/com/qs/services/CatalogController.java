@@ -34,19 +34,19 @@ public class CatalogController {
 	public DataResult getCatalogs(@PathVariable String salesRepId, 
 	        HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
-		String auth = request.getHeader("x-auth") ;
-		if(auth == null){
-			logger.warn("Authentication header missing");
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-			return null ;
-		} else { 
-			String[] authTokens = auth.split(":") ;
-			if(authTokens == null || authTokens.length != 2 || ! "mobile_user".equals(authTokens[0]) || ! "Quiksilver1".equals(authTokens[1])){
-				logger.warn("Authentication header (" + auth + ") was bad authentication failed") ;
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-				return null ;
-			}
-		}
+//		String auth = request.getHeader("x-auth") ;
+//		if(auth == null){
+//			logger.warn("Authentication header missing");
+//			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+//			return null ;
+//		} else { 
+//			String[] authTokens = auth.split(":") ;
+//			if(authTokens == null || authTokens.length != 2 || ! "mobile_user".equals(authTokens[0]) || ! "Quiksilver1".equals(authTokens[1])){
+//				logger.warn("Authentication header (" + auth + ") was bad authentication failed") ;
+//				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+//				return null ;
+//			}
+//		}
 		
 		logger.info("Call to [GET] catalogs with salesRepId=" + salesRepId);
 		CatalogList catalogList = new CatalogList() ;

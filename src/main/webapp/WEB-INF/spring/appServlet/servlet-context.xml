@@ -24,6 +24,8 @@
 
 	<context:component-scan base-package="com.qs.services"/>
 	
+	<context:property-placeholder location="file:C:\qs_b2b_services\config\config.properties" ignore-resource-not-found="false"/>
+	
 <!-- 	<import resource="classpath:security-context.xml"/> -->
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
@@ -44,18 +46,6 @@
 
 	<bean id="template" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
-	</bean>
-
-	<bean id="log4jInit"
-		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-		<property name="staticMethod">
-			<value>org.springframework.util.Log4jConfigurer.initLogging</value>
-		</property>
-		<property name="arguments">
-			<list>
-				<value>file:C:/qs_b2b_services/config/log4j.xml</value>
-			</list>
-		</property>
 	</bean>
 
 	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />

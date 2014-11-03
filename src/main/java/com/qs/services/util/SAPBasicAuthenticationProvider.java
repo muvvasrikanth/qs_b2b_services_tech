@@ -50,16 +50,15 @@ public class SAPBasicAuthenticationProvider implements AuthenticationProvider {
 			post.setHeader("Authorization", authHeader);
 			
 			HttpResponse response = httpclient.execute(post);
-			HttpEntity respEntity = response.getEntity();
+			logger.info("SAP Auth return code: " + response.getStatusLine().getStatusCode());
 
+			HttpEntity respEntity = response.getEntity();
 			if (respEntity != null) {
-				logger.info(EntityUtils.toString(respEntity));
+				logger.debug(EntityUtils.toString(respEntity));
 				if (response.getStatusLine().getStatusCode() == HttpStatus.OK.value()) {
 					Collection authorities = new ArrayList();
 					authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 					return new UsernamePasswordAuthenticationToken(user, password, authorities);
-				} else {
-					logger.warn("SAP Auth return code: " + response.getStatusLine().getStatusCode());
 				}
 			}
 		} catch (Exception e) {

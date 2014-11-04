@@ -52,7 +52,7 @@ public class Cart {
 	private String shared ;
 
 	@JsonProperty("REFERENCE_DOCUMENT_NUMBER")
-	private String s ;
+	private String referenceDocumentNumber ;
 
 	@JsonProperty("IDOC_NUMBER")
 	private String iDocNumber ;
@@ -247,12 +247,12 @@ public class Cart {
 		this.shared = shared;
 	}
 
-	public String getS() {
-		return s;
+	public String getReferenceDocumentNumber() {
+		return referenceDocumentNumber;
 	}
 
-	public void setS(String s) {
-		this.s = s;
+	public void setReferenceDocumentNumber(String referenceDocumentNumber) {
+		this.referenceDocumentNumber = referenceDocumentNumber;
 	}
 
 	public String getiDocNumber() {
@@ -470,6 +470,4 @@ public class Cart {
 	public void setSubmittedCartId(String submittedCartId) {
 		this.submittedCartId = submittedCartId;
 	}
-
-	
 }

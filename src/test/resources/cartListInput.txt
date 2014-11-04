@@ -79,6 +79,7 @@
   "ET_CART_PRODUCT_SIZE" : [ {
     "ID" : null,
     "SALESDOC_PRODUCT_ID" : null,
+    "PRODUCT_NUMBER" : null,
     "SIZE" : null,
     "QUANTITY" : null,
     "DIMENSION" : null,

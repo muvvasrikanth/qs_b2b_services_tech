@@ -6,13 +6,16 @@ import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 public class CartListInputTest {
     
+	private static final Logger logger = LoggerFactory.getLogger(CartListInputTest.class) ;
+	
     @Test
     public void testCartList() throws Exception{
         
@@ -26,7 +29,7 @@ public class CartListInputTest {
         cartList.getCartProductSizes().add(new CartProductSize());
         cartList.getCarts().add(new Cart());
 		String result = ow.writeValueAsString(cartList);
-        
+        logger.info("\n\n" + result + "\n\n");
         assertEquals(json, result);
         
     }

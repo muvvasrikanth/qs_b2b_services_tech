@@ -15,6 +15,9 @@ public class CartProductSize {
 	@JsonProperty("SALESDOC_PRODUCT_ID")
 	private Integer salesDocProductId ;
 	
+	@JsonProperty("PRODUCT_NUMBER")
+	private String productNumber ;
+	
 	@JsonProperty("SIZE")
 	private String size ;
 	
@@ -106,6 +109,14 @@ public class CartProductSize {
 
 	public void setModifiedDateTime(Date modifiedDateTime) {
 		this.modifiedDateTime = modifiedDateTime;
+	}
+
+	public String getProductNumber() {
+		return productNumber;
+	}
+
+	public void setProductNumber(String productNumber) {
+		this.productNumber = productNumber;
 	}
 	
 	

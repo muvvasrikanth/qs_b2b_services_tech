@@ -16,7 +16,7 @@ public class CustomerListTest {
     @Test
     public void testCustomerList() throws Exception{
         
-        InputStream resourceAsStream = this.getClass().getResourceAsStream("/sapGetCustomers.resp");
+        InputStream resourceAsStream = this.getClass().getResourceAsStream("/data/sapGetCustomers.txt");
         String json = IOUtils.toString(resourceAsStream);
         
         ObjectReader or = new ObjectMapper().reader(CustomerList.class);

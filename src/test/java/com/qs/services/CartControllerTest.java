@@ -20,7 +20,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-import com.qs.services.domain.Cart;
+import com.qs.services.domain.CartHeader;
 import com.qs.services.service.CartService;
 import com.qs.services.service.SecurityService;
 

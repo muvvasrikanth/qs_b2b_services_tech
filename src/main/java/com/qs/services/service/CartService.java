@@ -4,6 +4,6 @@ import com.qs.services.domain.Cart;
 
 public interface CartService {
 
-	public void insertCart(Cart cart) ;
+	public void insertCarts(Cart cartList);
 	
 }

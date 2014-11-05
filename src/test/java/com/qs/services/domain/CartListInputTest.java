@@ -19,19 +19,17 @@ public class CartListInputTest {
     @Test
     public void testCartList() throws Exception{
         
-        InputStream resourceAsStream = this.getClass().getResourceAsStream("/cartListInput.txt");
+        InputStream resourceAsStream = this.getClass().getResourceAsStream("/data/cart.txt");
         String json = IOUtils.toString(resourceAsStream);
         
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        CartListInput cartList = new CartListInput();
+        ObjectWriter ow = new ObjectMapper().writer();
+        Cart cartList = new Cart();
         cartList.getCartProducts().add(new CartProduct());
         cartList.getCartProductSizeRdds().add(new CartProductSizeRdd());
         cartList.getCartProductSizes().add(new CartProductSize());
-        cartList.getCarts().add(new Cart());
+        cartList.setCartHeader(new CartHeader());
 		String result = ow.writeValueAsString(cartList);
         logger.info("\n\n" + result + "\n\n");
         assertEquals(json, result);
-        
     }
-
 }

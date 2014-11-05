@@ -12,11 +12,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import com.qs.services.dao.CatalogDao;
 import com.qs.services.domain.CatalogList;
+import com.qs.services.domain.SalesAreaList;
+import com.qs.services.sao.SalesRepSao;
 import com.qs.services.service.impl.CatalogServiceImpl;
 
 @ContextConfiguration(locations={"/test-context.xml"})
@@ -29,6 +32,9 @@ public class CatalogServiceTest extends AbstractJUnit4SpringContextTests {
 	@Mock
 	private CatalogDao dao ;
 	
+	@Mock
+	private SalesRepSao salesRepSao ;
+	
 	@Before
 	public void before(){
 		MockitoAnnotations.initMocks(this);
@@ -40,13 +46,16 @@ public class CatalogServiceTest extends AbstractJUnit4SpringContextTests {
 	}
 	
 	@Test
-	public void testGetCatalogs() {
-		//TODO fix test
-//		CatalogList expected = new CatalogList();
-//		when(dao.getCatalogs(null, null, null)).thenReturn(expected) ;
-//		CatalogList result = service.getCatalogs("salesrep");
-//		assertEquals(expected, result);
-//		verify(dao).getCatalogs(null, null, null);
+	public void testGetCatalogs() throws Exception{
+		CatalogList expected = new CatalogList();
+		SalesAreaList sa = new SalesAreaList();
+		when(dao.getCatalogs(sa)).thenReturn(expected) ;
+		when(salesRepSao.getSalesAreas("salesrep")).thenReturn(sa) ;
+		CatalogList result = service.getCatalogs("salesrep");
+		
+		assertEquals(expected, result);
+		verify(dao).getCatalogs(sa);
+		verify(salesRepSao).getSalesAreas("salesrep");
 	}
 
 }

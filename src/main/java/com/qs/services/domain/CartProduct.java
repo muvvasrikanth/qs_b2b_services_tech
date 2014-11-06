@@ -1,6 +1,8 @@
 package com.qs.services.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
@@ -101,6 +103,9 @@ public class CartProduct {
 	
 	@JsonProperty("TOTAL_NET_PRICE")
 	private Double totalNetPrice ;
+
+	@JsonProperty("ET_CART_PRODUCT_SIZE")
+	private List<CartProductSize> cartProductSizes = new ArrayList<CartProductSize>() ;
 
 	public Integer getId() {
 		return id;
@@ -350,5 +355,12 @@ public class CartProduct {
 		this.totalNetPrice = totalNetPrice;
 	}
 	
+	public List<CartProductSize> getCartProductSizes() {
+		return cartProductSizes;
+	}
+
+	public void setCartProductSizes(List<CartProductSize> cartProductSizes) {
+		this.cartProductSizes = cartProductSizes;
+	}
 	
 }

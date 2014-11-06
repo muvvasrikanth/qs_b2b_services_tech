@@ -1,6 +1,8 @@
 package com.qs.services.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
@@ -38,6 +40,17 @@ public class CartProductSize {
 	
 	@JsonProperty("MODIFIEDDATETIME")
 	private Date modifiedDateTime ;
+
+	@JsonProperty("ET_CART_PRODUCT_SIZE_RDD")
+	private List<CartProductSizeRdd> cartProductSizeRdds = new ArrayList<CartProductSizeRdd>() ;
+
+	public List<CartProductSizeRdd> getCartProductSizeRdds() {
+		return cartProductSizeRdds;
+	}
+
+	public void setCartProductSizeRdds(List<CartProductSizeRdd> cartProductSizeRdds) {
+		this.cartProductSizeRdds = cartProductSizeRdds;
+	}
 
 	public Integer getId() {
 		return id;

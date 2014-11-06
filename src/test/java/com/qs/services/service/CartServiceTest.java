@@ -18,8 +18,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import com.qs.services.dao.CartDao;
-import com.qs.services.domain.CartHeader;
 import com.qs.services.domain.Cart;
+import com.qs.services.domain.CartList;
 import com.qs.services.domain.CartProduct;
 import com.qs.services.domain.CartProductSize;
 import com.qs.services.domain.CartProductSizeRdd;
@@ -47,22 +47,22 @@ public class CartServiceTest extends AbstractJUnit4SpringContextTests {
 	
 	@Test
 	public void testInsertCart() {
-		Cart cartList = new Cart();
-		CartHeader cartHeader = new CartHeader();
-		cartList.setCartHeader(cartHeader);
-		List<CartProduct> cartProducts = new ArrayList<CartProduct>();;
-		cartList.setCartProducts(cartProducts );
-		List<CartProductSize> cartProductSizes = new ArrayList<CartProductSize>();;
-		cartList.setCartProductSizes(cartProductSizes);
-		List<CartProductSizeRdd> cartProductSizeRdds = new ArrayList<CartProductSizeRdd>();;
-		cartList.setCartProductSizeRdds(cartProductSizeRdds);
-		when((dao).insertCartHeader(cartHeader)).thenReturn(1);
+        CartList cartList = new CartList();
+        Cart cart = new Cart();
+		cartList.getCarts().add(cart);
+        CartProduct cartProduct = new CartProduct();
+        cart.getCartProducts().add(cartProduct);
+        CartProductSize cartProductSize = new CartProductSize();
+		cartProduct.getCartProductSizes().add(cartProductSize);
+		cartProductSize.getCartProductSizeRdds().add(new CartProductSizeRdd());
+
+		when((dao).insertCartHeader(cart)).thenReturn(1);
 		
 		service.insertCarts(cartList);
-		verify(dao).insertCartHeader(cartHeader);
-		verify(dao).insertCartProducts(cartProducts, 1);
-		verify(dao).insertCartProductSizeRdds(cartProductSizeRdds);
-		verify(dao).insertCartProductSizes(cartProductSizes);
+		verify(dao).insertCartHeader(cart);
+		verify(dao).insertCartProducts(cart.getCartProducts(), 1);
+		verify(dao).insertCartProductSizes(cartProduct.getCartProductSizes());
+		verify(dao).insertCartProductSizeRdds(cartProductSize.getCartProductSizeRdds());
 	}
 
 }

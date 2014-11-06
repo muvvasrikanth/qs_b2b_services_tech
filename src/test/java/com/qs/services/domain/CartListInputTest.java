@@ -22,12 +22,15 @@ public class CartListInputTest {
         InputStream resourceAsStream = this.getClass().getResourceAsStream("/data/cart.txt");
         String json = IOUtils.toString(resourceAsStream);
         
-        ObjectWriter ow = new ObjectMapper().writer();
-        Cart cartList = new Cart();
-        cartList.getCartProducts().add(new CartProduct());
-        cartList.getCartProductSizeRdds().add(new CartProductSizeRdd());
-        cartList.getCartProductSizes().add(new CartProductSize());
-        cartList.setCartHeader(new CartHeader());
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        CartList cartList = new CartList();
+        Cart cart = new Cart();
+		cartList.getCarts().add(cart);
+        CartProduct cartProduct = new CartProduct();
+        cart.getCartProducts().add(cartProduct);
+        CartProductSize cartProductSize = new CartProductSize();
+		cartProduct.getCartProductSizes().add(cartProductSize);
+		cartProductSize.getCartProductSizeRdds().add(new CartProductSizeRdd());
 		String result = ow.writeValueAsString(cartList);
         logger.info("\n\n" + result + "\n\n");
         assertEquals(json, result);

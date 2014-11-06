@@ -15,6 +15,7 @@ import com.qs.services.domain.ItSAPPrebookSeasonList;
 import com.qs.services.domain.SAPActiveSeasonProductList;
 import com.qs.services.domain.SAPPrebookSeason;
 import com.qs.services.domain.SAPPrebookSeasonList;
+import com.qs.services.domain.SalesRepBrandSeasons;
 import com.qs.services.sao.SeasonSao;
 import com.qs.services.util.Config;
 import com.qs.services.util.ServiceUtil;
@@ -57,6 +58,16 @@ public class SeasonSaoImpl implements SeasonSao {
 		logger.info("Calling [ " + url + " ] with :: " + body);
 		HttpEntity<String> httpEntity = new HttpEntity<String>(body, serviceUtil.createHeaders()) ;
 		ResponseEntity<SAPActiveSeasonProductList> result = restTemplate.exchange(url,  HttpMethod.POST, httpEntity, SAPActiveSeasonProductList.class) ;
+		return result.getBody();
+	}
+
+	@Override
+	public SAPActiveSeasonProductList getSeasonProducts(SalesRepBrandSeasons salesRepBrandSeasons) throws JsonProcessingException {
+		String url = config.getSapServiceUrl() + "/CONNECT_MOBILE/getSeasonProd?sap-client=" + config.getSapClient() ;
+		String body= new ObjectMapper().writeValueAsString(salesRepBrandSeasons) ;
+		logger.info("Calling [" + url + "] with :: " + body);
+		HttpEntity<String> httpEntity = new HttpEntity<String> (body, serviceUtil.createHeaders()) ;
+		ResponseEntity<SAPActiveSeasonProductList> result = restTemplate.exchange(url, HttpMethod.POST, httpEntity, SAPActiveSeasonProductList.class) ;
 		return result.getBody();
 	}
 }

@@ -1,5 +1,7 @@
 package com.qs.services.domain;
 
+import java.util.Date;
+
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -54,6 +56,9 @@ public class Product {
 	
 	@JsonProperty("IMAGE_URL") 
 	private String imageUrl ;
+	
+	@JsonProperty("IMAGE_UPDATED_ON")
+	private Date imageUpdatedOn ;
 
 	public String getProduct() {
 		return product;
@@ -181,6 +186,14 @@ public class Product {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	public Date getImageUpdatedOn() {
+		return imageUpdatedOn;
+	}
+
+	public void setImageUpdatedOn(Date imageUpdatedOn) {
+		this.imageUpdatedOn = imageUpdatedOn;
 	}
 	
 	

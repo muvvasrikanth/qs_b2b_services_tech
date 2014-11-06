@@ -1,6 +1,6 @@
 package com.qs.services.sao.impl;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -36,10 +36,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.qs.services.dao.ProductDao;
+import com.qs.services.domain.BrandSeason;
 import com.qs.services.domain.Product;
 import com.qs.services.domain.SAPActiveSeasonProductList;
 import com.qs.services.domain.SAPPrebookSeasonList;
+import com.qs.services.domain.SalesRepBrandSeasons;
 import com.qs.services.sao.SeasonSao;
 
 @ContextConfiguration(locations={"classpath:/META-INF/test-context.xml"})
@@ -62,9 +65,48 @@ public class SeasonSaoIT extends AbstractJUnit4SpringContextTests {
 		assertNotNull(sao) ;
 	}
 
+	@Test
+	public void testGetRepPrebkSeasons() throws JsonGenerationException, JsonMappingException, IOException{
+		String salesRepId = "1002192" ;
+		SAPPrebookSeasonList pbkSeasons = sao.getRepPrebkSeasons(salesRepId) ;
+		assertNotNull(pbkSeasons) ;
+		logger.info(new ObjectMapper().writeValueAsString(pbkSeasons));
+		assertTrue(pbkSeasons.getPrebookSeasons().size() > 0) ;
+	}
+	
+	@Test
+	public void testGetSeasonProducts() throws JsonGenerationException, JsonMappingException, IOException{
+		SalesRepBrandSeasons srbs = new SalesRepBrandSeasons() ;
+		srbs.setSalesRep("1002192");
+		srbs.setSince("20140101:000000");
+		BrandSeason bs = new BrandSeason() ;
+		bs.setBrand("01");
+		bs.setSeason("151");
+		srbs.getBrandSeasons().add(bs) ;
+		logger.info(new ObjectMapper().writeValueAsString(srbs));
+		SAPActiveSeasonProductList actual = sao.getSeasonProducts(srbs) ;
+		assertNotNull(actual) ;
+		logger.info(new ObjectMapper().writeValueAsString(actual));
+		assertTrue(actual.getProducts().size() > 0) ;
+		assertTrue(actual.getProductSizes().size() > 0) ;
+		assertTrue(actual.getProductPrices().size() > 0) ;
+	}
+	
+	@Test
+	public void testScrap() throws JsonGenerationException, JsonMappingException, IOException{
+		SalesRepBrandSeasons srbs = new SalesRepBrandSeasons() ;
+		srbs.setSalesRep("1002192");
+		srbs.setSince("20140101:000000");
+		BrandSeason bs = new BrandSeason() ;
+		bs.setBrand("01");
+		bs.setSeason("151");
+		srbs.getBrandSeasons().add(bs) ;
+		logger.info(new ObjectMapper().writeValueAsString(srbs));
+	}
+	
 	@Ignore
 	@Test
-	public void test() throws JsonGenerationException, JsonMappingException, IOException, InterruptedException{
+	public void testGetImages() throws JsonGenerationException, JsonMappingException, IOException, InterruptedException{
 		String salesRepId = "1002192" ;
 		SAPPrebookSeasonList pbkSeasons = sao.getRepPrebkSeasons(salesRepId) ;
 		assertNotNull(pbkSeasons) ;

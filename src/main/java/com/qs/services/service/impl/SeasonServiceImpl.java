@@ -97,7 +97,18 @@ public class SeasonServiceImpl implements SeasonService {
 	@Override
 	public SAPActiveSeasonProductList getSeasonProducts(SalesRepBrandSeasons salesRepBrandSeasons) throws JsonProcessingException {
 
-		return sao.getSeasonProducts(salesRepBrandSeasons);
+		SAPActiveSeasonProductList products = sao.getSeasonProducts(salesRepBrandSeasons);
 		
+		if(products != null && products.getProducts() != null){
+			Map <String, String> imageUrls = productDao.getMediumHeroImageUrls(products.getProducts()) ;
+			logger.info("Fourn Image URLs [" + imageUrls + "]");
+			String url = null ;
+			for(int i=0; i<products.getProducts().size(); i++){
+				url = imageUrls.get(products.getProducts().get(i).getProduct()) ;
+				products.getProducts().get(i).setImageUrl(url);
+			}
+		}
+		
+		return products ;		
 	}
 }

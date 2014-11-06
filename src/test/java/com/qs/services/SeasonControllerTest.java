@@ -22,6 +22,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import com.qs.services.domain.SAPActiveSeasonProductList;
+import com.qs.services.domain.SAPPrebookSeasonList;
 import com.qs.services.service.SeasonService;
 import com.qs.services.service.SecurityService;
 
@@ -49,14 +50,14 @@ public class SeasonControllerTest extends AbstractJUnit4SpringContextTests {
 	}
 
 	@Test
-	public void testAuthenticate() throws Exception{
-		SAPActiveSeasonProductList expected = new SAPActiveSeasonProductList();
+	public void testGetSeasons() throws Exception{
+		SAPPrebookSeasonList expected = new SAPPrebookSeasonList();
 		HttpServletRequest request = mock(HttpServletRequest.class);  
 		HttpServletResponse response = new MockHttpServletResponse() ;
 		when(seasonService.getSeasons("salesrep")).thenReturn(expected) ;
-		when(request.getHeader("x-auth")).thenReturn("mobile_user:Quiksilver1") ;
+//		when(request.getHeader("x-auth")).thenReturn("mobile_user:Quiksilver1") ;
 		
-		SAPActiveSeasonProductList actual = (SAPActiveSeasonProductList)controller
+		SAPPrebookSeasonList actual = (SAPPrebookSeasonList)controller
 				.getSeasons("salesrep", request, response).getData();
 		assertEquals(expected, actual) ;
 		verify(seasonService).getSeasons("salesrep");

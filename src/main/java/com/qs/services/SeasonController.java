@@ -17,9 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.qs.services.domain.DataResult;
-import com.qs.services.domain.SAPActiveSeasonProductList;
+import com.qs.services.domain.SAPPrebookSeasonList;
 import com.qs.services.domain.SalesRepBrandSeasons;
 import com.qs.services.service.SeasonService;
 import com.qs.services.util.ServiceUtil;
@@ -39,11 +38,11 @@ public class SeasonController {
 		
 		logger.info("Call to [GET] seasons with salesRepId=" + salesRepId);
 		
-		SAPActiveSeasonProductList seasonList = service.getSeasons(salesRepId) ;
+		SAPPrebookSeasonList seasonList = service.getSeasons(salesRepId) ;
 		return ServiceUtil.successResult(seasonList);
 	}
 
-	@RequestMapping(value="/products/salesrep", method = RequestMethod.GET, produces = "application/jason")
+	@RequestMapping(value="/products", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public DataResult getProducts(@RequestBody SalesRepBrandSeasons salesRepBrandSeasons, HttpServletRequest request, HttpServletResponse response){
 		

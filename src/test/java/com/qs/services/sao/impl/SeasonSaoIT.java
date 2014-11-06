@@ -83,12 +83,25 @@ public class SeasonSaoIT extends AbstractJUnit4SpringContextTests {
 		bs.setBrand("01");
 		bs.setSeason("151");
 		srbs.getBrandSeasons().add(bs) ;
+		logger.info(new ObjectMapper().writeValueAsString(srbs));
 		SAPActiveSeasonProductList actual = sao.getSeasonProducts(srbs) ;
 		assertNotNull(actual) ;
 		logger.info(new ObjectMapper().writeValueAsString(actual));
 		assertTrue(actual.getProducts().size() > 0) ;
 		assertTrue(actual.getProductSizes().size() > 0) ;
 		assertTrue(actual.getProductPrices().size() > 0) ;
+	}
+	
+	@Test
+	public void testScrap() throws JsonGenerationException, JsonMappingException, IOException{
+		SalesRepBrandSeasons srbs = new SalesRepBrandSeasons() ;
+		srbs.setSalesRep("1002192");
+		srbs.setSince("20140101:000000");
+		BrandSeason bs = new BrandSeason() ;
+		bs.setBrand("01");
+		bs.setSeason("151");
+		srbs.getBrandSeasons().add(bs) ;
+		logger.info(new ObjectMapper().writeValueAsString(srbs));
 	}
 	
 	@Ignore

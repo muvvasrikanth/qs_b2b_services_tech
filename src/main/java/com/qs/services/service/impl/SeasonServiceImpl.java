@@ -58,39 +58,40 @@ public class SeasonServiceImpl implements SeasonService {
 	 * 
 	 */
 	@Override
-	public SAPActiveSeasonProductList getSeasons(String salesRepId) throws JsonGenerationException, 
+	public SAPPrebookSeasonList getSeasons(String salesRepId) throws JsonGenerationException, 
 								JsonMappingException, IOException {
 		SAPPrebookSeasonList prebookSeasons = sao.getRepPrebkSeasons(salesRepId);
-		SAPActiveSeasonProductList activeSeasonProducts = sao.getActiveSeasonProducts(salesRepId, prebookSeasons);
-		
-		if(activeSeasonProducts != null && activeSeasonProducts.getProducts() != null){
-			Map <String, String> imageUrls = productDao.getMediumHeroImageUrls(activeSeasonProducts.getProducts()) ;
-			String url = null ;
-			for(int i=0; i<activeSeasonProducts.getProducts().size(); i++){
-				url = imageUrls.get(activeSeasonProducts.getProducts().get(i).getProduct()) ;
-				logger.info("Adding (" + url + ") to (" + activeSeasonProducts.getProducts().get(i).getProduct() + ")");
-				activeSeasonProducts.getProducts().get(i).setImageUrl(url);
-			}
-		}
-
-		for (SAPPrebookSeason prebookSeason : prebookSeasons.getPrebookSeasons()) {
-			try {
-				Season season = dao.getSeason(prebookSeason.getSalesOrg(), prebookSeason.getSeason(), 
-						prebookSeason.getCollection());
-				activeSeasonProducts.getSeasons().add(season);
-			} catch (IllegalStateException ise) {
-				logger.error("Failed to get season, salesOrg: " + prebookSeason.getSalesOrg()
-						+ ", season: " +  prebookSeason.getSeason() 
-						+ ", collection: " + prebookSeason.getCollection(), ise);
-			}
-		}
-		
-		// Blank out the product lists for testing
-		activeSeasonProducts.setProducts(new ArrayList<Product>()); ;
-		activeSeasonProducts.setProductPrices(new ArrayList<ProductPrice>());
-		activeSeasonProducts.setProductSizes(new ArrayList<ProductSize>());
-		
-		return activeSeasonProducts;
+		return prebookSeasons ;
+//		SAPActiveSeasonProductList activeSeasonProducts = sao.getActiveSeasonProducts(salesRepId, prebookSeasons);
+//		
+//		if(activeSeasonProducts != null && activeSeasonProducts.getProducts() != null){
+//			Map <String, String> imageUrls = productDao.getMediumHeroImageUrls(activeSeasonProducts.getProducts()) ;
+//			String url = null ;
+//			for(int i=0; i<activeSeasonProducts.getProducts().size(); i++){
+//				url = imageUrls.get(activeSeasonProducts.getProducts().get(i).getProduct()) ;
+//				logger.info("Adding (" + url + ") to (" + activeSeasonProducts.getProducts().get(i).getProduct() + ")");
+//				activeSeasonProducts.getProducts().get(i).setImageUrl(url);
+//			}
+//		}
+//
+//		for (SAPPrebookSeason prebookSeason : prebookSeasons.getPrebookSeasons()) {
+//			try {
+//				Season season = dao.getSeason(prebookSeason.getSalesOrg(), prebookSeason.getSeason(), 
+//						prebookSeason.getCollection());
+//				activeSeasonProducts.getSeasons().add(season);
+//			} catch (IllegalStateException ise) {
+//				logger.error("Failed to get season, salesOrg: " + prebookSeason.getSalesOrg()
+//						+ ", season: " +  prebookSeason.getSeason() 
+//						+ ", collection: " + prebookSeason.getCollection(), ise);
+//			}
+//		}
+//		
+//		// Blank out the product lists for testing
+//		activeSeasonProducts.setProducts(new ArrayList<Product>()); ;
+//		activeSeasonProducts.setProductPrices(new ArrayList<ProductPrice>());
+//		activeSeasonProducts.setProductSizes(new ArrayList<ProductSize>());
+//		
+//		return activeSeasonProducts;
 	}
 
 	@Override

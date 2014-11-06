@@ -3,7 +3,6 @@ package com.qs.services;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +19,8 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-import com.qs.services.domain.Cart;
+import com.qs.services.domain.CartList;
 import com.qs.services.service.CartService;
-import com.qs.services.service.SecurityService;
 
 @ContextConfiguration(locations={"/test-context.xml"})
 @RunWith(MockitoJUnitRunner.class)
@@ -48,13 +46,12 @@ public class CartControllerTest extends AbstractJUnit4SpringContextTests {
 	}
 
 	@Test
-	public void testAuthenticate() throws Exception{
-//		Cart cart = new Cart();
-//		HttpServletRequest request = mock(HttpServletRequest.class);  
-//		HttpServletResponse response = new MockHttpServletResponse() ;
-//		when(request.getParameter("x-auth")).thenReturn("connect_user:password") ;
-//
-//		controller.saveCarts(cart, request, response);
-//		verify(cartService).insertCart(cart);
+	public void testInsertCarts() throws Exception{
+		CartList cartList = new CartList();
+		HttpServletRequest request = mock(HttpServletRequest.class);  
+		HttpServletResponse response = new MockHttpServletResponse() ;
+
+		controller.saveCarts(cartList, request, response);
+		verify(cartService).insertCarts(cartList);
 	}
 }

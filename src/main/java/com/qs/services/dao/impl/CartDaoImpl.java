@@ -86,7 +86,7 @@ public class CartDaoImpl implements CartDao {
 		String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_MAPPING]([DRAFT_SALESDOC_HEADER_ID],[PRODUCT_NUMBER],[GENDER_FIT],[STYLE],[CREATEDBY],[CREATEDDATETIME],[MODIFIEDBY],[MODIFIEDDATETIME],[DIMENSION],[RDD],[UOM],[LINE_ITEM_NO],[DLV_GROUP],[AUTOALLOCATION],[BRAND],[SALES_ORG],[DISTRIBUTION_CHANNEL],[SEASON],[SEQUENCE],[BASE_PRICE],[MSRP_PRICE],[MAP_PRICE],[NET_PRICE],[DISCOUNT],[DISCOUNT_PERCENT],[QUANTITIES],[TOTAL_BASE_PRICE],[TOTAL_MSRP_PRICE],[TOTAL_MAP_PRICE],[TOTAL_NET_PRICE])VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ;
 		for(CartProduct cp : cartProducts){
 			Object[] parms = {
-				cp.getDraftSalesDocHeaderId(),
+				cartId,
 				cp.getProductNumber(),
 				cp.getGenderFit(),
 				cp.getStyle(),

@@ -27,7 +27,7 @@ public class CartController {
 	@Autowired
 	private CartService service ;
 	
-	@RequestMapping(value = "/carts", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/carts", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public DataResult saveCarts(@RequestBody CartList cartList, HttpServletRequest request, 
 			HttpServletResponse response) throws IOException{

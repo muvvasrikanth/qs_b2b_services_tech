@@ -14,7 +14,7 @@ public class SAPActiveSeasonProductList {
 	@JsonProperty("ET_SEASONS")
 	private List <Season> seasons = new ArrayList <Season> () ;
 	
-	@JsonProperty("ET_PREBOOK_SEASON_PRODUCTS")
+	@JsonProperty("ET_SEASON_PRODUCTS")
 	private List<SAPActiveSeason> activeSeasons = new ArrayList<SAPActiveSeason>() ;
 	
 	@JsonProperty("ET_PRODUCTS")

@@ -1,6 +1,7 @@
 package com.qs.services.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.codehaus.jackson.JsonGenerationException;
@@ -10,11 +11,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.qs.services.dao.ProductDao;
 import com.qs.services.dao.SeasonDao;
+import com.qs.services.domain.Product;
+import com.qs.services.domain.ProductPrice;
+import com.qs.services.domain.ProductSize;
 import com.qs.services.domain.SAPActiveSeasonProductList;
 import com.qs.services.domain.SAPPrebookSeason;
 import com.qs.services.domain.SAPPrebookSeasonList;
+import com.qs.services.domain.SalesRepBrandSeasons;
 import com.qs.services.domain.Season;
 import com.qs.services.sao.SeasonSao;
 import com.qs.services.service.SeasonService;
@@ -66,7 +72,7 @@ public class SeasonServiceImpl implements SeasonService {
 				activeSeasonProducts.getProducts().get(i).setImageUrl(url);
 			}
 		}
-		
+
 		for (SAPPrebookSeason prebookSeason : prebookSeasons.getPrebookSeasons()) {
 			try {
 				Season season = dao.getSeason(prebookSeason.getSalesOrg(), prebookSeason.getSeason(), 
@@ -78,7 +84,19 @@ public class SeasonServiceImpl implements SeasonService {
 						+ ", collection: " + prebookSeason.getCollection(), ise);
 			}
 		}
+		
+		// Blank out the product lists for testing
+		activeSeasonProducts.setProducts(new ArrayList<Product>()); ;
+		activeSeasonProducts.setProductPrices(new ArrayList<ProductPrice>());
+		activeSeasonProducts.setProductSizes(new ArrayList<ProductSize>());
+		
 		return activeSeasonProducts;
 	}
 
+	@Override
+	public SAPActiveSeasonProductList getSeasonProducts(SalesRepBrandSeasons salesRepBrandSeasons) throws JsonProcessingException {
+
+		return sao.getSeasonProducts(salesRepBrandSeasons);
+		
+	}
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,9 @@ public class CartController {
 	public DataResult saveCarts(@RequestBody CartList cartList, HttpServletRequest request, 
 			HttpServletResponse response) throws IOException{
 		
-		logger.info("Call to sync carts.");
+		logger.info("Request content type = " + request.getContentType()) ;
+		
+		logger.info("Call to [POST] carts : " + new ObjectMapper().writeValueAsString(cartList));
 		
 		service.insertCarts(cartList) ;
 		return ServiceUtil.successResult("");

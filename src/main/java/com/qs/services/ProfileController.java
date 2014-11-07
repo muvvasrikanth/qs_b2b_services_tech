@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,29 +28,22 @@ public class ProfileController {
 	@Autowired
 	private ProfileService service ;
 	
-	@RequestMapping(value = "/salesreps/{salesRepId:.+}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/salesreps", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public DataResult getProfile(@PathVariable String salesRepId, 
-	        HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public DataResult getProfile(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
-//		String auth = request.getHeader("x-auth") ;
-//		if(auth == null){
-//			logger.warn("Authentication header missing");
-//			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-//			return null ;
-//		} else { 
-//			String[] authTokens = auth.split(":") ;
-//			if(authTokens == null || authTokens.length != 2 || ! "mobile_user".equals(authTokens[0]) || ! "Quiksilver1".equals(authTokens[1])){
-//				logger.warn("Authentication header (" + auth + ") was bad authentication failed") ;
-//				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-//				return null ;
-//			}
-//		}
+		String salesRepId = request.getParameter("salesRepId") ;
+		DataResult result = null ;
+		if(salesRepId != null){
+			logger.info("Call to [GET] profile with salesRepId=" + salesRepId);
+			SalesRep salesRep = service.getSalesRep(salesRepId);
+			result = ServiceUtil.successResult(salesRep);
+		} else {
+			result = ServiceUtil.errorResult(HttpStatus.BAD_REQUEST, "Sales Rep Id must be provided") ;
+		}
 		
-		logger.info("Call to [GET] profile with salesRepId=" + salesRepId);
-		
-		SalesRep result = service.getSalesRep(salesRepId);
-		return ServiceUtil.successResult(result);
+		logger.info("Result of call to get the profile for (" + salesRepId + ") : " + result.getData());
+		return result ;
 	}
 	
 }

@@ -2,9 +2,9 @@ package com.qs.services;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.mock ;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,13 +50,13 @@ public class ProfileControllerTest extends AbstractJUnit4SpringContextTests {
 	@Test
 	public void testAuthenticate() throws Exception{
 		SalesRep expected = new SalesRep();
-		HttpServletRequest request = mock(HttpServletRequest.class);  
+		HttpServletRequest request = mock(HttpServletRequest.class); 
 		HttpServletResponse response = new MockHttpServletResponse() ;
-		when(request.getHeader("x-auth")).thenReturn("mobile_user:Quiksilver1") ;
-		when(profileService.getSalesRep("salesrep")).thenReturn(expected) ;
-		
-		SalesRep actual = (SalesRep)controller.getProfile("salesrep", request, response).getData();
+		when(request.getParameter("salesRepId")).thenReturn("salesRep@quiksilver.com") ;
+		when(profileService.getSalesRep("salesRep@quiksilver.com")).thenReturn(expected) ;
+
+		SalesRep actual = (SalesRep)controller.getProfile(request, response).getData();
 		assertEquals(expected, actual) ;
-		verify(profileService).getSalesRep("salesrep");
+		verify(profileService).getSalesRep("salesRep@quiksilver.com");
 	}
 }

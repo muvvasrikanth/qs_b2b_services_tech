@@ -1,11 +1,17 @@
 package com.qs.services.dao.impl;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +29,8 @@ import com.qs.services.domain.CartProductSizeRdd;
 public class CartDaoImpl implements CartDao {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CartDaoImpl.class); 
+	
+	private static final ObjectMapper mapper = new ObjectMapper() ;
 
 	@Autowired
 	private JdbcTemplate template ;
@@ -80,109 +88,136 @@ public class CartDaoImpl implements CartDao {
 		logger.info("Executing : " + sql1);
 		return template.queryForInt(sql1) ;
 	}
-	
+
 	@Override
-	public List<Map<String, String>> insertCartProducts(List<CartProduct> cartProducts, Integer cartId){
+	public Integer insertCartProduct(CartProduct product,
+			Integer cartId) throws JsonGenerationException,
+			JsonMappingException, IOException {
+		
+		logger.info("Cart Product: " + mapper.writeValueAsString(product));
+		
 		String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_MAPPING]([DRAFT_SALESDOC_HEADER_ID],[PRODUCT_NUMBER],[GENDER_FIT],[STYLE],[CREATEDBY],[CREATEDDATETIME],[MODIFIEDBY],[MODIFIEDDATETIME],[DIMENSION],[RDD],[UOM],[LINE_ITEM_NO],[DLV_GROUP],[AUTOALLOCATION],[BRAND],[SALES_ORG],[DISTRIBUTION_CHANNEL],[SEASON],[SEQUENCE],[BASE_PRICE],[MSRP_PRICE],[MAP_PRICE],[NET_PRICE],[DISCOUNT],[DISCOUNT_PERCENT],[QUANTITIES],[TOTAL_BASE_PRICE],[TOTAL_MSRP_PRICE],[TOTAL_MAP_PRICE],[TOTAL_NET_PRICE])VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ;
-		for(CartProduct cp : cartProducts){
-			Object[] parms = {
+		Object[] parms = {
 				cartId,
-				cp.getProductNumber(),
-				cp.getGenderFit(),
-				cp.getStyle(),
-				cp.getCreatedBy(),
-				cp.getCreatedDateTime(),
-				cp.getModifiedBy(),
-				cp.getModifiedDateTime(),
-				cp.getDimenison(),
-				cp.getRequestedDeliveryDate(),
-				cp.getUnitOfMeasure(),
-				cp.getLineItemNo(),
-				cp.getDlvGroup(),
-				cp.getAutoAllocation(),
-				cp.getBrand(),
-				cp.getSalesOrg(),
-				cp.getDistrubutionChannel(),
-				cp.getSeason(),
-				cp.getSequence(),
-				cp.getBasePrice(),
-				cp.getMsrpPrice(),
-				cp.getMapPrice(),
-				cp.getNetPrice(),
-				cp.getDiscount(),
-				cp.getDiscountPercent(),
-				cp.getQuantities(),
-				cp.getTotalBasePrice(),
-				cp.getTotalMsrpPrice(),
-				cp.getTotalMapPrice(),
-				cp.getTotalNetPrice()
+				product.getProductNumber(),
+				product.getGenderFit(),
+				product.getStyle(),
+				product.getCreatedBy(),
+				product.getCreatedDateTime(),
+				product.getModifiedBy(),
+				product.getModifiedDateTime(),
+				product.getDimenison(),
+				product.getRequestedDeliveryDate(),
+				product.getUnitOfMeasure(),
+				product.getLineItemNo(),
+				product.getDlvGroup(),
+				product.getAutoAllocation(),
+				product.getBrand(),
+				product.getSalesOrg(),
+				product.getDistrubutionChannel(),
+				product.getSeason(),
+				product.getSequence(),
+				product.getBasePrice(),
+				product.getMsrpPrice(),
+				product.getMapPrice(),
+				product.getNetPrice(),
+				product.getDiscount(),
+				product.getDiscountPercent(),
+				product.getQuantities(),
+				product.getTotalBasePrice(),
+				product.getTotalMsrpPrice(),
+				product.getTotalMapPrice(),
+				product.getTotalNetPrice()
 			} ;
 			
-			logger.info("Executing : " + sql0) ;
-			template.update(sql0, parms) ;
-		}
+		logger.info("Executing : " + sql0 + "][Values (" + toParameter(parms) + ")]") ;
+			
+		template.update(sql0, parms) ;
+
+		String sql1 = "SELECT id FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_MAPPING] WHERE [DRAFT_SALESDOC_HEADER_ID] = " + cartId + " AND [PRODUCT_NUMBER] = '" + product.getProductNumber() + "'" ;
 		
-		String sql1 = "SELECT id, product_number FROM cc_draft_salesdoc_product_mapping WHERE draft_salesdoc_header_id = " + cartId ;
-		logger.info("Executing : " + sql1);
-		List<Map<String, String>> list = template.query(sql1, new GenericRowMapper()) ;
-		
-		return list ;
+		return template.queryForInt(sql1) ;
 	}
 
 	@Override
-	public List<Map<String, String>> insertCartProductSizes(List<CartProductSize> cartProductSizes){
+	public Integer insertCartProductSize(
+			CartProductSize cartProductSize) {
+		
 		String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_SIZE_MAPPING]([SALESDOC_PRODUCT_ID],[SIZE],[QUANTITY],[DIMENSION],[CREATEDBY],[CREATEDDATETIME],[MODIFIEDBY],[MODIFIEDDATETIME])VALUES (?, ?, ?, ?, ?, ?, ?, ?)" ;
+		
+		Object[] parms = {
+			cartProductSize.getSalesDocProductId(),
+			cartProductSize.getSize(),
+			cartProductSize.getQuantity(),
+			cartProductSize.getDimension(),
+			cartProductSize.getCreatedBy(),
+			cartProductSize.getCreatedDateTime(),
+			cartProductSize.getModifiedBy(),
+			cartProductSize.getModifiedDateTime()
+		} ;
 
-		String sdpids = "" ;
+		logger.info("Executing : " + sql0 + "][Values (" + toParameter(parms) + ")]");
 		
-		for(CartProductSize cps : cartProductSizes){
-			Object[] parms = {
-				cps.getSalesDocProductId(),
-				cps.getSize(),
-				cps.getQuantity(),
-				cps.getDimension(),
-				cps.getCreatedBy(),
-				cps.getCreatedDateTime(),
-				cps.getModifiedBy(),
-				cps.getModifiedDateTime()
-			} ;
+		template.update(sql0, parms) ;
 		
-			sdpids += cps.getSalesDocProductId() + "," ;
-			logger.info("Executing: " + sql0);
-			template.update(sql0, parms) ;
-		}
+		String sql1 = "SELECT id FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_SIZE_MAPPING] WHERE [SALESDOC_PRODUCT_ID] = " + cartProductSize.getSalesDocProductId() + " AND [SIZE] = '" + cartProductSize.getSize() + "'" ;
 		
-		String sql1 = "SELECT id, salesdoc_product_id FROM cc_draft_salesdoc_product_size_mapping where salesdoc_product_id in (" + sdpids + ")" ;
-		logger.info("Executing: " + sql1);
-		List<Map<String, String>> list = template.query(sql1, new GenericRowMapper()) ;
-		logger.info("Result: " + list);
-		return list ;
+		logger.info("Executing : " + sql1);
 		
+		return template.queryForInt(sql1) ;
 	}
-	
+
 	@Override
-	public List<Map<String, String>> insertCartProductSizeRdds(List<CartProductSizeRdd> cartProductSizeRdds){
+	public Integer insertCartProductSizeRdd(
+			CartProductSizeRdd cartProductSizeRdd) {
+
 		String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_SIZE_RDD_MAPPING]([PRODUCT_SIZE_ID],[QUANTITY],[RDD],[ORIGINAL_RDD]) VALUES (?, ?, ?, ?)" ;
 		
-		String pids = "" ;
-		for(CartProductSizeRdd cpsr : cartProductSizeRdds){
-			Object[] parms = {
-				cpsr.getProductSizeId(),
-				cpsr.getQuantity(),
-				cpsr.getRequestedDeliveryDate(),
-				cpsr.getOriginalRequestedDeliveryDate()
-			};
-			
-			pids += cpsr.getProductSizeId() + "," ;
-			logger.info("Executing: " + sql0) ;
-			template.update(sql0, parms) ;
-		}
+		Object[] parms = {
+			cartProductSizeRdd.getProductSizeId(),
+			cartProductSizeRdd.getQuantity(),
+			cartProductSizeRdd.getRequestedDeliveryDate(),
+			cartProductSizeRdd.getOriginalRequestedDeliveryDate()
+		};
 		
-		String sql1 = "SELECT id, product_size_id FROM cc_draft_salesdoc_product_size_rdd_mapping WHERE product_size_id IN (" + pids + ")" ;
-		logger.info("Executing: " + sql1);
-		List<Map<String, String>> list = template.query(sql1, new GenericRowMapper()) ;
-		logger.info("Result: " + list);
-		return list ;
+		logger.info("Executing : " + sql0 + "][Values (" + toParameter(parms) + ")]");
+		
+		template.update(sql0, parms) ;
+		
+		String sql1 = "SELECT id FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_SIZE_RDD_MAPPING] WHERE [PRODUCT_SIZE_ID] = " + cartProductSizeRdd.getProductSizeId() + " AND [RDD] = '" + new SimpleDateFormat("yyyy-MM-dd").format(cartProductSizeRdd.getRequestedDeliveryDate()) + "'" ;
+		
+		logger.info("Executing : " + sql1);
+		
+		return template.queryForInt(sql1);
+	}
+	
+	private String toParameter(Object[] parms) {
+		StringBuilder b = new StringBuilder() ;
+		int index = 0 ;
+		for(Object o : parms){
+			if(o != null){
+				if(o instanceof String){
+					b.append("'") ;
+					b.append(o) ;
+					b.append("'") ;
+				} else if(o instanceof Integer || o instanceof Double){
+					b.append(o) ;
+				} else if(o instanceof Date){
+					b.append("'") ;
+					b.append(new SimpleDateFormat("yyyy-MM-dd").format((Date) o)) ;
+					b.append("'") ;
+				} else if (o instanceof Boolean){
+					b.append((Boolean)o ? "1" : "0") ;
+				} else {
+					logger.warn("Object type of (" + o + ") was " + o.getClass().getSimpleName());
+				}
+			} else {
+				b.append("null") ;
+			}
+			
+			b.append(index <= parms.length-1 ? "," : "") ;
+		}
+		return b.toString() ;
 	}
 }
 

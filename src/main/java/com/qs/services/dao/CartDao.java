@@ -1,8 +1,12 @@
 package com.qs.services.dao;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 
 import com.qs.services.domain.Cart;
 import com.qs.services.domain.CartProduct;
@@ -13,9 +17,9 @@ public interface CartDao  {
 
 	public Integer insertCartHeader(Cart cart) ;
 	
-	public List<Map<String, String>> insertCartProducts(List<CartProduct> cartProducts, Integer cartId) ;
+	public Integer insertCartProduct(CartProduct product, Integer cartId) throws JsonGenerationException, JsonMappingException, IOException ;
 	
-	public List<Map<String, String>> insertCartProductSizes(List<CartProductSize> cartProductSizes) ;
+	public Integer insertCartProductSize(CartProductSize cartProductSize) ;
 	
-	public List<Map<String, String>> insertCartProductSizeRdds(List<CartProductSizeRdd> cartProductSizeRdds) ;
+	public Integer insertCartProductSizeRdd(CartProductSizeRdd cartProductSizeRdd) ;
 }

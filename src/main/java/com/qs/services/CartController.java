@@ -40,5 +40,4 @@ public class CartController {
 		service.insertCarts(cartList) ;
 		return ServiceUtil.successResult("");
 	}
-	
 }

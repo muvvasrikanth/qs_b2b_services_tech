@@ -59,6 +59,9 @@ public class Catalog {
 	
 	@JsonProperty("LEVEL")
 	private Integer level ;
+	
+	@JsonProperty("IMAGE_URL")
+	private String imageUrl ;
 
 	@JsonProperty("CATALOG_SEARCH_CRITERIA_LIST")
 	private CatalogSearchCriteriaList catalogSearchCriteriaList;
@@ -209,6 +212,14 @@ public class Catalog {
 
 	public CatalogSearchCriteriaList getCatalogSearchCriteriaList() {
 		return catalogSearchCriteriaList;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	
 	

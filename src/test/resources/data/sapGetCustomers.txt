@@ -143,6 +143,5 @@
     "DISTRIBUTION_CHANNEL" : "10",
     "BRAND" : "01"
   } ],
-  "ET_SALES_REP_SALESAREAS" : [ ],
   "ET_RETURN" : [ ]
 }

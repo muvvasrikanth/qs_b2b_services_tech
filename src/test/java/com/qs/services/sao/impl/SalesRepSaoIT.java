@@ -40,7 +40,7 @@ public class SalesRepSaoIT extends AbstractJUnit4SpringContextTests {
 		SalesAreaList salesAreaList = sao.getSalesAreas(salesRepId) ;
 		assertNotNull(salesAreaList) ;
 		assertTrue(salesAreaList.getSalesAreas().size() > 0) ;
-		logger.info(new ObjectMapper().writeValueAsString(salesAreaList));
+		logger.info("\n\n" + new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(salesAreaList) + "\n\n");
 	}
 	
 	@Test
@@ -49,7 +49,7 @@ public class SalesRepSaoIT extends AbstractJUnit4SpringContextTests {
 		SalesAreaList salesAreaList = sao.getSalesAreas(salesRepId) ;
 		assertNotNull(salesAreaList) ;
 		assertTrue(salesAreaList.getSalesAreas().size() > 0) ;
-		logger.info(new ObjectMapper().writeValueAsString(salesAreaList));
+		logger.info("\n\n" + new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(salesAreaList) + "\n\n");
 	}
 
 }

@@ -43,16 +43,6 @@ public class CustomerListTest {
         assertEquals("1000001", customer.getCustomer());
         assertEquals("1002117", customer.getSalesRep());
 
-        assertEquals(5, customerList.getCustomerSalesAreas().size());
-        CustomerSalesArea salesArea = customerList.getCustomerSalesAreas().get(0);
-        assertEquals("1000001", salesArea.getCustomer());
-        assertEquals("10", salesArea.getDistributionChannel());
-        assertEquals("", salesArea.getPriceList());
-        assertEquals("1000", salesArea.getSalesOrg());
-        assertEquals("01", salesArea.getBrand());
-        assertEquals("", salesArea.getBlocked());
-
-        
         assertEquals(5, customerList.getCustomerShiptos().size());
         CustomerShipTo shipTo = customerList.getCustomerShiptos().get(0);
         assertEquals("1000001", shipTo.getCustomer());

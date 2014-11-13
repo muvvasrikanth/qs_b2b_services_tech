@@ -1,6 +1,7 @@
 package com.qs.services;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,6 +66,9 @@ public class SeasonController {
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
 			result = ServiceUtil.errorResult(HttpStatus.INTERNAL_SERVER_ERROR, "There was an error while retrieving products for [" + srbs.getSalesRep() + "]") ;
+		} catch (ParseException e) {
+			logger.error(e.getMessage(), e); ;
+			result = ServiceUtil.errorResult(HttpStatus.INTERNAL_SERVER_ERROR, "There was a problem parsing information while retrieving products for [" + srbs.getSalesRep() + "]") ;
 		}
 		
 		return result ;

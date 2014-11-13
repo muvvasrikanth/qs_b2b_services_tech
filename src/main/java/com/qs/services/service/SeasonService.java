@@ -1,6 +1,7 @@
 package com.qs.services.service;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -15,6 +16,6 @@ public interface SeasonService {
 	public SAPPrebookSeasonList getSeasons(String salesRepId) throws JsonGenerationException, 
 					JsonMappingException, IOException ;
 	
-	public SAPActiveSeasonProductList getSeasonProducts(SalesRepBrandSeasons salesRepBrandSeasons) throws JsonProcessingException ;
+	public SAPActiveSeasonProductList getSeasonProducts(SalesRepBrandSeasons salesRepBrandSeasons) throws JsonProcessingException, ParseException ;
 	
 }

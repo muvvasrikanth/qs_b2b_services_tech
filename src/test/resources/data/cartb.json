@@ -1,0 +1,58 @@
+{
+	"id": null,
+	"draftSalesDocHeaderId": null,
+	"productNumber": "ADYJK03014-KVJ0",
+	"genderFit": "TEST_GF",
+	"style": "TEST_STYLE",
+	"createdBy": "CartListInputTest",
+	"createdDateTime": 1415650014809,
+	"modifiedBy": "CartListInputTest",
+	"modifiedDateTime": 1415650014809,
+	"dimenison": "TEST_DIMENSION",
+	"requestedDeliveryDate": 1421308800000,
+	"unitOfMeasure": "EA",
+	"lineItemNo": "TEST_LIN",
+	"dlvGroup": "TEST_DLV_GROUP",
+	"autoAllocation": true,
+	"brand": "01",
+	"salesOrg": "3000",
+	"distrubutionChannel": "10",
+	"season": "151",
+	"sequence": 99.0,
+	"basePrice": 0.0,
+	"msrpPrice": 0.0,
+	"mapPrice": 0.0,
+	"netPrice": 0.0,
+	"discount": 0.0,
+	"discountPercent": 0.0,
+	"quantities": 0,
+	"totalBasePrice": 0.0,
+	"totalMsrpPrice": 0.0,
+	"totalMapPrice": 0.0,
+	"totalNetPrice": 0.0,
+	"cartProductSizes": 
+	[
+		{
+			"id": null,
+			"salesDocProductId": null,
+			"productNumber": null,
+			"size": "10 D",
+			"quantity": 1,
+			"dimension": null,
+			"createdBy": "CartListInputTest",
+			"createdDateTime": 1415650014810,
+			"modifiedBy": "CartListInputTest",
+			"modifiedDateTime": 1415650014810,
+			"cartProductSizeRdds": 
+			[
+				{
+					"id": null,
+					"productSizeId": null,
+					"quantity": 1,
+					"requestedDeliveryDate": 1421308800000,
+					"originalRequestedDeliveryDate": 1420876800000
+				}
+			]
+		}
+	]
+}

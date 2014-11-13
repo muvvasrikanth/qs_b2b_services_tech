@@ -51,7 +51,7 @@ public class SeasonServiceImpl implements SeasonService {
 
 		SAPActiveSeasonProductList products = sao.getSeasonProducts(salesRepBrandSeasons);
 		
-		if(products != null && products.getProducts() != null){
+		if(products != null && products.getProducts() != null && products.getProducts().size() > 0){
 			Map <String, String> imageUrls = productDao.getMediumHeroImageUrls(products.getProducts()) ;
 			logger.info("Fourn Image URLs [" + imageUrls + "]");
 			String url = null ;

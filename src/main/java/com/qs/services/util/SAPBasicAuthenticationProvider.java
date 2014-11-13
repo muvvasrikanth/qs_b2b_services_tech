@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -72,9 +73,13 @@ public class SAPBasicAuthenticationProvider implements AuthenticationProvider {
 					resultAuthentication = new UsernamePasswordAuthenticationToken(user, password, authorities) ;
 				} else {
 					logger.info("Response code was not (OK), was [" + responseCode + "] - " + reason) ;
+//					resultAuthentication = null ;
+					throw new BadCredentialsException("Authentication Failed") ;
 				}
 			} else {
 				logger.info("Response entity was null");
+//				resultAuthentication = null ;
+				throw new BadCredentialsException("Authentication Failed") ;
 			}
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);

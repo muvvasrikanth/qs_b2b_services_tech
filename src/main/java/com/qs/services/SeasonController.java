@@ -54,7 +54,7 @@ public class SeasonController {
 		
 		SalesRepBrandSeasons srbs = new SalesRepBrandSeasons() ;
 		srbs.setSalesRep(salesRepId);
-		srbs.setSince(lastUpdateParm);
+		srbs.setSince(lastUpdateParm != null ? lastUpdateParm : "");
 		BrandSeason bs = new BrandSeason() ;
 		bs.setBrand(brandId);
 		bs.setSeason(seasonId);

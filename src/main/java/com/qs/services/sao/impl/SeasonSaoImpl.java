@@ -41,6 +41,13 @@ public class SeasonSaoImpl implements SeasonSao {
 		logger.info("Calling [ " + url + " ] with :: " + body);
 		HttpEntity<String> httpEntity = new HttpEntity<String>(body, serviceUtil.createHeaders()) ;
 		ResponseEntity<SAPPrebookSeasonList> result = restTemplate.exchange(url,  HttpMethod.POST, httpEntity, SAPPrebookSeasonList.class) ;
+
+		try {
+			logger.info(new ObjectMapper().writeValueAsString(result.getBody()));
+		} catch (JsonProcessingException e) {
+			logger.error(e.getMessage(), e) ;
+		}
+		
 		return result.getBody() ;
 	}
 

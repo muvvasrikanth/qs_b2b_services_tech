@@ -1,0 +1,61 @@
+{
+	"seasons": 
+	[
+		
+	],
+
+	"activeSeasons": 
+	[
+		
+	],
+
+	"products": 
+	[
+		
+	],
+
+	"productSizes": 
+	[
+		
+	],
+
+	"productPrices": 
+	[
+		
+	],
+
+	"lookups": 
+	[
+		
+	],
+
+	"productSalesAreas": 
+	[
+		
+	],
+
+	"searchDropdowns": 
+	[
+		
+	],
+
+	"etReturn": 
+	[
+		{
+			"type": "W",
+			"id": "ZB2B_CONNECT_MOBILE",
+			"number": "004",
+			"message": "Products not found for Active Seasons",
+			"logNumber": "",
+			"logMessageNumber": "000000",
+			"messageV1": "",
+			"messageV2": "",
+			"messageV3": "",
+			"messageV4": "",
+			"parameter": "",
+			"row": "0 ",
+			"field": "",
+			"system": "QSDCLNT300"
+		}
+	]
+}

@@ -20,10 +20,6 @@ public class SeasonDaoImpl implements SeasonDao {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SeasonDaoImpl.class) ;
 	
-//	@Autowired
-//	@Qualifier(value="dataSource")
-//	private DataSource dataSource ;
-	
 	@Autowired
 	private JdbcTemplate template ;
 

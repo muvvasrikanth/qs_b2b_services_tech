@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.text.ParseException;
 import java.util.Map;
 
 import org.junit.Before;
@@ -18,12 +19,14 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.qs.services.dao.ProductDao;
 import com.qs.services.dao.SeasonDao;
+import com.qs.services.domain.BrandSeason;
 import com.qs.services.domain.SAPActiveSeasonProductList;
 import com.qs.services.domain.SAPPrebookSeason;
 import com.qs.services.domain.SAPPrebookSeasonList;
-import com.qs.services.domain.Season;
+import com.qs.services.domain.SalesRepBrandSeasons;
 import com.qs.services.sao.SeasonSao;
 import com.qs.services.service.impl.SeasonServiceImpl;
 
@@ -64,25 +67,33 @@ public class SeasonServiceTest extends AbstractJUnit4SpringContextTests {
 		prebookSeason.setCollection("collection");
 		preSeasonList.getPrebookSeasons().add(prebookSeason);
 
-		SAPActiveSeasonProductList activeProductList = new SAPActiveSeasonProductList();
-
 		when(sao.getRepPrebkSeasons("salesrep")).thenReturn(preSeasonList);
-		when(sao.getActiveSeasonProducts(salesRepId, preSeasonList)).thenReturn(
-				activeProductList);
-
-		Season season = new Season();
-		when(dao.getSeason("org", "season", "collection")).thenReturn(season);
-
-		when(productDao.getMediumHeroImageUrls(Mockito.anyList())).thenReturn(
-				mockUrlMap());
 
 		SAPPrebookSeasonList result = service.getSeasons(salesRepId) ;
-//		SAPActiveSeasonProductList result = service.getSeasons(salesRepId);
-//		assertEquals(season, result.getSeasons().get(0));
-//		assertEquals(activeProductList, result);
+
+		assertEquals(preSeasonList, result);
 		verify(sao).getRepPrebkSeasons("salesrep");
-//		verify(sao).getActiveSeasonProducts(salesRepId, preSeasonList);
-//		verify(dao).getSeason("org", "season", "collection");
+	}
+	
+	@Test
+	public void testGetProducts() throws JsonProcessingException, ParseException{
+		SalesRepBrandSeasons mockSalesRepBrandSeasons = mockSalesRepBrandSeasons() ;
+		SAPActiveSeasonProductList expectedProductList = new SAPActiveSeasonProductList();
+		when(sao.getSeasonProducts(Mockito.any(SalesRepBrandSeasons.class))).thenReturn(expectedProductList ) ;
+		SAPActiveSeasonProductList actualProductList = service.getSeasonProducts(mockSalesRepBrandSeasons) ;
+		assertNotNull(actualProductList) ;
+		verify(sao, Mockito.atLeastOnce()).getSeasonProducts(mockSalesRepBrandSeasons) ;
+	}
+
+	private SalesRepBrandSeasons mockSalesRepBrandSeasons() {
+		SalesRepBrandSeasons srbs = new SalesRepBrandSeasons() ;
+		srbs.setSalesRep("1002912");
+		srbs.setSince("20141001:000000");
+		BrandSeason bs0 = new BrandSeason() ;
+		bs0.setBrand("02");
+		bs0.setSeason("151");
+		srbs.getBrandSeasons().add(bs0) ;
+		return srbs ;
 	}
 
 	private Map<String, String> mockUrlMap(){

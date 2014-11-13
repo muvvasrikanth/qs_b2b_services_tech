@@ -36,7 +36,7 @@ public class SAPActiveSeasonProductList {
     private List<ProductSearchDropdown> searchDropdowns = new ArrayList<>();
     
 	@JsonProperty("ET_RETURN")
-    private List etReturn = new ArrayList<>();
+    private List<SAPReturn> etReturn = new ArrayList<SAPReturn>();
     
 	public List<SAPActiveSeason> getActiveSeasons() {
 		return activeSeasons;
@@ -86,4 +86,29 @@ public class SAPActiveSeasonProductList {
 		this.seasons = seasons;
 	}
 
+	public List<ProductSalesArea> getProductSalesAreas() {
+		return productSalesAreas;
+	}
+
+	public void setProductSalesAreas(List<ProductSalesArea> productSalesAreas) {
+		this.productSalesAreas = productSalesAreas;
+	}
+
+	public List<ProductSearchDropdown> getSearchDropdowns() {
+		return searchDropdowns;
+	}
+
+	public void setSearchDropdowns(List<ProductSearchDropdown> searchDropdowns) {
+		this.searchDropdowns = searchDropdowns;
+	}
+
+	public List<SAPReturn> getEtReturn() {
+		return etReturn;
+	}
+
+	public void setEtReturn(List<SAPReturn> etReturn) {
+		this.etReturn = etReturn;
+	}
+
+	
 }

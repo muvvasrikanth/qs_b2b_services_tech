@@ -57,14 +57,18 @@ public class SeasonSaoImpl implements SeasonSao {
 		
 		ItSAPPrebookSeasonList itSasonList = new ItSAPPrebookSeasonList();
 		itSasonList.setSalesRep(salesRepId);
+		
 		for (SAPPrebookSeason season : seasons.getPrebookSeasons()) {
 			itSasonList.addItPrebookActiveSeason(season.getSalesOrg(), season.getSeason(), season.getCollection());
 		}
+		
 		ObjectMapper mapper = new ObjectMapper() ;
 		String body = mapper.writeValueAsString(itSasonList) ;
+		
 		logger.info("Calling [ " + url + " ] with :: " + body);
 		HttpEntity<String> httpEntity = new HttpEntity<String>(body, serviceUtil.createHeaders()) ;
 		ResponseEntity<SAPActiveSeasonProductList> result = restTemplate.exchange(url,  HttpMethod.POST, httpEntity, SAPActiveSeasonProductList.class) ;
+		
 		return result.getBody();
 	}
 

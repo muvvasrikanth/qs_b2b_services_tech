@@ -27,6 +27,15 @@ public class Config {
     @Value("${sap_auth_user:}")
     private String authUser;
     
+    @Value("${s3.bucket.name}")
+    private String s3BucketName ;
+    
+    @Value("s3.access.key")
+    private String s3AccessKey ;
+    
+    @Value("s3.secret.key")
+    private String s3SecretKey ;
+    
     public String getAuthUser() {
 		return authUser;
 	}
@@ -81,6 +90,30 @@ public class Config {
 
 	public void setS3Url(String s3Url) {
 		this.s3Url = s3Url;
+	}
+
+	public String getS3BucketName() {
+		return s3BucketName;
+	}
+
+	public void setS3BucketName(String s3BucketName) {
+		this.s3BucketName = s3BucketName;
+	}
+
+	public String getS3AccessKey() {
+		return s3AccessKey;
+	}
+
+	public void setS3AccessKey(String s3AccessKey) {
+		this.s3AccessKey = s3AccessKey;
+	}
+
+	public String getS3SecretKey() {
+		return s3SecretKey;
+	}
+
+	public void setS3SecretKey(String s3SecretKey) {
+		this.s3SecretKey = s3SecretKey;
 	}
 	
 	

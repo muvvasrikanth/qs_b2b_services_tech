@@ -38,8 +38,6 @@ public class ProductDaoImpl implements ProductDao {
 		}
 		sql.append(")  AND angle='FRT1' AND size = 420") ;
 
-//		String sql = "SELECT * FROM bgx_product_images WHERE material_number='" + p.getProduct() + "' AND angle='FRT1' AND size between 400 and 600" ; 
-		
 		logger.info("Executing: " + sql);
 		
 		List<ProductImage> piList = template.query(sql.toString(), new ProductImageRowMapper()) ;

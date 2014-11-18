@@ -30,7 +30,7 @@ public class CatalogRowMapper implements RowMapper<Catalog> {
 		cat.setParentCatalogId(rs.getInt("PARENTCATALOGUEID"));
 		cat.setLevel(rs.getInt("LEVEL"));
 		// TODO Replace with actual URL when it's in the table
-		cat.setImageUrl("https://s3-us-west-1.amazonaws.com/quiksilver-qa.catalog.cover.images/RX+APPAREL.png");
+		cat.setImageUrl("RX APPAREL.png");
 		return cat ;
 	}
 

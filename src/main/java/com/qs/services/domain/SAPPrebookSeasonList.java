@@ -1,6 +1,7 @@
 package com.qs.services.domain;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -23,5 +24,5 @@ public class SAPPrebookSeasonList {
 	public void setPrebookSeasons(List<SAPPrebookSeason> prebookSeasons) {
 		this.prebookSeasons = prebookSeasons;
 	}
-	
+
 }

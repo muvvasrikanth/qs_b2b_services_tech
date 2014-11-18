@@ -4,7 +4,24 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.DataBuffer;
+import java.awt.image.DataBufferInt;
+import java.awt.image.DirectColorModel;
+import java.awt.image.PixelGrabber;
+import java.awt.image.Raster;
+import java.awt.image.WritableRaster;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -16,18 +33,30 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.amazonaws.HttpMethod;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.qs.services.dao.CatalogDao;
 import com.qs.services.domain.CatalogList;
 import com.qs.services.domain.CatalogSearchCriteriaList;
 import com.qs.services.domain.SalesArea;
 import com.qs.services.domain.SalesAreaList;
+import com.qs.services.util.Config;
 
 @ContextConfiguration(locations={"classpath:/META-INF/test-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CatalogDaoIT extends AbstractJUnit4SpringContextTests {
 	
+	private static final int[] RGB_MASKS = {0xFF0000, 0xFF00, 0xFF} ;
+	private static final ColorModel RGB_OPAQUE = new DirectColorModel(32, RGB_MASKS[0], RGB_MASKS[1], RGB_MASKS[2]) ;
+	
 	@Autowired
 	private CatalogDao dao ;
+	
+	@Autowired
+	private Config config ;
 
 	@Test
 	public void testAutowiring() {
@@ -64,8 +93,6 @@ public class CatalogDaoIT extends AbstractJUnit4SpringContextTests {
 		logger.info(mapper.writeValueAsString(actual));
 	}
 	
-
-	
 	@Test 
 	public void testGetEmptyCatalogs() throws JsonGenerationException, JsonMappingException, IOException{
 		CatalogList actual = new CatalogList() ;
@@ -84,6 +111,48 @@ public class CatalogDaoIT extends AbstractJUnit4SpringContextTests {
 		logger.info("There are (" + criteriaList.getCatalogSearchCriterias().size() + ") catalog search criteria in the list");
 		ObjectMapper mapper = new ObjectMapper() ;
 		logger.info(mapper.writeValueAsString(criteriaList));
+	}
+	
+	@Test
+	public void testGetCatalogCoverImage() throws InterruptedException, IOException {
+		AmazonS3 s3Client = new AmazonS3Client(new BasicAWSCredentials("AKIAIE7QAD2RU3NFTZMQ", "2bFh0jVhvGqt87YX+6euHbDyPnp4nFX62sfsIpfu")) ;
+		String filename = "RX APPAREL.png" ;
+		GeneratePresignedUrlRequest gpur = new GeneratePresignedUrlRequest(config.getS3BucketName(), filename) ;
+		gpur.setMethod(HttpMethod.GET) ;
+		Calendar c = Calendar.getInstance() ;
+		c.add(Calendar.MONTH, 1);
+		gpur.setExpiration(c.getTime());
+		URL url = s3Client.generatePresignedUrl(gpur) ;
+		logger.info(url.toExternalForm());
+		Image image = Toolkit.getDefaultToolkit().createImage(url) ;
+		BufferedImage buffered = toBufferedImage(image) ;
+		File file = new File("C:/temps/RX_APPAREL.png") ;
+		ImageIO.write(buffered, "png", file) ;
+	}
+	
+	@Test
+	public void testGetChildren(){
+		Integer catalogId = 233 ;
+		List<Integer> actual = new ArrayList<Integer>() ;
+		actual.add(catalogId) ;
+		List<Integer> expected = new ArrayList<Integer>() ;
+		expected.add(233) ;
+		expected.add(234) ;
+		expected.add(235) ;
+		expected.add(236) ;
+		expected.add(280) ;
+		
+		actual = dao.getChildren(actual, catalogId) ;
+		
+		logger.info(actual);
+		
+		assertNotNull(actual) ;
+		assertEquals(expected.size(), actual.size()) ;
+		assertTrue(actual.contains(233)) ;
+		assertTrue(actual.contains(234)) ;
+		assertTrue(actual.contains(235)) ;
+		assertTrue(actual.contains(236)) ;
+		assertTrue(actual.contains(280)) ;
 	}
 	
 	private SalesAreaList mockEricGracietSalesAreaList(){
@@ -145,4 +214,18 @@ public class CatalogDaoIT extends AbstractJUnit4SpringContextTests {
 
 		return list ;
 	}
+	
+	private BufferedImage toBufferedImage(Image image) throws InterruptedException{
+		if(image instanceof BufferedImage){
+			return (BufferedImage) image ;
+		} 
+		
+		PixelGrabber grabber = new PixelGrabber(image, 0, 0, -1, -1, true) ;
+		grabber.grabPixels() ;
+		
+		DataBuffer buffer = new DataBufferInt((int[]) grabber.getPixels(), grabber.getWidth() * grabber.getHeight()) ;
+		WritableRaster raster = Raster.createPackedRaster(buffer, grabber.getWidth(), grabber.getHeight(), grabber.getWidth(), RGB_MASKS, null) ;
+		return new BufferedImage(RGB_OPAQUE, raster, false, null) ;
+	}
+
 }

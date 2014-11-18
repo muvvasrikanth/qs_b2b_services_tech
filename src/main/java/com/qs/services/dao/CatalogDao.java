@@ -1,6 +1,7 @@
 package com.qs.services.dao;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -17,4 +18,5 @@ public interface CatalogDao {
 	
 	public CatalogSearchCriteriaList getCatalogSearchCriterias(Integer catalogId) ;
 
+	public List<Integer> getChildren(List<Integer> catalogIds, Integer catalogId) ;
 }

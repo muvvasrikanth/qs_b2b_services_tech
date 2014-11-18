@@ -1,14 +1,31 @@
 package com.qs.services.dao.impl;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.DataBuffer;
+import java.awt.image.DataBufferInt;
+import java.awt.image.DirectColorModel;
+import java.awt.image.PixelGrabber;
+import java.awt.image.Raster;
+import java.awt.image.WritableRaster;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
@@ -20,6 +37,16 @@ import com.qs.services.domain.Product;
 @ContextConfiguration(locations={"classpath:/META-INF/test-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ProductDaoImplIT extends AbstractJUnit4SpringContextTests {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ProductDaoImplIT.class) ;
+	
+	private static final int[] RGB_MASKS = {0xFF0000, 0xFF00, 0xFF} ;
+	private static final ColorModel RGB_OPAQUE = new DirectColorModel(32, RGB_MASKS[0], RGB_MASKS[1], RGB_MASKS[2]) ;
+
+	private static final int TARGET_WIDTH = 2000 ;
+
+	private static final int TARGET_HEIGHT = 2666 ;
+
 
 	@Autowired
 	private ProductDao dao ;
@@ -30,10 +57,26 @@ public class ProductDaoImplIT extends AbstractJUnit4SpringContextTests {
 	}
 
 	@Test
-	public void testGetHeroImage(){
+	public void testGetHeroImage() throws InterruptedException, IOException{
 		Map<String, String> imageUrls = dao.getMediumHeroImageUrls(mockProductList()) ;
 		assertNotNull(imageUrls) ;
-		logger.info(imageUrls);
+		String urlString ;
+		URL url ;
+		Image image ;
+		BufferedImage bufferedImage ;
+		String path = "C:/temps/mbl_imgs/" ;
+		File file ;
+		
+		for(String key : imageUrls.keySet()){
+			urlString = imageUrls.get(key) ;
+			logger.info("Getting: " + urlString);
+			url = new URL(urlString) ;
+			image = Toolkit.getDefaultToolkit().createImage(url) ;
+			bufferedImage = toBufferedImage(image) ;
+			file = new File(path + key + ".jpg") ;
+			logger.info("Writing: " + file.getAbsolutePath());
+			ImageIO.write(bufferedImage, "JPG", file) ;
+		}
 	}
 	
 	private List<Product> mockProductList(){
@@ -85,4 +128,18 @@ public class ProductDaoImplIT extends AbstractJUnit4SpringContextTests {
 		
 		return list ;
 	}
+	
+	private BufferedImage toBufferedImage(Image image) throws InterruptedException{
+		if(image instanceof BufferedImage){
+			return (BufferedImage) image ;
+		} 
+		
+		PixelGrabber grabber = new PixelGrabber(image, 0, 0, -1, -1, true) ;
+		grabber.grabPixels() ;
+		
+		DataBuffer buffer = new DataBufferInt((int[]) grabber.getPixels(), grabber.getWidth() * grabber.getHeight()) ;
+		WritableRaster raster = Raster.createPackedRaster(buffer, grabber.getWidth(), grabber.getHeight(), grabber.getWidth(), RGB_MASKS, null) ;
+		return new BufferedImage(RGB_OPAQUE, raster, false, null) ;
+	}
+
 }

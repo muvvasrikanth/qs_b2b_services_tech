@@ -1,7 +1,10 @@
 package com.qs.services.dao.impl;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,6 +86,21 @@ public class CatalogDaoImpl implements CatalogDao {
 	}
 
 	@Override
+	public List<Integer> getChildren(List<Integer> catalogIds, Integer catalogId){
+		
+		String sql = "SELECT id, parentcatalogueid FROM BGX_CATALOGUE_MASTER WHERE parentcatalogueid = " + catalogId ;
+		
+		List<Map<Integer, Integer>> list = (List<Map<Integer, Integer>>) template.query(sql, new IntegerMapper()) ;
+		
+//		for(Map<String, String> i : list){
+//			catalogIds.add(i) ;
+//			getChildren(catalogIds, i) ;
+//		}
+		
+		return catalogIds ;
+	}
+
+	@Override
 	public CatalogSearchCriteriaList getCatalogSearchCriterias(Integer catalogId) {
 		String sql = "SELECT * FROM bgx_catalogue_searchcriteria WHERE catalogueid = " + catalogId ;
 		logger.debug("Executing: " + sql) ;
@@ -90,7 +108,14 @@ public class CatalogDaoImpl implements CatalogDao {
 		list.setCatalogSearchCriterias((List<CatalogSearchCriteria>) template.query(sql, new CatalogSearchCriteriaRowMapper()));
 		return list ;
 	}
+}
 
+class IntegerMapper implements RowMapper<Map<Integer, Integer>>{
+	public Map<Integer, Integer> mapRow(ResultSet rs, int row) throws SQLException{
+		Map<Integer, Integer> m = new HashMap<Integer, Integer>() ;
+		m.put(rs.getInt(1), rs.getInt(2)) ;
+		return m ;
+	}
 }
 
 class GetCatalogsSP extends StoredProcedure {

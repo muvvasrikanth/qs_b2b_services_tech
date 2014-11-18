@@ -1,6 +1,8 @@
 package com.qs.services.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
@@ -8,7 +10,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 @JsonAutoDetect
-public class SAPPrebookSeason {
+public class SAPPrebookSeason implements Comparable <SAPPrebookSeason> {
+
+	private static final Object ACTIVE = "AC";
 
 	@JsonProperty("SALES_ORG")
 	private String salesOrg ;
@@ -30,6 +34,9 @@ public class SAPPrebookSeason {
 	
 	@JsonProperty("SEASON_TEXT")
 	private String seasonText ;
+	
+	@JsonProperty("STATUS")
+	private List<String> statuses = new ArrayList<String>() ;
 
 	public String getSalesOrg() {
 		return salesOrg;
@@ -87,5 +94,22 @@ public class SAPPrebookSeason {
 		this.endDate = endDate;
 	}
 	
-	
+	public List<String> getStatuses() {
+		return statuses;
+	}
+
+	public void setStatuses(List<String> statuses) {
+		this.statuses = statuses;
+	}
+
+	@Override
+	public int compareTo(SAPPrebookSeason s) {
+		return (this.getBrand().equals(s.getBrand()) 
+				&& this.getSalesOrg().equals(s.getSalesOrg()) 
+				&& this.getSeason().equals(s.getSeason()) ? 1 : 0) ;
+	}
+
+	public boolean isActive() {
+		return statuses.contains(ACTIVE) ;
+	}
 }

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.qs.services.dao.ProductDao;
 import com.qs.services.dao.SeasonDao;
+import com.qs.services.domain.BrandSeason;
 import com.qs.services.domain.SAPActiveSeasonProductList;
 import com.qs.services.domain.SAPPrebookSeason;
 import com.qs.services.domain.SAPPrebookSeasonList;
@@ -72,9 +73,14 @@ public class SeasonServiceImpl implements SeasonService {
 
 		SAPActiveSeasonProductList products = sao.getSeasonProducts(salesRepBrandSeasons);
 		
+		BrandSeason bs = salesRepBrandSeasons.getBrandSeasons().get(0) ;
+		
+		logger.info("There are (" + products.getProducts().size() + ") products returned from SAP for (" + bs.getBrand() + "|" + bs.getSeason() + ")" ) ;
+		
 		if(products != null && products.getProducts() != null && products.getProducts().size() > 0){
 			Map <String, String> imageUrls = productDao.getMediumHeroImageUrls(products.getProducts()) ;
-			logger.info("Fourn Image URLs [" + imageUrls + "]");
+			logger.info("There are (" + imageUrls.keySet().size() + ") image urls for the provided products");
+			logger.debug("Found Image URLs [" + imageUrls + "]");
 			String url = null ;
 			for(int i=0; i<products.getProducts().size(); i++){
 				url = imageUrls.get(products.getProducts().get(i).getProduct()) ;

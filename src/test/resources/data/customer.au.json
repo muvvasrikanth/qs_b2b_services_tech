@@ -1,0 +1,1112 @@
+{
+	"ET_CUSTOMERS": 
+	[
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1034247"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1034453"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1034685"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1034692"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1034694"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1034697"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1034699"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1034700"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1034701"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1034720"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1034725"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1034726"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1035000"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1035001"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1035002"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1035004"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1035005"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1035010"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1035025"
+		},
+
+		{
+			"SALES_REP": "1034247",
+			"CUSTOMER": "1035147"
+		}
+	],
+
+	"ET_CUSTOMER_DETAILS": 
+	[
+		{
+			"CUSTOMER": "1034247",
+			"NAME": "DARREN KIRBY",
+			"ADDRESS1": "2 59 PETREL AVE",
+			"ADDRESS2": "",
+			"CITY": "MERMAID BEACH",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4218",
+			"TELEPHONE": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034453",
+			"NAME": "Surfstitch Accounts",
+			"ADDRESS1": "Locked Bag 7",
+			"ADDRESS2": "",
+			"CITY": "GOLD COAST MC",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4217",
+			"TELEPHONE": "0755070902",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034685",
+			"NAME": "Beach Beat Accs & Warehouse",
+			"ADDRESS1": "119 Bulcock Street",
+			"ADDRESS2": "",
+			"CITY": "CALOUNDRA",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4551",
+			"TELEPHONE": "0754914711",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034692",
+			"NAME": "Concrete Lines",
+			"ADDRESS1": "46A Wharf Street",
+			"ADDRESS2": "",
+			"CITY": "TWEED HEADS",
+			"STATE": "NSW",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "2485",
+			"TELEPHONE": "0755362677",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034694",
+			"NAME": "City Beach  Accounts Head Offi",
+			"ADDRESS1": "171 George St",
+			"ADDRESS2": "",
+			"CITY": "BRISBANE",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4000",
+			"TELEPHONE": "0730065800",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034697",
+			"NAME": "Dreamworld Accounts",
+			"ADDRESS1": "Dreamworld Parkway",
+			"ADDRESS2": "",
+			"CITY": "COOMERA",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4209",
+			"TELEPHONE": "0755881140",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034699",
+			"NAME": "JA & JC Spence Pty Ltd - Accou",
+			"ADDRESS1": "1 / 183 The Esplanade",
+			"ADDRESS2": "",
+			"CITY": "COOLUM BEACH",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4573",
+			"TELEPHONE": "0754462066",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034700",
+			"NAME": "Karmer Surf  Accounts",
+			"ADDRESS1": "34 Barracuda Court",
+			"ADDRESS2": "",
+			"CITY": "PALM BEACH",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4221",
+			"TELEPHONE": "0755765587",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034701",
+			"NAME": "C60 Surf Accounts",
+			"ADDRESS1": "34 Barracuda Crt",
+			"ADDRESS2": "",
+			"CITY": "PALM BEACH",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4221",
+			"TELEPHONE": "0755765587",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034720",
+			"NAME": "Pipeline Surf Co",
+			"ADDRESS1": "Shop 6 Stockland SC Bowman Road",
+			"ADDRESS2": "",
+			"CITY": "CALOUNDRA",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4551",
+			"TELEPHONE": "0754918088",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034725",
+			"NAME": "Snow Biz",
+			"ADDRESS1": "101 Albert Street",
+			"ADDRESS2": "",
+			"CITY": "BRISBANE",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4000",
+			"TELEPHONE": "0732298911",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034726",
+			"NAME": "Skatebiz",
+			"ADDRESS1": "101 Albert Street",
+			"ADDRESS2": "",
+			"CITY": "BRISBANE",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4000",
+			"TELEPHONE": "0732298911",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1035000",
+			"NAME": "Skate Sauce",
+			"ADDRESS1": "150 Alexandra Parade",
+			"ADDRESS2": "",
+			"CITY": "ALEXANDRA HEADLAND",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4572",
+			"TELEPHONE": "0754436111",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1035001",
+			"NAME": "Darkside Skateboards - Account",
+			"ADDRESS1": "PO Box 545",
+			"ADDRESS2": "",
+			"CITY": "SURFERS PARADISE",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4217",
+			"TELEPHONE": "0755727002",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1035002",
+			"NAME": "Boardstore",
+			"ADDRESS1": "1/17 Premier Court",
+			"ADDRESS2": "",
+			"CITY": "WARANA",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4575",
+			"TELEPHONE": "0753702020",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1035004",
+			"NAME": "Roadhouse Retail QLD PL",
+			"ADDRESS1": "T86 - Direct Factory Outlet",
+			"ADDRESS2": "",
+			"CITY": "BRISBANE",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4006",
+			"TELEPHONE": "0731152515",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1035005",
+			"NAME": "Roadhouse Jindalee Pty Ltd",
+			"ADDRESS1": "Shop T36 - Direct Factory Outlet",
+			"ADDRESS2": "",
+			"CITY": "JINDALEE",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4074",
+			"TELEPHONE": "0731673516",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1035010",
+			"NAME": "Wipeout Surf & Skate - Account",
+			"ADDRESS1": "PO Box 1855",
+			"ADDRESS2": "",
+			"CITY": "NOOSAVILLE",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4566",
+			"TELEPHONE": "0754711834",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1035025",
+			"NAME": "Foot Locker Australia Inc Accs",
+			"ADDRESS1": "PO Box 2206",
+			"ADDRESS2": "",
+			"CITY": "MANSFIELD",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4122",
+			"TELEPHONE": "617 3117 3518",
+			"BLOCKED": "X"
+		},
+
+		{
+			"CUSTOMER": "1035147",
+			"NAME": "Foot Locker New Zealand Inc Ac",
+			"ADDRESS1": "PO Box 2206",
+			"ADDRESS2": "",
+			"CITY": "MANSFIELD",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4122",
+			"TELEPHONE": "+617 3253 3000",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023485",
+			"NAME": "Surfstitch Deliveries",
+			"ADDRESS1": "225 Burleigh Connection Rd",
+			"ADDRESS2": "",
+			"CITY": "BURLEIGH",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4220",
+			"TELEPHONE": "0299993002",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023655",
+			"NAME": "Beach Beat- 119 Bulcock St Cal",
+			"ADDRESS1": "119 Bulcock Street",
+			"ADDRESS2": "",
+			"CITY": "CALOUNDRA",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4551",
+			"TELEPHONE": "0754370499",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023656",
+			"NAME": "Beach Beat -  Alexandra Headla",
+			"ADDRESS1": "119 Bulcock Street",
+			"ADDRESS2": "",
+			"CITY": "CALOUNDRA",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4551",
+			"TELEPHONE": "0754432777",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023659",
+			"NAME": "City Beach Airlie Beach - QLD",
+			"ADDRESS1": "Ground Level",
+			"ADDRESS2": "",
+			"CITY": "AIRLIE BEACH",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4802",
+			"TELEPHONE": "07 3902 8700",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023660",
+			"NAME": "City Beach Warehouse Deliverie",
+			"ADDRESS1": "City Beach Distribution",
+			"ADDRESS2": "",
+			"CITY": "MURARRIE",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4172",
+			"TELEPHONE": "07 3902 8700",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023663",
+			"NAME": "Dreamworld Surf Store Orders",
+			"ADDRESS1": "Dreamworld Parkway",
+			"ADDRESS2": "",
+			"CITY": "COOMERA",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4209",
+			"TELEPHONE": "0755881140",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023664",
+			"NAME": "Dreamworld Waterpark Orders",
+			"ADDRESS1": "Dreamworld Parkway",
+			"ADDRESS2": "",
+			"CITY": "COOMERA",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4209",
+			"TELEPHONE": "0755881140",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023665",
+			"NAME": "Blue Lines Surf Co - Deliverie",
+			"ADDRESS1": "\"Shops 17 & 18 \"\"Coolum Beachfront\"",
+			"ADDRESS2": "",
+			"CITY": "COOLUM BEACH",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4573",
+			"TELEPHONE": "0753511986",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023666",
+			"NAME": "JA & JC Spence Pty Ltd",
+			"ADDRESS1": "1 / 183 The Esplanade",
+			"ADDRESS2": "",
+			"CITY": "COOLUM BEACH",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4573",
+			"TELEPHONE": "0754462066",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023667",
+			"NAME": "Karmer Surf  Deliveries / Orde",
+			"ADDRESS1": "Shop C107 Harbour Town",
+			"ADDRESS2": "",
+			"CITY": "BIGGERA WATERS",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4216",
+			"TELEPHONE": "0755291705",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023668",
+			"NAME": "C60 Surf Deliveries",
+			"ADDRESS1": "Shop C60 Harbour Town Shopping Ctr",
+			"ADDRESS2": "",
+			"CITY": "BIGGERA WATERS",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4216",
+			"TELEPHONE": "0755765587",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023681",
+			"NAME": "Snowbiz - Albert Street",
+			"ADDRESS1": "101 Albert Street",
+			"ADDRESS2": "",
+			"CITY": "BRISBANE",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4000",
+			"TELEPHONE": "0732298911",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023682",
+			"NAME": "Snowbiz- Nerang Street",
+			"ADDRESS1": "2 Nerang Street",
+			"ADDRESS2": "",
+			"CITY": "BRISBANE",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4000",
+			"TELEPHONE": "0732298911",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023810",
+			"NAME": "Darkside Skateboards - Deliver",
+			"ADDRESS1": "1 / 2158 Gold Coast Highway",
+			"ADDRESS2": "",
+			"CITY": "MIAMI",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4220",
+			"TELEPHONE": "0755727002",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023814",
+			"NAME": "Wipeout Surf & Skate Sunshine",
+			"ADDRESS1": "Deliver to: Shop 3, 28 Duke Street",
+			"ADDRESS2": "",
+			"CITY": "SUNSHINE BEACH",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4567",
+			"TELEPHONE": "0754480899",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023818",
+			"NAME": "Foot Locker Oz Oz Warehouse Or",
+			"ADDRESS1": "C/- In 2 Store",
+			"ADDRESS2": "",
+			"CITY": "MURARRIE",
+			"STATE": "QLD",
+			"COUNTRY": "AU",
+			"COUNTRY_NAME": "Australia",
+			"ZIP_CODE": "4172",
+			"TELEPHONE": "617 3117 3518",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "2023965",
+			"NAME": "Foot Locker NZ",
+			"ADDRESS1": "c/o In2store, Toll Park 3",
+			"ADDRESS2": "",
+			"CITY": "OTAHUHU",
+			"STATE": "AKL",
+			"COUNTRY": "NZ",
+			"COUNTRY_NAME": "New Zealand",
+			"ZIP_CODE": "2024",
+			"TELEPHONE": "+617 3253 3000",
+			"BLOCKED": ""
+		}
+	],
+
+	"ET_CUSTOMER_SALESAREAS": 
+	[
+		{
+			"CUSTOMER": "1034247",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034453",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034685",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034692",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034694",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034697",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034699",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034700",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034701",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034720",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034725",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1034726",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1035000",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1035001",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1035002",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1035004",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1035005",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1035010",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		},
+
+		{
+			"CUSTOMER": "1035025",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": "X"
+		},
+
+		{
+			"CUSTOMER": "1035147",
+			"SALES_ORG": "3010",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01",
+			"PRICE_LIST": "",
+			"BLOCKED": ""
+		}
+	],
+
+	"ET_CUSTOMER_SHIPTOS": 
+	[
+		{
+			"CUSTOMER": "1034247",
+			"SHIPTO": "1034247",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034453",
+			"SHIPTO": "1034453",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034453",
+			"SHIPTO": "2023485",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034685",
+			"SHIPTO": "1034685",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034685",
+			"SHIPTO": "2023655",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034685",
+			"SHIPTO": "2023656",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034692",
+			"SHIPTO": "1034692",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034694",
+			"SHIPTO": "1034694",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034694",
+			"SHIPTO": "2023659",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034694",
+			"SHIPTO": "2023660",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034697",
+			"SHIPTO": "1034697",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034697",
+			"SHIPTO": "2023663",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034697",
+			"SHIPTO": "2023664",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034699",
+			"SHIPTO": "1034699",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034699",
+			"SHIPTO": "2023665",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034699",
+			"SHIPTO": "2023666",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034700",
+			"SHIPTO": "1034700",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034700",
+			"SHIPTO": "2023667",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034701",
+			"SHIPTO": "1034701",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034701",
+			"SHIPTO": "2023668",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034720",
+			"SHIPTO": "1034720",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034725",
+			"SHIPTO": "1034725",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034725",
+			"SHIPTO": "2023681",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034725",
+			"SHIPTO": "2023682",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1034726",
+			"SHIPTO": "1034726",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1035000",
+			"SHIPTO": "1035000",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1035001",
+			"SHIPTO": "1035001",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1035001",
+			"SHIPTO": "2023810",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1035002",
+			"SHIPTO": "1035002",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1035004",
+			"SHIPTO": "1035004",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1035005",
+			"SHIPTO": "1035005",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1035010",
+			"SHIPTO": "1035010",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1035010",
+			"SHIPTO": "2023814",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1035025",
+			"SHIPTO": "1035025",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1035025",
+			"SHIPTO": "2023818",
+			"SALES_ORG": "3000",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1035147",
+			"SHIPTO": "1035147",
+			"SALES_ORG": "3010",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		},
+
+		{
+			"CUSTOMER": "1035147",
+			"SHIPTO": "2023965",
+			"SALES_ORG": "3010",
+			"DISTRIBUTION_CHANNEL": "10",
+			"BRAND": "01"
+		}
+	],
+
+	"ET_RETURN": 
+	[
+		
+	]
+}

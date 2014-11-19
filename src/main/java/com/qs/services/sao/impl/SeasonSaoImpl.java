@@ -43,7 +43,8 @@ public class SeasonSaoImpl implements SeasonSao {
 		ResponseEntity<SAPPrebookSeasonList> result = restTemplate.exchange(url,  HttpMethod.POST, httpEntity, SAPPrebookSeasonList.class) ;
 
 		try {
-			logger.info(new ObjectMapper().writeValueAsString(result.getBody()));
+			logger.info("Returning results provided by SAP");
+			logger.debug(new ObjectMapper().writeValueAsString(result.getBody()));
 		} catch (JsonProcessingException e) {
 			logger.error(e.getMessage(), e) ;
 		}

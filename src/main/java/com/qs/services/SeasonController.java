@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qs.services.domain.BrandSeason;
 import com.qs.services.domain.DataResult;
+import com.qs.services.domain.SAPActiveSeasonProductList;
 import com.qs.services.domain.SAPPrebookSeasonList;
 import com.qs.services.domain.SalesRepBrandSeasons;
 import com.qs.services.service.SeasonService;
@@ -59,16 +60,27 @@ public class SeasonController {
 		bs.setBrand(brandId);
 		bs.setSeason(seasonId);
 		srbs.getBrandSeasons().add(bs) ;
+		SAPActiveSeasonProductList productList = new SAPActiveSeasonProductList() ;
 		
 		try {
 			logger.info("Call to [GET] products with [" + new ObjectMapper().writeValueAsString(srbs) + "]");
-			result = ServiceUtil.successResult(service.getSeasonProducts(srbs)) ;
+			productList = service.getSeasonProducts(srbs) ;
+			result = ServiceUtil.successResult(productList) ;
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
 			result = ServiceUtil.errorResult(HttpStatus.INTERNAL_SERVER_ERROR, "There was an error while retrieving products for [" + srbs.getSalesRep() + "]") ;
 		} catch (ParseException e) {
 			logger.error(e.getMessage(), e); ;
 			result = ServiceUtil.errorResult(HttpStatus.INTERNAL_SERVER_ERROR, "There was a problem parsing information while retrieving products for [" + srbs.getSalesRep() + "]") ;
+		}
+		
+		if(logger.isInfoEnabled()){
+			String msg = "Search criteria [SalesRepId=" + salesRepId + ", BrandId=" + brandId + ", SeasonId=" + seasonId + "] :: " ;
+			msg += "ET_SEASONS (" + productList.getSeasons().size() + "), ET_SEASON_PRODUCTS (" + productList.getActiveSeasons().size() + "), " ;
+			msg += "ET_PRODUCTS (" + productList.getProducts().size() + "), ET_PRODUCT_SIZES (" + productList.getProductSizes().size() + "), " ;
+			msg += "ET_PRODUCT_PRICES (" + productList.getProductPrices().size() + "), ET_LOOKUP_TABLE (" + productList.getLookups().size() + "), " ;
+			msg += "ET_PRODUCT_SALES_AREAS (" + productList.getProductSalesAreas().size() + ")" ;
+			logger.info(msg);
 		}
 		
 		return result ;

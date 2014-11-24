@@ -88,14 +88,19 @@ public class CatalogDaoImpl implements CatalogDao {
 	@Override
 	public List<Integer> getChildren(List<Integer> catalogIds, Integer catalogId){
 		
-		String sql = "SELECT id, parentcatalogueid FROM BGX_CATALOGUE_MASTER WHERE parentcatalogueid = " + catalogId ;
+		String sql = "SELECT id FROM BGX_CATALOGUE_MASTER WHERE parentcatalogueid = " + catalogId ;
 		
-		List<Map<Integer, Integer>> list = (List<Map<Integer, Integer>>) template.query(sql, new IntegerMapper()) ;
+		logger.info("Executing: " + sql);
 		
-//		for(Map<String, String> i : list){
-//			catalogIds.add(i) ;
-//			getChildren(catalogIds, i) ;
-//		}
+		List<Integer> list = (List<Integer>) template.query(sql, new IntegerMapper()) ;
+
+		for(Integer i : list){
+			logger.info(i.toString()) ;
+			if(! catalogIds.contains(i)){
+				catalogIds.add(i) ;
+			}
+			getChildren(catalogIds, i) ;
+		}
 		
 		return catalogIds ;
 	}
@@ -110,11 +115,9 @@ public class CatalogDaoImpl implements CatalogDao {
 	}
 }
 
-class IntegerMapper implements RowMapper<Map<Integer, Integer>>{
-	public Map<Integer, Integer> mapRow(ResultSet rs, int row) throws SQLException{
-		Map<Integer, Integer> m = new HashMap<Integer, Integer>() ;
-		m.put(rs.getInt(1), rs.getInt(2)) ;
-		return m ;
+class IntegerMapper implements RowMapper<Integer>{
+	public Integer mapRow(ResultSet rs, int row) throws SQLException{
+		return rs.getInt(1) ;
 	}
 }
 

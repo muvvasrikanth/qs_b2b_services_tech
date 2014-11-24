@@ -1,7 +1,6 @@
 package com.qs.services.domain;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
@@ -24,7 +23,7 @@ public class CartProductSize {
 	private String size ;
 	
 	@JsonProperty("QUANTITY")
-	private Integer quantity ;
+	private Integer quantity = 0 ;
 	
 	@JsonProperty("DIMENSION")
 	private String dimension ;
@@ -33,13 +32,13 @@ public class CartProductSize {
 	private String createdBy ;
 	
 	@JsonProperty("CREATEDDATETIME")
-	private Date createdDateTime ;
+	private String createdDateTime ;
 	
 	@JsonProperty("MODIFIEDBY")
 	private String modifiedBy ;
 	
 	@JsonProperty("MODIFIEDDATETIME")
-	private Date modifiedDateTime ;
+	private String modifiedDateTime ;
 
 	@JsonProperty("ET_CART_PRODUCT_SIZE_RDD")
 	private List<CartProductSizeRdd> cartProductSizeRdds = new ArrayList<CartProductSizeRdd>() ;
@@ -100,11 +99,11 @@ public class CartProductSize {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreatedDateTime() {
+	public String getCreatedDateTime() {
 		return createdDateTime;
 	}
 
-	public void setCreatedDateTime(Date createdDateTime) {
+	public void setCreatedDateTime(String createdDateTime) {
 		this.createdDateTime = createdDateTime;
 	}
 
@@ -116,11 +115,11 @@ public class CartProductSize {
 		this.modifiedBy = modifiedBy;
 	}
 
-	public Date getModifiedDateTime() {
+	public String getModifiedDateTime() {
 		return modifiedDateTime;
 	}
 
-	public void setModifiedDateTime(Date modifiedDateTime) {
+	public void setModifiedDateTime(String modifiedDateTime) {
 		this.modifiedDateTime = modifiedDateTime;
 	}
 

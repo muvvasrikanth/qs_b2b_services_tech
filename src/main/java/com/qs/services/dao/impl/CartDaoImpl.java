@@ -3,10 +3,11 @@ package com.qs.services.dao.impl;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.codehaus.jackson.JsonGenerationException;
@@ -37,158 +38,184 @@ public class CartDaoImpl implements CartDao {
 	
 	@Override
 	public Integer insertCartHeader(Cart cart){
-		String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_HEADER] ([DOC_CATEGORY_ID],[METHOD_CODE_ID],[CUSTOMER_NUMBER],[SHIP_TO_NUMBER],[SALES_DOC_NAME],[CUSTOMER_PO_NUMBER],[REQUESTED_DELIVERY_DT],[CANCEL_DT],[READYFORSUBMISSION_VALUE],[DRAFTSALESDOC_STATUS_ID],[EXTENAL_STATUS],[INTERNAL_STATUS],[SHARED],[REFERENCE_DOCUMENT_NUMBER],[IDOC_NUMBER],[LATEST_IDOC_NUMBER],[SAP_ORDER_NUMBER],[CREATED_BY],[CREATED_ON],[LAST_UPDATE_BY],[LAST_UPDATE_ON],[NOTES],[VALID_FROM],[VALID_TO],[SHIPPING_INSTRUCTION],[CARRIER_NAME],[CARRIER_ACNO],[EXCEL_PATH],[EXCEL_FILE_NAME],[DOC_TYPE_ID],[ORDER_CONTEXT],[SEASON],[REASON],[UNITS],[TOTAL_QUANTITIES],[TOTAL_BASE_PRICE],[TOTAL_MSRP_PRICE],[TOTAL_MAP_PRICE],[TOTAL_NET_PRICE],[DELTA_FLAG],[SUBMITTED_CART_ID]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)" ;
-		Object[] parms = {
-			cart.getDocCatagoryId(),
-			cart.getMethodCodeId(),
-			cart.getCustomerNumber(),
-			cart.getShipToNumber(),
-			cart.getSalesDocName(),
-			cart.getCustomerPoNumber(),
-			cart.getRequestedDeliveryDt(),
-			cart.getCancelDt(),
-			cart.getReadyForSubmissionValue(),
-			cart.getDraftSalesDocStatusId(),
-			cart.getExternalStatus(),
-			cart.getInternalStatus(),
-			cart.getShared(),
-			cart.getReferenceDocumentNumber(),
-			cart.getiDocNumber(),
-			cart.getLatestIDocNumber(),
-			cart.getSapOrderNumber(),
-			cart.getCreatedBy(),
-			cart.getCreatedOn(),
-			cart.getLastUpdateBy(),
-			cart.getLastUpdateOn(),
-			cart.getNotes(),
-			cart.getValidFrom(),
-			cart.getValidTo(),
-			cart.getShippingInstructions(),
-			cart.getCarrierName(),
-			cart.getCarrierAcno(),
-			cart.getExcelPath(),
-			cart.getExcelFileName(),
-			cart.getDocTypeId(),
-			cart.getOrderContext(),
-			cart.getSeason(),
-			cart.getReason(),
-			cart.getUnits(),
-			cart.getTotalQuantities(),
-			cart.getTotalBasePrice(),
-			cart.getTotalMsrpPrice(),
-			cart.getTotalMapPrice(),
-			cart.getTotalNetPrice(),
-			cart.getDeltaFlag(),
-			cart.getSubmittedCartId()
-		} ;
-		logger.info("Executing : " + sql0);
-		template.update(sql0, parms) ;
+		Integer retVal = null ;
+		try{
+			String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_HEADER] ([DOC_CATEGORY_ID],[METHOD_CODE_ID],[CUSTOMER_NUMBER],[SHIP_TO_NUMBER],[SALES_DOC_NAME],[CUSTOMER_PO_NUMBER],[REQUESTED_DELIVERY_DT],[CANCEL_DT],[READYFORSUBMISSION_VALUE],[DRAFTSALESDOC_STATUS_ID],[EXTENAL_STATUS],[INTERNAL_STATUS],[SHARED],[REFERENCE_DOCUMENT_NUMBER],[IDOC_NUMBER],[LATEST_IDOC_NUMBER],[SAP_ORDER_NUMBER],[CREATED_BY],[CREATED_ON],[LAST_UPDATE_BY],[LAST_UPDATE_ON],[NOTES],[VALID_FROM],[VALID_TO],[SHIPPING_INSTRUCTION],[CARRIER_NAME],[CARRIER_ACNO],[EXCEL_PATH],[EXCEL_FILE_NAME],[DOC_TYPE_ID],[ORDER_CONTEXT],[SEASON],[REASON],[UNITS],[TOTAL_QUANTITIES],[TOTAL_BASE_PRICE],[TOTAL_MSRP_PRICE],[TOTAL_MAP_PRICE],[TOTAL_NET_PRICE],[DELTA_FLAG],[SUBMITTED_CART_ID]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)" ;
+			Object[] parms = {
+				cart.getDocCatagoryId(),
+				cart.getMethodCodeId(),
+				cart.getCustomerNumber(),
+				cart.getShipToNumber(),
+				cart.getSalesDocName(),
+				cart.getCustomerPoNumber(),
+				fromYYYYMMDDtoDate(cart.getRequestedDeliveryDt()),
+				fromYYYYMMDDtoDate(cart.getCancelDt()),
+				cart.getReadyForSubmissionValue(),
+				cart.getDraftSalesDocStatusId(),
+				cart.getExternalStatus(),
+				cart.getInternalStatus(),
+				cart.getShared(),
+				cart.getReferenceDocumentNumber(),
+				cart.getiDocNumber(),
+				cart.getLatestIDocNumber(),
+				cart.getSapOrderNumber(),
+				cart.getCreatedBy(),
+				fromYYYYMMDDtoDate(cart.getCreatedOn()),
+				cart.getLastUpdateBy(),
+				fromYYYYMMDDtoDate(cart.getLastUpdateOn()),
+				cart.getNotes(),
+				fromYYYYMMDDtoDate(cart.getValidFrom()),
+				fromYYYYMMDDtoDate(cart.getValidTo()),
+				cart.getShippingInstructions(),
+				cart.getCarrierName(),
+				cart.getCarrierAcno(),
+				cart.getExcelPath(),
+				cart.getExcelFileName(),
+				cart.getDocTypeId(),
+				cart.getOrderContext(),
+				cart.getSeason(),
+				cart.getReason(),
+				cart.getUnits(),
+				cart.getTotalQuantities(),
+				cart.getTotalBasePrice(),
+				cart.getTotalMsrpPrice(),
+				cart.getTotalMapPrice(),
+				cart.getTotalNetPrice(),
+				cart.getDeltaFlag(),
+				cart.getSubmittedCartId()
+			} ;
+			logger.info("Executing : " + sql0);
+			template.update(sql0, parms) ;
+			
+			String sql1 = "SELECT MAX(draft_salesdoc_header_id) FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_HEADER]" ;
+			logger.info("Executing : " + sql1);
+			retVal = template.queryForInt(sql1) ;
+		} catch (ParseException e){
+			logger.error(e.getMessage(), e);
+		}
 		
-		String sql1 = "SELECT MAX(draft_salesdoc_header_id) FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_HEADER]" ;
-		logger.info("Executing : " + sql1);
-		return template.queryForInt(sql1) ;
+		return retVal ;
 	}
 
 	@Override
 	public Integer insertCartProduct(CartProduct product,
 			Integer cartId) throws JsonGenerationException,
 			JsonMappingException, IOException {
-		
+		Integer retVal = null ;
 		logger.info("Cart Product: " + mapper.writeValueAsString(product));
-		
-		String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_MAPPING]([DRAFT_SALESDOC_HEADER_ID],[PRODUCT_NUMBER],[GENDER_FIT],[STYLE],[CREATEDBY],[CREATEDDATETIME],[MODIFIEDBY],[MODIFIEDDATETIME],[DIMENSION],[RDD],[UOM],[LINE_ITEM_NO],[DLV_GROUP],[AUTOALLOCATION],[BRAND],[SALES_ORG],[DISTRIBUTION_CHANNEL],[SEASON],[SEQUENCE],[BASE_PRICE],[MSRP_PRICE],[MAP_PRICE],[NET_PRICE],[DISCOUNT],[DISCOUNT_PERCENT],[QUANTITIES],[TOTAL_BASE_PRICE],[TOTAL_MSRP_PRICE],[TOTAL_MAP_PRICE],[TOTAL_NET_PRICE])VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ;
-		Object[] parms = {
-				cartId,
-				product.getProductNumber(),
-				product.getGenderFit(),
-				product.getStyle(),
-				product.getCreatedBy(),
-				product.getCreatedDateTime(),
-				product.getModifiedBy(),
-				product.getModifiedDateTime(),
-				product.getDimenison(),
-				product.getRequestedDeliveryDate(),
-				product.getUnitOfMeasure(),
-				product.getLineItemNo(),
-				product.getDlvGroup(),
-				product.getAutoAllocation(),
-				product.getBrand(),
-				product.getSalesOrg(),
-				product.getDistrubutionChannel(),
-				product.getSeason(),
-				product.getSequence(),
-				product.getBasePrice(),
-				product.getMsrpPrice(),
-				product.getMapPrice(),
-				product.getNetPrice(),
-				product.getDiscount(),
-				product.getDiscountPercent(),
-				product.getQuantities(),
-				product.getTotalBasePrice(),
-				product.getTotalMsrpPrice(),
-				product.getTotalMapPrice(),
-				product.getTotalNetPrice()
-			} ;
+		try{
+			String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_MAPPING]([DRAFT_SALESDOC_HEADER_ID],[PRODUCT_NUMBER],[GENDER_FIT],[STYLE],[CREATEDBY],[CREATEDDATETIME],[MODIFIEDBY],[MODIFIEDDATETIME],[DIMENSION],[RDD],[UOM],[LINE_ITEM_NO],[DLV_GROUP],[AUTOALLOCATION],[BRAND],[SALES_ORG],[DISTRIBUTION_CHANNEL],[SEASON],[SEQUENCE],[BASE_PRICE],[MSRP_PRICE],[MAP_PRICE],[NET_PRICE],[DISCOUNT],[DISCOUNT_PERCENT],[QUANTITIES],[TOTAL_BASE_PRICE],[TOTAL_MSRP_PRICE],[TOTAL_MAP_PRICE],[TOTAL_NET_PRICE])VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ;
+			Object[] parms = {
+					cartId,
+					product.getProductNumber(),
+					product.getGenderFit(),
+					product.getStyle(),
+					product.getCreatedBy(),
+					fromYYYYMMDDtoDate(product.getCreatedDateTime()),
+					product.getModifiedBy(),
+					fromYYYYMMDDtoDate(product.getModifiedDateTime()),
+					product.getDimension(),
+					fromYYYYMMDDtoDate(product.getRequestedDeliveryDate()),
+					product.getUnitOfMeasure(),
+					product.getLineItemNo(),
+					product.getDlvGroup(),
+					product.getAutoAllocation(),
+					product.getBrand(),
+					product.getSalesOrg(),
+					product.getDistrubutionChannel(),
+					product.getSeason(),
+					product.getSequence(),
+					product.getBasePrice(),
+					product.getMsrpPrice(),
+					product.getMapPrice(),
+					product.getNetPrice(),
+					product.getDiscount(),
+					product.getDiscountPercent(),
+					product.getQuantities(),
+					product.getTotalBasePrice(),
+					product.getTotalMsrpPrice(),
+					product.getTotalMapPrice(),
+					product.getTotalNetPrice()
+				} ;
+				
+			logger.info("Executing : " + sql0 + "][Values (" + toParameter(parms) + ")]") ;
+				
+			template.update(sql0, parms) ;
+	
+			String sql1 = "SELECT id FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_MAPPING] WHERE [DRAFT_SALESDOC_HEADER_ID] = " + cartId + " AND [PRODUCT_NUMBER] = '" + product.getProductNumber() + "'" ;
 			
-		logger.info("Executing : " + sql0 + "][Values (" + toParameter(parms) + ")]") ;
-			
-		template.update(sql0, parms) ;
-
-		String sql1 = "SELECT id FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_MAPPING] WHERE [DRAFT_SALESDOC_HEADER_ID] = " + cartId + " AND [PRODUCT_NUMBER] = '" + product.getProductNumber() + "'" ;
+			retVal = template.queryForInt(sql1) ;
+		} catch (ParseException e){
+			logger.error(e.getMessage(), e);
+		}
 		
-		return template.queryForInt(sql1) ;
+		return retVal ;
 	}
 
 	@Override
 	public Integer insertCartProductSize(
 			CartProductSize cartProductSize) {
+		Integer retVal = null ;
 		
-		String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_SIZE_MAPPING]([SALESDOC_PRODUCT_ID],[SIZE],[QUANTITY],[DIMENSION],[CREATEDBY],[CREATEDDATETIME],[MODIFIEDBY],[MODIFIEDDATETIME])VALUES (?, ?, ?, ?, ?, ?, ?, ?)" ;
+		try{
+			String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_SIZE_MAPPING]([SALESDOC_PRODUCT_ID],[SIZE],[QUANTITY],[DIMENSION],[CREATEDBY],[CREATEDDATETIME],[MODIFIEDBY],[MODIFIEDDATETIME])VALUES (?, ?, ?, ?, ?, ?, ?, ?)" ;
+			
+			Object[] parms = {
+				cartProductSize.getSalesDocProductId(),
+				cartProductSize.getSize(),
+				cartProductSize.getQuantity(),
+				cartProductSize.getDimension(),
+				cartProductSize.getCreatedBy(),
+				fromYYYYMMDDtoDate(cartProductSize.getCreatedDateTime()),
+				cartProductSize.getModifiedBy(),
+				fromYYYYMMDDtoDate(cartProductSize.getModifiedDateTime())
+			} ;
+	
+			logger.info("Executing : " + sql0 + "][Values (" + toParameter(parms) + ")]");
+			
+			template.update(sql0, parms) ;
+			
+			String sql1 = "SELECT id FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_SIZE_MAPPING] WHERE [SALESDOC_PRODUCT_ID] = " + cartProductSize.getSalesDocProductId() + " AND [SIZE] = '" + cartProductSize.getSize() + "'" ;
+			
+			logger.info("Executing : " + sql1);
+			
+			retVal =  template.queryForInt(sql1) ;
+		} catch (ParseException e){
+			logger.error(e.getMessage(), e) ;
+		}
 		
-		Object[] parms = {
-			cartProductSize.getSalesDocProductId(),
-			cartProductSize.getSize(),
-			cartProductSize.getQuantity(),
-			cartProductSize.getDimension(),
-			cartProductSize.getCreatedBy(),
-			cartProductSize.getCreatedDateTime(),
-			cartProductSize.getModifiedBy(),
-			cartProductSize.getModifiedDateTime()
-		} ;
-
-		logger.info("Executing : " + sql0 + "][Values (" + toParameter(parms) + ")]");
-		
-		template.update(sql0, parms) ;
-		
-		String sql1 = "SELECT id FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_SIZE_MAPPING] WHERE [SALESDOC_PRODUCT_ID] = " + cartProductSize.getSalesDocProductId() + " AND [SIZE] = '" + cartProductSize.getSize() + "'" ;
-		
-		logger.info("Executing : " + sql1);
-		
-		return template.queryForInt(sql1) ;
+		return retVal ;
 	}
 
 	@Override
 	public Integer insertCartProductSizeRdd(
 			CartProductSizeRdd cartProductSizeRdd) {
-
-		String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_SIZE_RDD_MAPPING]([PRODUCT_SIZE_ID],[QUANTITY],[RDD],[ORIGINAL_RDD]) VALUES (?, ?, ?, ?)" ;
 		
-		Object[] parms = {
-			cartProductSizeRdd.getProductSizeId(),
-			cartProductSizeRdd.getQuantity(),
-			cartProductSizeRdd.getRequestedDeliveryDate(),
-			cartProductSizeRdd.getOriginalRequestedDeliveryDate()
-		};
+		Integer retVal = null ;
+		try{
+			String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_SIZE_RDD_MAPPING]([PRODUCT_SIZE_ID],[QUANTITY],[RDD],[ORIGINAL_RDD]) VALUES (?, ?, ?, ?)" ;
+			
+			Object[] parms = {
+				cartProductSizeRdd.getProductSizeId(),
+				cartProductSizeRdd.getQuantity(),
+				fromYYYYMMDDtoDate(cartProductSizeRdd.getRequestedDeliveryDate()),
+				fromYYYYMMDDtoDate(cartProductSizeRdd.getOriginalRequestedDeliveryDate())
+			};
+			
+			logger.info("Executing : " + sql0 + "][Values (" + toParameter(parms) + ")]");
+			
+			template.update(sql0, parms) ;
+			
+			String sql1 = "SELECT id FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_SIZE_RDD_MAPPING] WHERE [PRODUCT_SIZE_ID] = " + cartProductSizeRdd.getProductSizeId() + " AND [RDD] = '" + new SimpleDateFormat("yyyy-MM-dd").format(fromYYYYMMDDtoDate(cartProductSizeRdd.getRequestedDeliveryDate())) + "'" ;
+			
+			logger.info("Executing : " + sql1);
+			
+			retVal = template.queryForInt(sql1);
+		} catch (ParseException e){
+			logger.error(e.getMessage(), e) ;
+		}
 		
-		logger.info("Executing : " + sql0 + "][Values (" + toParameter(parms) + ")]");
-		
-		template.update(sql0, parms) ;
-		
-		String sql1 = "SELECT id FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_SIZE_RDD_MAPPING] WHERE [PRODUCT_SIZE_ID] = " + cartProductSizeRdd.getProductSizeId() + " AND [RDD] = '" + new SimpleDateFormat("yyyy-MM-dd").format(cartProductSizeRdd.getRequestedDeliveryDate()) + "'" ;
-		
-		logger.info("Executing : " + sql1);
-		
-		return template.queryForInt(sql1);
+		return retVal ;
 	}
 	
 	private String toParameter(Object[] parms) {
@@ -215,9 +242,19 @@ public class CartDaoImpl implements CartDao {
 				b.append("null") ;
 			}
 			
-			b.append(index <= parms.length-1 ? "," : "") ;
+			b.append(index++ <= parms.length-1 ? "," : "") ;
 		}
 		return b.toString() ;
+	}
+	
+	private Date fromYYYYMMDDtoDate(String strDate) throws ParseException{
+		DateFormat df = new SimpleDateFormat("yyyyMMdd") ;
+		Date retDate = null ;
+		if(null != strDate){
+			retDate = df.parse(strDate) ;
+		}
+		
+		return retDate ;
 	}
 }
 

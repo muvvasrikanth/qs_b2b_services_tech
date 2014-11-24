@@ -1,7 +1,6 @@
 package com.qs.services.domain;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
@@ -30,19 +29,19 @@ public class CartProduct {
 	private String createdBy ;
 	
 	@JsonProperty("CREATEDDATETIME")
-	private Date createdDateTime ;
+	private String createdDateTime ;
 	
 	@JsonProperty("MODIFIEDBY")
 	private String modifiedBy ;
 	
 	@JsonProperty("MODIFIEDDATETIME")
-	private Date modifiedDateTime ;
+	private String modifiedDateTime ;
 	
 	@JsonProperty("DIMENSION")
-	private String dimenison ;
+	private String dimension ;
 	
 	@JsonProperty("RDD")
-	private Date requestedDeliveryDate ;
+	private String requestedDeliveryDate ;
 	
 	@JsonProperty("UOM")
 	private String unitOfMeasure ;
@@ -90,7 +89,7 @@ public class CartProduct {
 	private Double discountPercent ;
 	
 	@JsonProperty("QUANTITIES")
-	private Integer quantities ;
+	private Integer quantities = 0 ;
 	
 	@JsonProperty("TOTAL_BASE_PRICE")
 	private Double totalBasePrice ;
@@ -155,11 +154,11 @@ public class CartProduct {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreatedDateTime() {
+	public String getCreatedDateTime() {
 		return createdDateTime;
 	}
 
-	public void setCreatedDateTime(Date createdDateTime) {
+	public void setCreatedDateTime(String createdDateTime) {
 		this.createdDateTime = createdDateTime;
 	}
 
@@ -171,27 +170,27 @@ public class CartProduct {
 		this.modifiedBy = modifiedBy;
 	}
 
-	public Date getModifiedDateTime() {
+	public String getModifiedDateTime() {
 		return modifiedDateTime;
 	}
 
-	public void setModifiedDateTime(Date modifiedDateTime) {
+	public void setModifiedDateTime(String modifiedDateTime) {
 		this.modifiedDateTime = modifiedDateTime;
 	}
 
-	public String getDimenison() {
-		return dimenison;
+	public String getDimension() {
+		return dimension;
 	}
 
-	public void setDimenison(String dimenison) {
-		this.dimenison = dimenison;
+	public void setDimension(String dimension) {
+		this.dimension = dimension;
 	}
 
-	public Date getRequestedDeliveryDate() {
+	public String getRequestedDeliveryDate() {
 		return requestedDeliveryDate;
 	}
 
-	public void setRequestedDeliveryDate(Date requestedDeliveryDate) {
+	public void setRequestedDeliveryDate(String requestedDeliveryDate) {
 		this.requestedDeliveryDate = requestedDeliveryDate;
 	}
 

@@ -35,7 +35,7 @@
     "SEASON" : null,
     "REASON" : null,
     "UNITS" : null,
-    "TOTAL_QUANTITIES" : null,
+    "TOTAL_QUANTITIES" : 0,
     "TOTAL_BASE_PRICE" : null,
     "TOTAL_MSRP_PRICE" : null,
     "TOTAL_MAP_PRICE" : null,
@@ -69,7 +69,7 @@
       "NET_PRICE" : null,
       "DISCOUNT" : null,
       "DISCOUNT_PERCENT" : null,
-      "QUANTITIES" : null,
+      "QUANTITIES" : 0,
       "TOTAL_BASE_PRICE" : null,
       "TOTAL_MSRP_PRICE" : null,
       "TOTAL_MAP_PRICE" : null,
@@ -79,7 +79,7 @@
         "SALESDOC_PRODUCT_ID" : null,
         "PRODUCT_NUMBER" : null,
         "SIZE" : null,
-        "QUANTITY" : null,
+        "QUANTITY" : 0,
         "DIMENSION" : null,
         "CREATEDBY" : null,
         "CREATEDDATETIME" : null,
@@ -88,7 +88,7 @@
         "ET_CART_PRODUCT_SIZE_RDD" : [ {
           "ID" : null,
           "PRODUCT_SIZE_ID" : null,
-          "QUANTITY" : null,
+          "QUANTITY" : 0,
           "RDD" : null,
           "ORIGINAL_RDD" : null
         } ]

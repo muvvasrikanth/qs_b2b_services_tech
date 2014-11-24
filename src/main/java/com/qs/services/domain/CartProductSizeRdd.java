@@ -16,13 +16,13 @@ public class CartProductSizeRdd {
 	private Integer productSizeId ;
 	
 	@JsonProperty("QUANTITY") 
-	private Integer quantity ;
+	private Integer quantity = 0 ;
 	
 	@JsonProperty("RDD") 
-	private Date requestedDeliveryDate ;
+	private String requestedDeliveryDate ;
 	
 	@JsonProperty("ORIGINAL_RDD") 
-	private Date originalRequestedDeliveryDate ;
+	private String originalRequestedDeliveryDate ;
 
 	public Integer getId() {
 		return id;
@@ -48,19 +48,19 @@ public class CartProductSizeRdd {
 		this.quantity = quantity;
 	}
 
-	public Date getRequestedDeliveryDate() {
+	public String getRequestedDeliveryDate() {
 		return requestedDeliveryDate;
 	}
 
-	public void setRequestedDeliveryDate(Date requestedDeliveryDate) {
+	public void setRequestedDeliveryDate(String requestedDeliveryDate) {
 		this.requestedDeliveryDate = requestedDeliveryDate;
 	}
 
-	public Date getOriginalRequestedDeliveryDate() {
+	public String getOriginalRequestedDeliveryDate() {
 		return originalRequestedDeliveryDate;
 	}
 
-	public void setOriginalRequestedDeliveryDate(Date originalRequestedDeliveryDate) {
+	public void setOriginalRequestedDeliveryDate(String originalRequestedDeliveryDate) {
 		this.originalRequestedDeliveryDate = originalRequestedDeliveryDate;
 	}
 	

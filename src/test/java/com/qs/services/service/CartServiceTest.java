@@ -72,41 +72,6 @@ public class CartServiceTest extends AbstractJUnit4SpringContextTests {
 		verify(dao).insertCartProductSize(Mockito.any(CartProductSize.class)) ;
 		verify(dao).insertCartProductSizeRdd(Mockito.any(CartProductSizeRdd.class)) ;
 		
-//        CartList cartList = new CartList();
-//        Cart cart = new Cart();
-//		cartList.getCarts().add(cart);
-//        CartProduct cartProduct = new CartProduct();
-//        cartProduct.setProductNumber("prod#1");
-//        cart.getCartProducts().add(cartProduct);
-//        CartProductSize cartProductSize = new CartProductSize();
-//		cartProduct.getCartProductSizes().add(cartProductSize);
-//		CartProductSizeRdd cartProductSizeRdd = new CartProductSizeRdd();
-//		cartProductSize.getCartProductSizeRdds().add(cartProductSizeRdd);
-//
-//		List<Map<String,String>> cartProds = new ArrayList<Map<String,String>>();
-//		Map<String,String> map = new HashMap<String,String>();
-//		map.put("id", "6");
-//		map.put("product_number", "prod#1");
-//		cartProds.add(map);
-//		when((dao).insertCartHeader(cart)).thenReturn(1);
-//		when((dao).insertCartProducts(cart.getCartProducts(), 1)).thenReturn(cartProds);
-//		
-//		List<Map<String,String>> cartProdSizes = new ArrayList<Map<String,String>>();
-//		Map<String,String> map2 = new HashMap<String,String>();
-//		map2.put("id", "103");
-//		map2.put("salesdoc_product_id", "6");
-//		cartProdSizes.add(map2);
-//		when((dao).insertCartProductSizes(cartProduct.getCartProductSizes())).thenReturn(cartProdSizes);
-//		
-//		service.insertCarts(cartList);
-//		
-//		assertEquals(new Integer(6), cartProductSize.getSalesDocProductId());
-//		assertEquals(new Integer(103), cartProductSizeRdd.getProductSizeId());
-//		
-//		verify(dao).insertCartHeader(cart);
-//		verify(dao).insertCartProducts(cart.getCartProducts(), 1);
-//		verify(dao).insertCartProductSizes(cartProduct.getCartProductSizes());
-//		verify(dao).insertCartProductSizeRdds(cartProductSize.getCartProductSizeRdds());
 	}
 
 	private CartList mockCartList() throws ParseException{
@@ -120,8 +85,8 @@ public class CartServiceTest extends AbstractJUnit4SpringContextTests {
 		c.setShipToNumber("1034651");
 		c.setSalesDocName(sdn);
 		c.setCustomerPoNumber(sdn);
-		c.setRequestedDeliveryDt(dbDateFormat.parse("2015-01-01"));
-		c.setCancelDt(dbDateFormat.parse("2015-01-31"));
+		c.setRequestedDeliveryDt("20150101");
+		c.setCancelDt("20150131");
 		c.setReadyForSubmissionValue("N");
 		c.setDraftSalesDocStatusId(8);
 		c.setExternalStatus("TEST_ES");
@@ -131,12 +96,12 @@ public class CartServiceTest extends AbstractJUnit4SpringContextTests {
 		c.setLatestIDocNumber("TEST_LIDN");
 		c.setSapOrderNumber("TEST_SON");
 		c.setCreatedBy(getClass().getSimpleName());
-		c.setCreatedOn(new Date());
+		c.setCreatedOn(dbDateFormat.format(new Date()));
 		c.setLastUpdateBy(getClass().getSimpleName());
-		c.setLastUpdateOn(new Date());
+		c.setLastUpdateOn(dbDateFormat.format(new Date()));
 		c.setNotes("TEST_NOTES") ;
-		c.setValidFrom(dbDateFormat.parse("2015-01-01"));
-		c.setValidTo(dbDateFormat.parse("2015-02-01"));
+		c.setValidFrom("20150101");
+		c.setValidTo("20150201");
 		c.setShippingInstructions("TEST_SI");
 		c.setCarrierName("TEST_CN");
 		c.setCarrierAcno("TEST_CACNO");
@@ -159,11 +124,11 @@ public class CartServiceTest extends AbstractJUnit4SpringContextTests {
 		cp0.setGenderFit("TEST_GF");
 		cp0.setStyle("TEST_STYLE");
 		cp0.setCreatedBy(getClass().getSimpleName());
-		cp0.setCreatedDateTime(new Date());
+		cp0.setCreatedDateTime(dbDateFormat.format(new Date()));
 		cp0.setModifiedBy(getClass().getSimpleName());
-		cp0.setModifiedDateTime(new Date());
-		cp0.setDimenison("TEST_DIMENSION");
-		cp0.setRequestedDeliveryDate(dbDateFormat.parse("2015-01-15"));
+		cp0.setModifiedDateTime(dbDateFormat.format(new Date()));
+		cp0.setDimension("TEST_DIMENSION");
+		cp0.setRequestedDeliveryDate("20150115");
 		cp0.setUnitOfMeasure("EA");
 		cp0.setLineItemNo("TEST_LIN");
 		cp0.setDlvGroup("TEST_DLV_GROUP");
@@ -186,16 +151,16 @@ public class CartServiceTest extends AbstractJUnit4SpringContextTests {
 		cp0.setTotalNetPrice(0.00);
 		
 		CartProductSize cps0 = new CartProductSize() ;
-		cps0.setSize("10 D");
-		cps0.setQuantity(1);
+		cps0.setSize("M");
+//		cps0.setQuantity();
 		cps0.setCreatedBy(getClass().getSimpleName());
-		cps0.setCreatedDateTime(new Date());
+		cps0.setCreatedDateTime(dbDateFormat.format(new Date()));
 		cps0.setModifiedBy(getClass().getSimpleName());
-		cps0.setModifiedDateTime(new Date());
+		cps0.setModifiedDateTime(dbDateFormat.format(new Date()));
 		
 		CartProductSizeRdd cpsr0 = new CartProductSizeRdd();
-		cpsr0.setRequestedDeliveryDate(dbDateFormat.parse("2015-01-15"));
-		cpsr0.setOriginalRequestedDeliveryDate(dbDateFormat.parse("2015-01-10"));
+		cpsr0.setRequestedDeliveryDate("20150115");
+		cpsr0.setOriginalRequestedDeliveryDate("20150110");
 		cpsr0.setQuantity(1);
 				
 		//TODO Add products, sizes and rdds
@@ -208,3 +173,39 @@ public class CartServiceTest extends AbstractJUnit4SpringContextTests {
 	}
 
 }
+
+//CartList cartList = new CartList();
+//Cart cart = new Cart();
+//cartList.getCarts().add(cart);
+//CartProduct cartProduct = new CartProduct();
+//cartProduct.setProductNumber("prod#1");
+//cart.getCartProducts().add(cartProduct);
+//CartProductSize cartProductSize = new CartProductSize();
+//cartProduct.getCartProductSizes().add(cartProductSize);
+//CartProductSizeRdd cartProductSizeRdd = new CartProductSizeRdd();
+//cartProductSize.getCartProductSizeRdds().add(cartProductSizeRdd);
+//
+//List<Map<String,String>> cartProds = new ArrayList<Map<String,String>>();
+//Map<String,String> map = new HashMap<String,String>();
+//map.put("id", "6");
+//map.put("product_number", "prod#1");
+//cartProds.add(map);
+//when((dao).insertCartHeader(cart)).thenReturn(1);
+//when((dao).insertCartProducts(cart.getCartProducts(), 1)).thenReturn(cartProds);
+//
+//List<Map<String,String>> cartProdSizes = new ArrayList<Map<String,String>>();
+//Map<String,String> map2 = new HashMap<String,String>();
+//map2.put("id", "103");
+//map2.put("salesdoc_product_id", "6");
+//cartProdSizes.add(map2);
+//when((dao).insertCartProductSizes(cartProduct.getCartProductSizes())).thenReturn(cartProdSizes);
+//
+//service.insertCarts(cartList);
+//
+//assertEquals(new Integer(6), cartProductSize.getSalesDocProductId());
+//assertEquals(new Integer(103), cartProductSizeRdd.getProductSizeId());
+//
+//verify(dao).insertCartHeader(cart);
+//verify(dao).insertCartProducts(cart.getCartProducts(), 1);
+//verify(dao).insertCartProductSizes(cartProduct.getCartProductSizes());
+//verify(dao).insertCartProductSizeRdds(cartProductSize.getCartProductSizeRdds());

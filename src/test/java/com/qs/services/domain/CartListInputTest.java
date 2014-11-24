@@ -60,8 +60,8 @@ public class CartListInputTest {
 		c.setShipToNumber("1034651");
 		c.setSalesDocName(sdn);
 		c.setCustomerPoNumber(sdn);
-		c.setRequestedDeliveryDt(dbDateFormat.parse("2015-01-01"));
-		c.setCancelDt(dbDateFormat.parse("2015-01-31"));
+		c.setRequestedDeliveryDt("20150101");
+		c.setCancelDt("20150131");
 		c.setReadyForSubmissionValue("N");
 		c.setDraftSalesDocStatusId(8);
 		c.setExternalStatus("TEST_ES");
@@ -71,12 +71,12 @@ public class CartListInputTest {
 		c.setLatestIDocNumber("TEST_LIDN");
 		c.setSapOrderNumber("TEST_SON");
 		c.setCreatedBy(getClass().getSimpleName());
-		c.setCreatedOn(new Date());
+		c.setCreatedOn(dbDateFormat.format(new Date()));
 		c.setLastUpdateBy(getClass().getSimpleName());
-		c.setLastUpdateOn(new Date());
+		c.setLastUpdateOn(dbDateFormat.format(new Date()));
 		c.setNotes("TEST_NOTES") ;
-		c.setValidFrom(dbDateFormat.parse("2015-01-01"));
-		c.setValidTo(dbDateFormat.parse("2015-02-01"));
+		c.setValidFrom("20150101");
+		c.setValidTo("20150201");
 		c.setShippingInstructions("TEST_SI");
 		c.setCarrierName("TEST_CN");
 		c.setCarrierAcno("TEST_CACNO");
@@ -99,11 +99,11 @@ public class CartListInputTest {
 		cp0.setGenderFit("TEST_GF");
 		cp0.setStyle("TEST_STYLE");
 		cp0.setCreatedBy(getClass().getSimpleName());
-		cp0.setCreatedDateTime(new Date());
+		cp0.setCreatedDateTime(dbDateFormat.format(new Date()));
 		cp0.setModifiedBy(getClass().getSimpleName());
-		cp0.setModifiedDateTime(new Date());
-		cp0.setDimenison("TEST_DIMENSION");
-		cp0.setRequestedDeliveryDate(dbDateFormat.parse("2015-01-15"));
+		cp0.setModifiedDateTime(dbDateFormat.format(new Date()));
+		cp0.setDimension("TEST_DIMENSION");
+		cp0.setRequestedDeliveryDate("20150115");
 		cp0.setUnitOfMeasure("EA");
 		cp0.setLineItemNo("TEST_LIN");
 		cp0.setDlvGroup("TEST_DLV_GROUP");
@@ -129,13 +129,13 @@ public class CartListInputTest {
 		cps0.setSize("10 D");
 		cps0.setQuantity(1);
 		cps0.setCreatedBy(getClass().getSimpleName());
-		cps0.setCreatedDateTime(new Date());
+		cps0.setCreatedDateTime(dbDateFormat.format(new Date()));
 		cps0.setModifiedBy(getClass().getSimpleName());
-		cps0.setModifiedDateTime(new Date());
+		cps0.setModifiedDateTime(dbDateFormat.format(new Date()));
 		
 		CartProductSizeRdd cpsr0 = new CartProductSizeRdd();
-		cpsr0.setRequestedDeliveryDate(dbDateFormat.parse("2015-01-15"));
-		cpsr0.setOriginalRequestedDeliveryDate(dbDateFormat.parse("2015-01-10"));
+		cpsr0.setRequestedDeliveryDate("20150115");
+		cpsr0.setOriginalRequestedDeliveryDate("20150110");
 		cpsr0.setQuantity(1);
 				
 		//TODO Add products, sizes and rdds

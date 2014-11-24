@@ -1,11 +1,10 @@
 package com.qs.services.service.impl;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +35,8 @@ public class CartServiceImpl implements CartService {
 	}
 
 	private void insertCart(Cart cart) throws JsonGenerationException, JsonMappingException, IOException {
+		cart = calculateQuantities(cart) ;
+		logger.info(new ObjectMapper().writeValueAsString(cart));
 		Integer cartId = dao.insertCartHeader(cart), cartProductId, cartProductSizeId, cartProductSizeRddId ;
 		logger.info("Created new Cart [" + cartId + "]") ;
 		for(CartProduct cp : cart.getCartProducts()){
@@ -47,10 +48,35 @@ public class CartServiceImpl implements CartService {
 				logger.info("Created new Cart Product Size [" + cartProductSizeId + "]");
 				for(CartProductSizeRdd cpsr : cps.getCartProductSizeRdds()){
 					cpsr.setProductSizeId(cartProductSizeId);
+					
 					cartProductSizeRddId = dao.insertCartProductSizeRdd(cpsr) ;
 					logger.info("Created new Cart Product Size RDD [" + cartProductSizeRddId + "]");
 				}
 			}
 		}
 	}
+
+	private Cart calculateQuantities(Cart cart) {
+		
+		CartProduct cp = null ;
+		CartProductSize cps = null ;
+		CartProductSizeRdd cpsr = null ;
+		
+		for(int i=0; i<cart.getCartProducts().size(); i++){
+			cp = cart.getCartProducts().get(i) ;
+			for(int j=0; j<cart.getCartProducts().get(i).getCartProductSizes().size(); j++){
+				cps = cart.getCartProducts().get(i).getCartProductSizes().get(j) ;
+				for(int h=0; h<cart.getCartProducts().get(i).getCartProductSizes().get(j).getCartProductSizeRdds().size(); h++){
+					cpsr = cart.getCartProducts().get(i).getCartProductSizes().get(j).getCartProductSizeRdds().get(h) ;
+					cart.getCartProducts().get(i).getCartProductSizes().get(j).setQuantity(cps.getQuantity()+cpsr.getQuantity());
+				}
+				cart.getCartProducts().get(i).setQuantities(cp.getQuantities()+cps.getQuantity());
+			}
+			cart.setTotalQuantities(cart.getTotalQuantities()+cp.getQuantities());
+		}
+		
+		return cart ;
+	}
+	
+	
 }

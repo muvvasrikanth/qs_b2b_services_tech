@@ -1,7 +1,6 @@
 package com.qs.services.domain;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
@@ -33,10 +32,10 @@ public class Cart {
 	private String customerPoNumber ;
 
 	@JsonProperty("REQUESTED_DELIVERY_DT")
-	private Date requestedDeliveryDt ;
+	private String requestedDeliveryDt ;
 
 	@JsonProperty("CANCEL_DT")
-	private Date cancelDt ;
+	private String cancelDt ;
 
 	@JsonProperty("READYFORSUBMISSION_VALUE")
 	private String readyForSubmissionValue ;
@@ -69,22 +68,22 @@ public class Cart {
 	private String createdBy ;
 
 	@JsonProperty("CREATED_ON")
-	private Date createdOn ;
+	private String createdOn ;
 
 	@JsonProperty("LAST_UPDATE_BY")
 	private String lastUpdateBy ;
 
 	@JsonProperty("LAST_UPDATE_ON")
-	private Date lastUpdateOn ;
+	private String lastUpdateOn ;
 
 	@JsonProperty("NOTES")
 	private String notes ;
 
 	@JsonProperty("VALID_FROM")
-	private Date validFrom ;
+	private String validFrom ;
 
 	@JsonProperty("VALID_TO")
-	private Date validTo ;
+	private String validTo ;
 
 	@JsonProperty("SHIPPING_INSTRUCTION")
 	private String shippingInstructions ;
@@ -117,7 +116,7 @@ public class Cart {
 	private Integer units ;
 
 	@JsonProperty("TOTAL_QUANTITIES")
-	private Integer totalQuantities ;
+	private Integer totalQuantities = 0 ;
 
 	@JsonProperty("TOTAL_BASE_PRICE")
 	private Double totalBasePrice ;
@@ -204,19 +203,19 @@ public class Cart {
 		this.customerPoNumber = customerPoNumber;
 	}
 
-	public Date getRequestedDeliveryDt() {
+	public String getRequestedDeliveryDt() {
 		return requestedDeliveryDt;
 	}
 
-	public void setRequestedDeliveryDt(Date requestedDeliveryDt) {
+	public void setRequestedDeliveryDt(String requestedDeliveryDt) {
 		this.requestedDeliveryDt = requestedDeliveryDt;
 	}
 
-	public Date getCancelDt() {
+	public String getCancelDt() {
 		return cancelDt;
 	}
 
-	public void setCancelDt(Date cancelDt) {
+	public void setCancelDt(String cancelDt) {
 		this.cancelDt = cancelDt;
 	}
 
@@ -300,11 +299,11 @@ public class Cart {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreatedOn() {
+	public String getCreatedOn() {
 		return createdOn;
 	}
 
-	public void setCreatedOn(Date createdOn) {
+	public void setCreatedOn(String createdOn) {
 		this.createdOn = createdOn;
 	}
 
@@ -316,11 +315,11 @@ public class Cart {
 		this.lastUpdateBy = lastUpdateBy;
 	}
 
-	public Date getLastUpdateOn() {
+	public String getLastUpdateOn() {
 		return lastUpdateOn;
 	}
 
-	public void setLastUpdateOn(Date lastUpdateOn) {
+	public void setLastUpdateOn(String lastUpdateOn) {
 		this.lastUpdateOn = lastUpdateOn;
 	}
 
@@ -332,19 +331,19 @@ public class Cart {
 		this.notes = notes;
 	}
 
-	public Date getValidFrom() {
+	public String getValidFrom() {
 		return validFrom;
 	}
 
-	public void setValidFrom(Date validFrom) {
+	public void setValidFrom(String validFrom) {
 		this.validFrom = validFrom;
 	}
 
-	public Date getValidTo() {
+	public String getValidTo() {
 		return validTo;
 	}
 
-	public void setValidTo(Date validTo) {
+	public void setValidTo(String validTo) {
 		this.validTo = validTo;
 	}
 
@@ -483,4 +482,5 @@ public class Cart {
 	public void setSubmittedCartId(String submittedCartId) {
 		this.submittedCartId = submittedCartId;
 	}
+
 }

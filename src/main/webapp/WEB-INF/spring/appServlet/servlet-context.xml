@@ -69,7 +69,7 @@
 	</bean>
 
 	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
-
+	
 	<tx:annotation-driven proxy-target-class="true"
 		transaction-manager="transactionManager" />
 

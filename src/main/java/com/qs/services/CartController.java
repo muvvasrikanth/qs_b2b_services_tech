@@ -30,9 +30,9 @@ public class CartController {
 	
 	@RequestMapping(value = "/carts", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
-//	public DataResult saveCarts(@RequestBody CartList cartList, HttpServletRequest request, HttpServletResponse response) throws IOException{
 	public DataResult saveCarts(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String json = IOUtils.toString(request.getInputStream()) ;
+		logger.info("[Cart json: " + json + " ]");
 		CartList cartList = new ObjectMapper().readValue(json, CartList.class) ;
 		service.insertCarts(cartList) ;
 		return ServiceUtil.successResult("OK");

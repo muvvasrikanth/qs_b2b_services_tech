@@ -136,9 +136,12 @@ public class Cart {
 	@JsonProperty("SUBMITTED_CART_ID")
 	private String submittedCartId ;
 
+	@JsonProperty("CUSTOMER_NAME")
+	private String customerName ;
+	
 	@JsonProperty("ET_CART_PRODUCT")
 	private List<CartProduct> cartProducts = new ArrayList<CartProduct>() ;
-
+	
 	public List<CartProduct> getCartProducts() {
 		return cartProducts;
 	}
@@ -483,4 +486,11 @@ public class Cart {
 		this.submittedCartId = submittedCartId;
 	}
 
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
 }

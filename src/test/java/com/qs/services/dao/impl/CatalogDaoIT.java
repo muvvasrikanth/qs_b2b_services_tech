@@ -113,22 +113,22 @@ public class CatalogDaoIT extends AbstractJUnit4SpringContextTests {
 		logger.info(mapper.writeValueAsString(criteriaList));
 	}
 	
-	@Test
-	public void testGetCatalogCoverImage() throws InterruptedException, IOException {
-		AmazonS3 s3Client = new AmazonS3Client(new BasicAWSCredentials("AKIAIE7QAD2RU3NFTZMQ", "2bFh0jVhvGqt87YX+6euHbDyPnp4nFX62sfsIpfu")) ;
-		String filename = "RX APPAREL.png" ;
-		GeneratePresignedUrlRequest gpur = new GeneratePresignedUrlRequest(config.getS3BucketName(), filename) ;
-		gpur.setMethod(HttpMethod.GET) ;
-		Calendar c = Calendar.getInstance() ;
-		c.add(Calendar.MONTH, 1);
-		gpur.setExpiration(c.getTime());
-		URL url = s3Client.generatePresignedUrl(gpur) ;
-		logger.info(url.toExternalForm());
-		Image image = Toolkit.getDefaultToolkit().createImage(url) ;
-		BufferedImage buffered = toBufferedImage(image) ;
-		File file = new File("C:/temps/RX_APPAREL.png") ;
-		ImageIO.write(buffered, "png", file) ;
-	}
+//	@Test
+//	public void testGetCatalogCoverImage() throws InterruptedException, IOException {
+//		AmazonS3 s3Client = new AmazonS3Client(new BasicAWSCredentials("AKIAIE7QAD2RU3NFTZMQ", "2bFh0jVhvGqt87YX+6euHbDyPnp4nFX62sfsIpfu")) ;
+//		String filename = "RX APPAREL.png" ;
+//		GeneratePresignedUrlRequest gpur = new GeneratePresignedUrlRequest(config.getS3BucketName(), filename) ;
+//		gpur.setMethod(HttpMethod.GET) ;
+//		Calendar c = Calendar.getInstance() ;
+//		c.add(Calendar.MONTH, 1);
+//		gpur.setExpiration(c.getTime());
+//		URL url = s3Client.generatePresignedUrl(gpur) ;
+//		logger.info(url.toExternalForm());
+//		Image image = Toolkit.getDefaultToolkit().createImage(url) ;
+//		BufferedImage buffered = toBufferedImage(image) ;
+//		File file = new File("C:/temps/RX_APPAREL.png") ;
+//		ImageIO.write(buffered, "png", file) ;
+//	}
 	
 	@Test
 	public void testGetChildren(){

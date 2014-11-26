@@ -12,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -22,8 +21,8 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.web.client.RestTemplate;
 
 import com.qs.services.domain.CustomerList;
+import com.qs.services.domain.SAPCustomer;
 import com.qs.services.sao.CustomerSao;
-import com.qs.services.sao.impl.CustomerSaoImpl;
 import com.qs.services.util.Config;
 
 @ContextConfiguration(locations={"/test-context.xml"})
@@ -60,4 +59,13 @@ public class CustomerSaoImplTest extends AbstractJUnit4SpringContextTests {
 		assertEquals(expected, result);
 	}
 
+	@Test
+	public void testGetCustomerDetails(){
+		String customerNumber = "1034651" ;
+		SAPCustomer expected = new SAPCustomer() ;
+		ResponseEntity<SAPCustomer> entity = new ResponseEntity<SAPCustomer>(expected, HttpStatus.OK);
+		when(template.exchange(Mockito.anyString(),  Mockito.eq(HttpMethod.POST),  (HttpEntity) Mockito.any(), Mockito.eq(SAPCustomer.class))).thenReturn(entity) ;
+		SAPCustomer actual = sao.getCustomerDetails(customerNumber) ;
+		assertEquals(expected, actual) ;
+	}
 }

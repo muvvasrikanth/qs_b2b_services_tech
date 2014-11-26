@@ -42,6 +42,7 @@
     "TOTAL_NET_PRICE" : null,
     "DELTA_FLAG" : null,
     "SUBMITTED_CART_ID" : null,
+    "CUSTOMER_NAME" : null,
     "ET_CART_PRODUCT" : [ {
       "ID" : null,
       "DRAFT_SALESDOC_HEADER_ID" : null,

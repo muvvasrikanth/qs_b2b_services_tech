@@ -25,6 +25,8 @@ import com.qs.services.domain.Cart;
 import com.qs.services.domain.CartProduct;
 import com.qs.services.domain.CartProductSize;
 import com.qs.services.domain.CartProductSizeRdd;
+import com.qs.services.domain.SAPCustomer;
+import com.qs.services.sao.CustomerSao;
 
 @Component
 public class CartDaoImpl implements CartDao {
@@ -32,6 +34,9 @@ public class CartDaoImpl implements CartDao {
 	private static final Logger logger = LoggerFactory.getLogger(CartDaoImpl.class); 
 	
 	private static final ObjectMapper mapper = new ObjectMapper() ;
+	
+	@Autowired
+	private CustomerSao customerSao ;
 
 	@Autowired
 	private JdbcTemplate template ;
@@ -40,7 +45,7 @@ public class CartDaoImpl implements CartDao {
 	public Integer insertCartHeader(Cart cart){
 		Integer retVal = null ;
 		try{
-			String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_HEADER] ([DOC_CATEGORY_ID],[METHOD_CODE_ID],[CUSTOMER_NUMBER],[SHIP_TO_NUMBER],[SALES_DOC_NAME],[CUSTOMER_PO_NUMBER],[REQUESTED_DELIVERY_DT],[CANCEL_DT],[READYFORSUBMISSION_VALUE],[DRAFTSALESDOC_STATUS_ID],[EXTENAL_STATUS],[INTERNAL_STATUS],[SHARED],[REFERENCE_DOCUMENT_NUMBER],[IDOC_NUMBER],[LATEST_IDOC_NUMBER],[SAP_ORDER_NUMBER],[CREATED_BY],[CREATED_ON],[LAST_UPDATE_BY],[LAST_UPDATE_ON],[NOTES],[VALID_FROM],[VALID_TO],[SHIPPING_INSTRUCTION],[CARRIER_NAME],[CARRIER_ACNO],[EXCEL_PATH],[EXCEL_FILE_NAME],[DOC_TYPE_ID],[ORDER_CONTEXT],[SEASON],[REASON],[UNITS],[TOTAL_QUANTITIES],[TOTAL_BASE_PRICE],[TOTAL_MSRP_PRICE],[TOTAL_MAP_PRICE],[TOTAL_NET_PRICE],[DELTA_FLAG],[SUBMITTED_CART_ID]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)" ;
+			String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_HEADER] ([DOC_CATEGORY_ID],[METHOD_CODE_ID],[CUSTOMER_NUMBER],[SHIP_TO_NUMBER],[SALES_DOC_NAME],[CUSTOMER_PO_NUMBER],[REQUESTED_DELIVERY_DT],[CANCEL_DT],[READYFORSUBMISSION_VALUE],[DRAFTSALESDOC_STATUS_ID],[EXTENAL_STATUS],[INTERNAL_STATUS],[SHARED],[REFERENCE_DOCUMENT_NUMBER],[IDOC_NUMBER],[LATEST_IDOC_NUMBER],[SAP_ORDER_NUMBER],[CREATED_BY],[CREATED_ON],[LAST_UPDATE_BY],[LAST_UPDATE_ON],[NOTES],[VALID_FROM],[VALID_TO],[SHIPPING_INSTRUCTION],[CARRIER_NAME],[CARRIER_ACNO],[EXCEL_PATH],[EXCEL_FILE_NAME],[DOC_TYPE_ID],[ORDER_CONTEXT],[SEASON],[REASON],[UNITS],[TOTAL_QUANTITIES],[TOTAL_BASE_PRICE],[TOTAL_MSRP_PRICE],[TOTAL_MAP_PRICE],[TOTAL_NET_PRICE],[DELTA_FLAG],[SUBMITTED_CART_ID], [CUSTOMER_NAME]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)" ;
 			Object[] parms = {
 				cart.getDocCatagoryId(),
 				cart.getMethodCodeId(),
@@ -82,7 +87,8 @@ public class CartDaoImpl implements CartDao {
 				cart.getTotalMapPrice(),
 				cart.getTotalNetPrice(),
 				cart.getDeltaFlag(),
-				cart.getSubmittedCartId()
+				cart.getSubmittedCartId(),
+				(cart.getCustomerName() != null ? cart.getCustomerName() : getCustomerName(cart.getCustomerNumber()))
 			} ;
 			logger.info("Executing : " + sql0);
 			template.update(sql0, parms) ;
@@ -92,9 +98,22 @@ public class CartDaoImpl implements CartDao {
 			retVal = template.queryForInt(sql1) ;
 		} catch (ParseException e){
 			logger.error(e.getMessage(), e);
+		} catch (IOException e) {
+			logger.error(e.getMessage(), e) ;
 		}
 		
 		return retVal ;
+	}
+	
+	private String getCustomerName(String customerNumber) throws JsonGenerationException, JsonMappingException, IOException{
+		String customerName = null ;
+		logger.info("Getting SAP Customer Details for (" + customerNumber + ")") ;
+		SAPCustomer sapCustomer = customerSao.getCustomerDetails(customerNumber) ;
+		logger.info(mapper.writeValueAsString(sapCustomer)) ;
+		if(sapCustomer != null){
+			customerName = sapCustomer.getSoldToName() ;
+		}
+		return customerName ;
 	}
 
 	@Override

@@ -80,7 +80,6 @@ public class SeasonServiceImpl implements SeasonService {
 		if(products != null && products.getProducts() != null && products.getProducts().size() > 0){
 			Map <String, String> imageUrls = productDao.getMediumHeroImageUrls(products.getProducts()) ;
 			logger.info("There are (" + imageUrls.keySet().size() + ") image urls for the provided products");
-//			logger.debug("Found Image URLs [" + imageUrls + "]");
 			String url = null ;
 			for(int i=0; i<products.getProducts().size(); i++){
 				url = imageUrls.get(products.getProducts().get(i).getProduct()) ;
@@ -95,11 +94,9 @@ public class SeasonServiceImpl implements SeasonService {
 		for(SAPPrebookSeason s : list){
 			logger.info("s (" + s.getBrand() + ", " + s.getSalesOrg() + ", " + s.getSeason() + "): season (" + season.getBrand() + ", " + season.getSalesOrg() + ", " + season.getSeason() + ")") ;
 			if(s.compareTo(season) == 1){
-//				logger.info("FOUND");
 				return true ;
 			}
 		}
-//		logger.info("NOT FOUND");
 		return false ;
 	}
 }

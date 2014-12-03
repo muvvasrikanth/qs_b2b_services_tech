@@ -1,6 +1,8 @@
 package com.qs.services.sao.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -36,14 +38,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.qs.services.dao.ProductDao;
 import com.qs.services.domain.BrandSeason;
 import com.qs.services.domain.Product;
+import com.qs.services.domain.ProductImage;
 import com.qs.services.domain.SAPActiveSeasonProductList;
 import com.qs.services.domain.SAPPrebookSeasonList;
 import com.qs.services.domain.SalesRepBrandSeasons;
 import com.qs.services.sao.SeasonSao;
+import com.qs.services.util.Config;
 
 @ContextConfiguration(locations={"classpath:/META-INF/test-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -59,6 +62,9 @@ public class SeasonSaoIT extends AbstractJUnit4SpringContextTests {
 	
 	@Autowired
 	private ProductDao dao ;
+	
+	@Autowired
+	private Config config ;
 	
 	@Test
 	public void testAutowiring() {
@@ -137,8 +143,8 @@ public class SeasonSaoIT extends AbstractJUnit4SpringContextTests {
 		List<Product> products = asProducts.getProducts() ;
 		assertNotNull(products) ;
 		
-		Map <String, String> imageUrls = dao.getMediumHeroImageUrls(products) ;
-		assertNotNull(imageUrls) ;
+		Map <String, ProductImage> productImages = dao.getMediumHeroImageUrls(products) ;
+		assertNotNull(productImages) ;
 		
 		DateFormat format = new SimpleDateFormat("yyyyMMdd@HH:mm:ss") ;
 		Image image = null ;
@@ -146,8 +152,8 @@ public class SeasonSaoIT extends AbstractJUnit4SpringContextTests {
 		String v = null ;
 		Date start = new Date() ;
 		Date imgStart = null, imgEnd = null ;
-		for(String k : imageUrls.keySet()){
-			v = imageUrls.get(k) ;
+		for(String k : productImages.keySet()){
+			v = config.getS3Url() + productImages.get(k).getS3Path() ;
 			logger.info("ImageUrl (" + k + ") = " + k);
 			imgStart = new Date() ;
 			image = Toolkit.getDefaultToolkit().createImage(new URL(v)) ;
@@ -157,7 +163,7 @@ public class SeasonSaoIT extends AbstractJUnit4SpringContextTests {
 			logger.info("Loading image for (" + k + ") started=" + format.format(imgStart) + " : finished=" + format.format(imgEnd));
 		}
 		Date end = new Date() ;
-		logger.info("Image load for (" + imageUrls.keySet().size() + ") images: started=" + format.format(start) + " : finished=" + format.format(end));
+		logger.info("Image load for (" + productImages.keySet().size() + ") images: started=" + format.format(start) + " : finished=" + format.format(end));
 	}
 	
 	private BufferedImage toBufferedImage(Image image) throws InterruptedException{

@@ -2,6 +2,7 @@ package com.qs.services.service.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,12 +18,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.qs.services.dao.ProductDao;
 import com.qs.services.dao.SeasonDao;
 import com.qs.services.domain.BrandSeason;
+import com.qs.services.domain.ProductImage;
 import com.qs.services.domain.SAPActiveSeasonProductList;
 import com.qs.services.domain.SAPPrebookSeason;
 import com.qs.services.domain.SAPPrebookSeasonList;
 import com.qs.services.domain.SalesRepBrandSeasons;
 import com.qs.services.sao.SeasonSao;
 import com.qs.services.service.SeasonService;
+import com.qs.services.util.Config;
 
 @Service("SeasonService")
 public class SeasonServiceImpl implements SeasonService {
@@ -39,6 +42,9 @@ public class SeasonServiceImpl implements SeasonService {
 
 	@Autowired
 	private SeasonSao sao ;
+	
+	@Autowired
+	private Config config ;
 
 	@Override
 	public SAPPrebookSeasonList getSeasons(String salesRepId) throws JsonGenerationException, 
@@ -70,20 +76,45 @@ public class SeasonServiceImpl implements SeasonService {
 
 	@Override
 	public SAPActiveSeasonProductList getSeasonProducts(SalesRepBrandSeasons salesRepBrandSeasons) throws JsonProcessingException {
-
-		SAPActiveSeasonProductList products = sao.getSeasonProducts(salesRepBrandSeasons);
+		ObjectMapper mapper = new ObjectMapper() ;
+		SAPActiveSeasonProductList products = null ;
+		try{
+			logger.info("Calling SAP with : " + mapper.writeValueAsString(salesRepBrandSeasons));
+			products = sao.getSeasonProducts(salesRepBrandSeasons);
+			logger.info("Back from calling SAP");
+		} catch (IOException e){
+			logger.error(e.getMessage(), e) ;
+		} finally {
+			logger.info("Finally from calling SAP");
+		}
 		
-		BrandSeason bs = salesRepBrandSeasons.getBrandSeasons().get(0) ;
-		
-		logger.info("There are (" + products.getProducts().size() + ") products returned from SAP for (" + bs.getBrand() + "|" + bs.getSeason() + ")" ) ;
-		
-		if(products != null && products.getProducts() != null && products.getProducts().size() > 0){
-			Map <String, String> imageUrls = productDao.getMediumHeroImageUrls(products.getProducts()) ;
-			logger.info("There are (" + imageUrls.keySet().size() + ") image urls for the provided products");
-			String url = null ;
-			for(int i=0; i<products.getProducts().size(); i++){
-				url = imageUrls.get(products.getProducts().get(i).getProduct()) ;
-				products.getProducts().get(i).setImageUrl(url);
+		if(products != null){
+			BrandSeason bs = salesRepBrandSeasons.getBrandSeasons().get(0) ;
+			
+			logger.info("There are (" + products.getProducts().size() + ") products returned from SAP for (" + bs.getBrand() + "|" + bs.getSeason() + ")" ) ;
+			
+			try{
+				if(products != null && products.getProducts() != null && products.getProducts().size() > 0){
+					Map <String, ProductImage> productImages = productDao.getMediumHeroImageUrls(products.getProducts()) ;
+					logger.info("There are (" + productImages.keySet().size() + ") image urls for the provided products");
+					String baseUrl = config.getS3Url() ;
+					String url = null, productNumber = null ;
+					Date lastUpdate = null ;
+					ProductImage pi = null ;
+					for(int i=0; i<products.getProducts().size(); i++){
+						productNumber = products.getProducts().get(i).getProduct() ;
+						pi = productImages.get(productNumber) ;
+						if(pi != null){
+							logger.info(mapper.writeValueAsString(pi)) ;
+							url = baseUrl + pi.getS3Path() ;
+							products.getProducts().get(i).setImageUrl(url);
+							lastUpdate = productImages.get(products.getProducts().get(i).getProduct()).getModifiedDateTime() ;
+							products.getProducts().get(i).setImageUpdatedOn(lastUpdate);
+						}
+					}
+				}
+			} catch (IOException e){
+				logger.error(e.getMessage(), e) ;
 			}
 		}
 		

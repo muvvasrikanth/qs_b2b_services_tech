@@ -28,26 +28,27 @@ public class ProductDaoImpl implements ProductDao {
 	private Config config ;
 
 	@Override
-	public Map <String, String> getMediumHeroImageUrls(List<Product> products) {
-		
-		StringBuilder sql = new StringBuilder("SELECT * FROM bgx_product_images WHERE material_number in ('") ;
-		int index = 0 ;
-		for(Product p : products){
-			sql.append(p.getProduct()) ;
-			sql.append((index++ < products.size()-1 ? "', '" : "'")) ;
+	public Map <String, ProductImage> getMediumHeroImageUrls(List<Product> products) {
+		Map <String, ProductImage> m = null ;
+		if(products.size() > 0){
+			StringBuilder sql = new StringBuilder("SELECT * FROM bgx_product_images WHERE material_number in ('") ;
+			int index = 0 ;
+			for(Product p : products){
+				sql.append(p.getProduct()) ;
+				sql.append((index++ < products.size()-1 ? "', '" : "'")) ;
+			}
+			sql.append(")  AND angle='FRT1' AND size = 420") ;
+	
+			logger.info("Executing: " + sql);
+			
+			List<ProductImage> piList = template.query(sql.toString(), new ProductImageRowMapper()) ;
+			
+			m = new HashMap <String, ProductImage> () ;
+			
+			for(ProductImage pi : piList){
+				m.put(pi.getMaterialNumber(), pi) ;
+			}
 		}
-		sql.append(")  AND angle='FRT1' AND size = 420") ;
-
-//		logger.info("Executing: " + sql);
-		
-		List<ProductImage> piList = template.query(sql.toString(), new ProductImageRowMapper()) ;
-		
-		Map <String, String> m = new HashMap <String, String> () ;
-		
-		for(ProductImage pi : piList){
-			m.put(pi.getMaterialNumber(), config.getS3Url() + pi.getS3Path()) ;
-		}
-		
 		return m ;
 	}
 

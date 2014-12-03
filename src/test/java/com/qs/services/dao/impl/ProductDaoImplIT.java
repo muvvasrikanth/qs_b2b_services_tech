@@ -14,7 +14,6 @@ import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +32,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.qs.services.dao.ProductDao;
 import com.qs.services.domain.Product;
+import com.qs.services.domain.ProductImage;
+import com.qs.services.util.Config;
 
 @ContextConfiguration(locations={"classpath:/META-INF/test-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -51,6 +52,9 @@ public class ProductDaoImplIT extends AbstractJUnit4SpringContextTests {
 	@Autowired
 	private ProductDao dao ;
 	
+	@Autowired
+	private Config config ;
+	
 	@Test
 	public void testAutowiring() {
 		assertNotNull(dao) ;
@@ -58,8 +62,8 @@ public class ProductDaoImplIT extends AbstractJUnit4SpringContextTests {
 
 	@Test
 	public void testGetHeroImage() throws InterruptedException, IOException{
-		Map<String, String> imageUrls = dao.getMediumHeroImageUrls(mockProductList()) ;
-		assertNotNull(imageUrls) ;
+		Map<String, ProductImage> productImages = dao.getMediumHeroImageUrls(mockProductList()) ;
+		assertNotNull(productImages) ;
 		String urlString ;
 		URL url ;
 		Image image ;
@@ -67,8 +71,8 @@ public class ProductDaoImplIT extends AbstractJUnit4SpringContextTests {
 		String path = "C:/temps/mbl_imgs/" ;
 		File file ;
 		
-		for(String key : imageUrls.keySet()){
-			urlString = imageUrls.get(key) ;
+		for(String key : productImages.keySet()){
+			urlString = config.getS3Url() + productImages.get(key).getS3Path() ;
 			logger.info("Getting: " + urlString);
 			url = new URL(urlString) ;
 			image = Toolkit.getDefaultToolkit().createImage(url) ;

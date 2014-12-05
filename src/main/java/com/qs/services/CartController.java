@@ -32,7 +32,7 @@ public class CartController {
 	@ResponseBody
 	public DataResult saveCarts(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String json = IOUtils.toString(request.getInputStream()) ;
-		logger.info("[Cart json: " + json + " ]");
+		if(logger.isInfoEnabled()){logger.info("[Cart json: " + json + " ]");}
 		CartList cartList = new ObjectMapper().readValue(json, CartList.class) ;
 		service.insertCarts(cartList) ;
 		return ServiceUtil.successResult("OK");

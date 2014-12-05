@@ -38,7 +38,7 @@ public class SeasonController {
 	public DataResult getSeasons(@PathVariable String salesRepId, 
 	        HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
-		logger.info("Call to [GET] seasons with salesRepId=" + salesRepId);
+		if(logger.isInfoEnabled()){logger.info("Call to [GET] seasons with salesRepId=" + salesRepId);}
 		
 		SAPPrebookSeasonList seasonList = service.getSeasons(salesRepId) ;
 		return ServiceUtil.successResult(seasonList);
@@ -50,7 +50,7 @@ public class SeasonController {
 		
 		String lastUpdateParm = request.getParameter("lastUpdate") ;
 		
-		logger.info("Call to getProducts(" + salesRepId + ", " + brandId + ", " + seasonId + ", " + lastUpdateParm + ")");
+		if(logger.isInfoEnabled()){logger.info("Call to getProducts(" + salesRepId + ", " + brandId + ", " + seasonId + ", " + lastUpdateParm + ")");}
 		DataResult result = null ;
 		
 		SalesRepBrandSeasons srbs = new SalesRepBrandSeasons() ;
@@ -63,7 +63,7 @@ public class SeasonController {
 		SAPActiveSeasonProductList productList = new SAPActiveSeasonProductList() ;
 		
 		try {
-			logger.info("Call to [GET] products with [" + new ObjectMapper().writeValueAsString(srbs) + "]");
+			if(logger.isInfoEnabled()){logger.info("Call to [GET] products with [" + new ObjectMapper().writeValueAsString(srbs) + "]");}
 			productList = service.getSeasonProducts(srbs) ;
 			result = ServiceUtil.successResult(productList) ;
 		} catch (IOException e) {

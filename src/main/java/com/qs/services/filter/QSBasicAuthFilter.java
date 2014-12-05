@@ -31,14 +31,14 @@ public class QSBasicAuthFilter implements Filter {
 		while(request.getParameterNames().hasMoreElements()){
 			key = (String) request.getParameterNames().nextElement() ;
 			value = (String) request.getParameter(key) ;
-			logger.info("Parameter [" + key + "]= " + value);
+			if(logger.isDebugEnabled()){logger.debug("Parameter [" + key + "]= " + value);}
 		}
 		
 		HttpServletRequest httpRequest = (HttpServletRequest) request ;
 		while(httpRequest.getHeaderNames().hasMoreElements()){
 			key = (String) httpRequest.getHeaderNames().nextElement() ;
 			value = httpRequest.getHeader(key).toString();
-			logger.info("Header [" + key + "]= " + value);
+			if(logger.isDebugEnabled()){logger.debug("Header [" + key + "]= " + value);}
 		}
 		
 		chain.doFilter(request, response);

@@ -26,7 +26,7 @@ public class SeasonDaoImpl implements SeasonDao {
 	@Override
 	public Season getSeason(String salesOrg, String seasonId, String collection) {
 		String sql = "SELECT * FROM qs_season_master WHERE sales_org = '" + salesOrg + "' AND season_id = '" + seasonId + "' and collection = '" + collection + "'" ;
-		logger.info("Executing: " + sql);
+		if(logger.isDebugEnabled()){logger.debug("Executing: " + sql);}
 		
 		List<Season> list = template.query(sql, new SeasonRowMapper()) ;
 
@@ -40,7 +40,7 @@ public class SeasonDaoImpl implements SeasonDao {
 	@Override
 	public List<String> getSeasonStatus(String salesOrg, String seasonId) {
 		String sql = "SELECT status FROM qs_season_master WHERE sales_org=" + salesOrg + " AND season_id='" + seasonId + "'" ;
-		logger.info("Executing: " + sql);
+		if(logger.isDebugEnabled()){logger.debug("Executing: " + sql);}
 		List<String> statuses = (List<String>) template.query(sql, new StringRowMapper()) ;
 		return statuses ;
 	}

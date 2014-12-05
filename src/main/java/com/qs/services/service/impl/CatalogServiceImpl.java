@@ -41,12 +41,14 @@ public class CatalogServiceImpl implements CatalogService {
 		CatalogList catalogs = new CatalogList() ;
 		SalesAreaList saList = salesRepSao.getSalesAreas(salesRepId) ;
 
-		logger.info("Calling CatalogDao.getCatalogs with (" + saList.getSalesAreas().size() + ") sales areas");
+		if(logger.isDebugEnabled()){logger.debug("Calling CatalogDao.getCatalogs with (" + saList.getSalesAreas().size() + ") sales areas");}
 		catalogs = dao.getCatalogs(saList) ;
 
 		return catalogs ;
 	}
 	
+	@SuppressWarnings("unused")
+	@Deprecated
 	private String fromSet(Set<String> set) {
 		StringBuilder sb = new StringBuilder();
 		for (String s : set) {

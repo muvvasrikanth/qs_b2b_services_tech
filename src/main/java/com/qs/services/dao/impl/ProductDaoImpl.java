@@ -39,7 +39,7 @@ public class ProductDaoImpl implements ProductDao {
 			}
 			sql.append(")  AND angle='FRT1' AND size = 420") ;
 	
-			logger.info("Executing: " + sql);
+			if(logger.isDebugEnabled()){logger.debug("Executing: " + sql);}
 			
 			List<ProductImage> piList = template.query(sql.toString(), new ProductImageRowMapper()) ;
 			

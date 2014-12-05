@@ -40,12 +40,12 @@ public class SAPBasicAuthenticationProvider implements AuthenticationProvider {
 		Authentication resultAuthentication = authentication ;
 
 		String user = authentication.getName(), password = (String) authentication.getCredentials(), auth=null ;
-		logger.info("Authentication (User=" + user + " : Password="+ password + ")");
+		if(logger.isDebugEnabled()){logger.debug("Authentication (User=" + user + " : Password="+ password + ")");}
 		
 		HttpClient httpClient = new DefaultHttpClient() ;
 		String soapBody = createSoapRequest(user) ;
 		
-		logger.info("Authenticate SOAP Envelope: " + soapBody);
+		if(logger.isDebugEnabled()){logger.debug("Authenticate SOAP Envelope: " + soapBody);}
 		
 		try {
 			StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8") ;
@@ -54,7 +54,7 @@ public class SAPBasicAuthenticationProvider implements AuthenticationProvider {
 			post.setEntity(strEntity);
 			
 			auth = user + ":" + password ;
-			logger.info("Authorization " + auth);
+			if(logger.isDebugEnabled()){logger.debug("Authorization " + auth);}
 			byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII"))) ;
 			String authHeader = "Basic " + new String(encodedAuth) ;
 			post.setHeader("Authorization", authHeader);
@@ -62,7 +62,7 @@ public class SAPBasicAuthenticationProvider implements AuthenticationProvider {
 			HttpResponse response = httpClient.execute(post) ;
 			int responseCode = response.getStatusLine().getStatusCode() ;
 			String reason = response.getStatusLine().getReasonPhrase() ;
-			logger.info("SAP Authentication return code: " + responseCode + " : " + reason); 
+			if(logger.isDebugEnabled()){logger.debug("SAP Authentication return code: " + responseCode + " : " + reason); }
 			
 			HttpEntity respEntity = response.getEntity() ;
 			if(respEntity != null){
@@ -72,12 +72,12 @@ public class SAPBasicAuthenticationProvider implements AuthenticationProvider {
 					authorities.add(new SimpleGrantedAuthority("ROLE_USER")) ;
 					resultAuthentication = new UsernamePasswordAuthenticationToken(user, password, authorities) ;
 				} else {
-					logger.info("Response code was not (OK), was [" + responseCode + "] - " + reason) ;
+					if(logger.isDebugEnabled()){logger.debug("Response code was not (OK), was [" + responseCode + "] - " + reason) ;}
 //					resultAuthentication = null ;
 					throw new BadCredentialsException("Authentication Failed") ;
 				}
 			} else {
-				logger.info("Response entity was null");
+				if(logger.isDebugEnabled()){logger.debug("Response entity was null");}
 //				resultAuthentication = null ;
 				throw new BadCredentialsException("Authentication Failed") ;
 			}

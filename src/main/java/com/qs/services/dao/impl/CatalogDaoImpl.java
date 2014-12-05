@@ -57,7 +57,7 @@ public class CatalogDaoImpl implements CatalogDao {
 	 */
 	@Override
 	public CatalogList getCatalogs(String brandId, String salesOrg, String distCh) {		
-		logger.info("Executing: GET_CATALOGS (brandId=" + brandId + " : salesOrg=" + salesOrg + " : distCh=" + distCh + ")" );
+		if(logger.isDebugEnabled()){logger.debug("Executing: GET_CATALOGS (brandId=" + brandId + " : salesOrg=" + salesOrg + " : distCh=" + distCh + ")" );}
 		CatalogList list = new GetCatalogsSP(template).execute(brandId, salesOrg, distCh) ;
 		return list ;
 	}
@@ -75,7 +75,7 @@ public class CatalogDaoImpl implements CatalogDao {
 		
 		CatalogList list = null ;
 		for(SalesArea sa : salesAreaList.getSalesAreas()){
-			logger.info("Getting catalogs for (" + new ObjectMapper().writeValueAsString(sa));
+			if(logger.isDebugEnabled()){logger.debug("Getting catalogs for (" + new ObjectMapper().writeValueAsString(sa));}
 			list = new GetCatalogsSP(template).execute(sa.getBrand(), sa.getSalesOrg(), sa.getDistributionChannel()) ;
 			if(list != null){
 				catalogList.getCatalogs().addAll(list.getCatalogs()) ;
@@ -90,12 +90,12 @@ public class CatalogDaoImpl implements CatalogDao {
 		
 		String sql = "SELECT id FROM BGX_CATALOGUE_MASTER WHERE parentcatalogueid = " + catalogId ;
 		
-		logger.info("Executing: " + sql);
+		if(logger.isDebugEnabled()){logger.debug("Executing: " + sql);}
 		
 		List<Integer> list = (List<Integer>) template.query(sql, new IntegerMapper()) ;
 
 		for(Integer i : list){
-			logger.info(i.toString()) ;
+			if(logger.isDebugEnabled()){logger.debug(i.toString()) ;}
 			if(! catalogIds.contains(i)){
 				catalogIds.add(i) ;
 			}
@@ -108,7 +108,7 @@ public class CatalogDaoImpl implements CatalogDao {
 	@Override
 	public CatalogSearchCriteriaList getCatalogSearchCriterias(Integer catalogId) {
 		String sql = "SELECT * FROM bgx_catalogue_searchcriteria WHERE catalogueid = " + catalogId ;
-		logger.debug("Executing: " + sql) ;
+		if(logger.isDebugEnabled()){logger.debug("Executing: " + sql) ;}
 		CatalogSearchCriteriaList list = new CatalogSearchCriteriaList() ;
 		list.setCatalogSearchCriterias((List<CatalogSearchCriteria>) template.query(sql, new CatalogSearchCriteriaRowMapper()));
 		return list ;

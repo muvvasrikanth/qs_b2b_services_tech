@@ -1,8 +1,11 @@
 package com.qs.services.dao.mapper;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.qs.services.domain.Catalog;
@@ -11,6 +14,7 @@ public class CatalogRowMapper implements RowMapper<Catalog> {
 
 	@Override
 	public Catalog mapRow(ResultSet rs, int row) throws SQLException {
+	
 		Catalog cat = new Catalog() ;
 		cat.setId(rs.getInt("ID"));
 		cat.setName(rs.getString("NAME")) ;
@@ -29,8 +33,7 @@ public class CatalogRowMapper implements RowMapper<Catalog> {
 		cat.setModifiedDateTime(rs.getDate("MODIFIEDDATETIME"));
 		cat.setParentCatalogId(rs.getInt("PARENTCATALOGUEID"));
 		cat.setLevel(rs.getInt("LEVEL"));
-		// TODO Replace with actual URL when it's in the table
-		cat.setImageUrl("RX APPAREL.png");
+		cat.setImageUrl(rs.getString("IMAGEURL")) ;
 		return cat ;
 	}
 

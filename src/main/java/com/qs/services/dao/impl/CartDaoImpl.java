@@ -90,11 +90,11 @@ public class CartDaoImpl implements CartDao {
 				cart.getSubmittedCartId(),
 				(cart.getCustomerName() != null ? cart.getCustomerName() : getCustomerName(cart.getCustomerNumber()))
 			} ;
-			logger.info("Executing : " + sql0);
+			if(logger.isDebugEnabled()){logger.debug("Executing : " + sql0);}
 			template.update(sql0, parms) ;
 			
 			String sql1 = "SELECT MAX(draft_salesdoc_header_id) FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_HEADER]" ;
-			logger.info("Executing : " + sql1);
+			if(logger.isDebugEnabled()){logger.debug("Executing : " + sql1);}
 			retVal = template.queryForInt(sql1) ;
 		} catch (ParseException e){
 			logger.error(e.getMessage(), e);
@@ -107,9 +107,9 @@ public class CartDaoImpl implements CartDao {
 	
 	private String getCustomerName(String customerNumber) throws JsonGenerationException, JsonMappingException, IOException{
 		String customerName = null ;
-		logger.info("Getting SAP Customer Details for (" + customerNumber + ")") ;
+		if(logger.isDebugEnabled()){logger.debug("Getting SAP Customer Details for (" + customerNumber + ")") ;}
 		SAPCustomer sapCustomer = customerSao.getCustomerDetails(customerNumber) ;
-		logger.info(mapper.writeValueAsString(sapCustomer)) ;
+		if(logger.isDebugEnabled()){logger.debug(mapper.writeValueAsString(sapCustomer)) ;}
 		if(sapCustomer != null){
 			customerName = sapCustomer.getSoldToName() ;
 		}
@@ -121,7 +121,7 @@ public class CartDaoImpl implements CartDao {
 			Integer cartId) throws JsonGenerationException,
 			JsonMappingException, IOException {
 		Integer retVal = null ;
-		logger.info("Cart Product: " + mapper.writeValueAsString(product));
+		if(logger.isDebugEnabled()){logger.debug("Cart Product: " + mapper.writeValueAsString(product));}
 		try{
 			String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_MAPPING]([DRAFT_SALESDOC_HEADER_ID],[PRODUCT_NUMBER],[GENDER_FIT],[STYLE],[CREATEDBY],[CREATEDDATETIME],[MODIFIEDBY],[MODIFIEDDATETIME],[DIMENSION],[RDD],[UOM],[LINE_ITEM_NO],[DLV_GROUP],[AUTOALLOCATION],[BRAND],[SALES_ORG],[DISTRIBUTION_CHANNEL],[SEASON],[SEQUENCE],[BASE_PRICE],[MSRP_PRICE],[MAP_PRICE],[NET_PRICE],[DISCOUNT],[DISCOUNT_PERCENT],[QUANTITIES],[TOTAL_BASE_PRICE],[TOTAL_MSRP_PRICE],[TOTAL_MAP_PRICE],[TOTAL_NET_PRICE])VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ;
 			Object[] parms = {
@@ -157,7 +157,7 @@ public class CartDaoImpl implements CartDao {
 					product.getTotalNetPrice()
 				} ;
 				
-			logger.info("Executing : " + sql0 + "][Values (" + toParameter(parms) + ")]") ;
+			if(logger.isDebugEnabled()){logger.debug("Executing : " + sql0 + "][Values (" + toParameter(parms) + ")]") ;}
 				
 			template.update(sql0, parms) ;
 	
@@ -190,13 +190,13 @@ public class CartDaoImpl implements CartDao {
 				fromYYYYMMDDtoDate(cartProductSize.getModifiedDateTime())
 			} ;
 	
-			logger.info("Executing : " + sql0 + "][Values (" + toParameter(parms) + ")]");
+			if(logger.isDebugEnabled()){logger.debug("Executing : " + sql0 + "][Values (" + toParameter(parms) + ")]");}
 			
 			template.update(sql0, parms) ;
 			
 			String sql1 = "SELECT id FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_SIZE_MAPPING] WHERE [SALESDOC_PRODUCT_ID] = " + cartProductSize.getSalesDocProductId() + " AND [SIZE] = '" + cartProductSize.getSize() + "'" ;
 			
-			logger.info("Executing : " + sql1);
+			if(logger.isDebugEnabled()){logger.debug("Executing : " + sql1);}
 			
 			retVal =  template.queryForInt(sql1) ;
 		} catch (ParseException e){
@@ -221,13 +221,13 @@ public class CartDaoImpl implements CartDao {
 				fromYYYYMMDDtoDate(cartProductSizeRdd.getOriginalRequestedDeliveryDate())
 			};
 			
-			logger.info("Executing : " + sql0 + "][Values (" + toParameter(parms) + ")]");
+			if(logger.isDebugEnabled()){logger.debug("Executing : " + sql0 + "][Values (" + toParameter(parms) + ")]");}
 			
 			template.update(sql0, parms) ;
 			
 			String sql1 = "SELECT id FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_SIZE_RDD_MAPPING] WHERE [PRODUCT_SIZE_ID] = " + cartProductSizeRdd.getProductSizeId() + " AND [RDD] = '" + new SimpleDateFormat("yyyy-MM-dd").format(fromYYYYMMDDtoDate(cartProductSizeRdd.getRequestedDeliveryDate())) + "'" ;
 			
-			logger.info("Executing : " + sql1);
+			if(logger.isDebugEnabled()){logger.debug("Executing : " + sql1);}
 			
 			retVal = template.queryForInt(sql1);
 		} catch (ParseException e){
@@ -292,11 +292,11 @@ class GenericRowMapper implements RowMapper <Map<String, String>> {
 			throws SQLException {
 		Map<String, String> m = new HashMap<String, String>() ;
 		String key=null, value=null ;
-		logger.debug("Mapping result set values");
+		if(logger.isDebugEnabled()){logger.debug("Mapping result set values");}
 		for(int i=1; i<=rs.getMetaData().getColumnCount(); i++){
 			key = rs.getMetaData().getColumnName(i) ;
 			value = rs.getString(i) ;
-			logger.debug("Storing {" + key + ", " + value + "}") ;
+			if(logger.isDebugEnabled()){logger.debug("Storing {" + key + ", " + value + "}") ;}
 			m.put(key, value) ;
 		}
 		logger.debug("Returning " + m) ;

@@ -36,11 +36,11 @@ public class SalesRepSaoImpl  implements SalesRepSao {
 	public SalesAreaList getSalesAreas(String salesRepId) {
 		String url = config.getSapServiceUrl() + "/CONNECT_MOBILE/RepSalesAreas?sap-client=" + config.getSapClient() ;
 		String body="{\"I_SALES_REP\":\"" + salesRepId + "\"}";
-		logger.info("Calling (" + url + ") with [" + body + "]") ;
+		if(logger.isDebugEnabled()){logger.debug("Calling (" + url + ") with [" + body + "]") ;}
 	    HttpEntity<String> httpEntity = new HttpEntity<String>(body, createHeaders());
 		ResponseEntity<SalesAreaList> salesAreas = restTemplate.exchange(url, HttpMethod.POST, httpEntity, SalesAreaList.class);
 		try {
-			logger.info(new ObjectMapper().writeValueAsString(salesAreas));
+			if(logger.isDebugEnabled()){logger.debug(new ObjectMapper().writeValueAsString(salesAreas));}
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
 		}

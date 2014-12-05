@@ -35,14 +35,14 @@ public class ProfileController {
 		String salesRepId = request.getParameter("salesRepId") ;
 		DataResult result = null ;
 		if(salesRepId != null){
-			logger.info("Call to [GET] profile with salesRepId=" + salesRepId);
+			if(logger.isInfoEnabled()){logger.info("Call to [GET] profile with salesRepId=" + salesRepId);}
 			SalesRep salesRep = service.getSalesRep(salesRepId);
 			result = ServiceUtil.successResult(salesRep);
 		} else {
 			result = ServiceUtil.errorResult(HttpStatus.BAD_REQUEST, "Sales Rep Id must be provided") ;
 		}
 		
-		logger.info("Result of call to get the profile for (" + salesRepId + ") : " + result.getData());
+		if(logger.isInfoEnabled()){logger.info("Result of call to get the profile for (" + salesRepId + ") : " + result.getData());}
 		return result ;
 	}
 	

@@ -36,21 +36,21 @@ public class CartServiceImpl implements CartService {
 
 	private void insertCart(Cart cart) throws JsonGenerationException, JsonMappingException, IOException {
 		cart = calculateQuantities(cart) ;
-		logger.info(new ObjectMapper().writeValueAsString(cart));
+		if(logger.isDebugEnabled()){logger.debug(new ObjectMapper().writeValueAsString(cart));}
 		Integer cartId = dao.insertCartHeader(cart), cartProductId, cartProductSizeId, cartProductSizeRddId ;
-		logger.info("Created new Cart [" + cartId + "]") ;
+		if(logger.isDebugEnabled()){logger.debug("Created new Cart [" + cartId + "]") ;}
 		for(CartProduct cp : cart.getCartProducts()){
 			cartProductId = dao.insertCartProduct(cp, cartId) ;
-			logger.info("Created new Cart Product [" + cartProductId + "]");
+			if(logger.isDebugEnabled()){logger.debug("Created new Cart Product [" + cartProductId + "]");}
 			for(CartProductSize cps : cp.getCartProductSizes()){
 				cps.setSalesDocProductId(cartProductId);
 				cartProductSizeId = dao.insertCartProductSize(cps) ;
-				logger.info("Created new Cart Product Size [" + cartProductSizeId + "]");
+				if(logger.isDebugEnabled()){logger.debug("Created new Cart Product Size [" + cartProductSizeId + "]");}
 				for(CartProductSizeRdd cpsr : cps.getCartProductSizeRdds()){
 					cpsr.setProductSizeId(cartProductSizeId);
 					
 					cartProductSizeRddId = dao.insertCartProductSizeRdd(cpsr) ;
-					logger.info("Created new Cart Product Size RDD [" + cartProductSizeRddId + "]");
+					if(logger.isDebugEnabled()){logger.debug("Created new Cart Product Size RDD [" + cartProductSizeRddId + "]");}
 				}
 			}
 		}

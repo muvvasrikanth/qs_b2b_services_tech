@@ -1,233 +1,49 @@
 {
-	"carts": 
+	"I_MATERIAL_NUMBER": "",
+	"I_UPC": "",
+	"I_CLOSE_OUT_FLAG": "",
+	"I_MATERIAL_DESCRIPTION": "",
+	"I_MAX_ROWS": "1000",
+	"I_SALES_ORG": "1000",
+	"I_DISTRIBUTION_CHANNEL": "10",
+	"I_LANGUAGE": "E",
+	"I_CUSTOMER_NUMBER": "1001212",
+	"I_SALESREP_NUMBER": "35",
+	"I_BRAND": "01",
+	"IT_CATALOG_SEARCH": 
 	[
 		{
-			"createdBy": "gmackay@dcshoes.com",
-			"sapOrderNumber": null,
-			"requestedDeliveryDt": "20141225",
-			"latestIDocNumber": null,
-			"orderContext": "PREBOOK",
-			"totalNetPrice": 0,
-			"units": 0,
-			"validFrom": "20141125",
-			"drafSalesDocHeaderId": null,
-			"excelPath": null,
-			"draftSalesDocStatusId": "1",
-			"notes": null,
-			"totalMsrpPrice": 0,
-			"lastUpdateBy": "gmackay@dcshoes.com",
-			"season": "151",
-			"carrierName": null,
-			"shared": "N",
-			"excelFileName": null,
-			"lastUpdateOn": "20141125",
-			"carrierAcno": null,
-			"customerNumber": "1004716",
-			"reason": "002",
-			"internalStatus": null,
-			"createdOn": "20141125",
-			"deltaFlag": true,
-			"docCatagoryId": "3",
-			"cartProducts": 
-			[
-				{
-					"modifiedBy": "gmackay@dcshoes.com",
-					"modifiedDateTime": "20141125",
-					"unitOfMeasure": "",
-					"createdBy": "gmackay@dcshoes.com",
-					"distrubutionChannel": "10",
-					"salesOrg": "1050",
-					"genderFit": null,
-					"brand": "01",
-					"basePrice": 0,
-					"discountPercent": 0,
-					"totalMapPrice": 0,
-					"requestedDeliveryDate": "20141125",
-					"draftSalesDocHeaderId": null,
-					"dlvGroup": "",
-					"cartProductSizes": 
-					[
-						{
-							"dimension": null,
-							"id": null,
-							"productNumber": null,
-							"modifiedBy": "gmackay@dcshoes.com",
-							"quantity": 0,
-							"modifiedDateTime": null,
-							"createdDateTime": "20141125",
-							"salesDocProductId": null,
-							"createdBy": "gmackay@dcshoes.com",
-							"cartProductSizeRdds": 
-							[
-								{
-									"requestedDeliveryDate": "20141225",
-									"id": null,
-									"originalRequestedDeliveryDate": "20141225",
-									"productSizeId": null,
-									"quantity": "1"
-								}
-							],
+			"NAME": "SEASON",
+			"VALUE": "14S"
+		},
 
-							"size": "6   D"
-						},
+		{
+			"NAME": "DEMOGRAPHIC_SEARCH",
+			"VALUE": "07"
+		},
 
-						{
-							"dimension": null,
-							"id": null,
-							"productNumber": null,
-							"modifiedBy": "gmackay@dcshoes.com",
-							"quantity": 0,
-							"modifiedDateTime": null,
-							"createdDateTime": "20141125",
-							"salesDocProductId": null,
-							"createdBy": "gmackay@dcshoes.com",
-							"cartProductSizeRdds": 
-							[
-								{
-									"requestedDeliveryDate": "20141225",
-									"id": null,
-									"originalRequestedDeliveryDate": "20141225",
-									"productSizeId": null,
-									"quantity": "1"
-								}
-							],
+		{
+			"NAME": "DEPARTMENT_SEARCH",
+			"VALUE": "02"
+		},
 
-							"size": "6.5 D"
-						},
-
-						{
-							"dimension": null,
-							"id": null,
-							"productNumber": null,
-							"modifiedBy": "gmackay@dcshoes.com",
-							"quantity": 0,
-							"modifiedDateTime": null,
-							"createdDateTime": "20141125",
-							"salesDocProductId": null,
-							"createdBy": "gmackay@dcshoes.com",
-							"cartProductSizeRdds": 
-							[
-								{
-									"requestedDeliveryDate": "20141225",
-									"id": null,
-									"originalRequestedDeliveryDate": "20141225",
-									"productSizeId": null,
-									"quantity": "1"
-								}
-							],
-
-							"size": "7   D"
-						},
-
-						{
-							"dimension": null,
-							"id": null,
-							"productNumber": null,
-							"modifiedBy": "gmackay@dcshoes.com",
-							"quantity": 0,
-							"modifiedDateTime": null,
-							"createdDateTime": "20141125",
-							"salesDocProductId": null,
-							"createdBy": "gmackay@dcshoes.com",
-							"cartProductSizeRdds": 
-							[
-								{
-									"requestedDeliveryDate": "20141225",
-									"id": null,
-									"originalRequestedDeliveryDate": "20141225",
-									"productSizeId": null,
-									"quantity": "1"
-								}
-							],
-
-							"size": "8   D"
-						},
-
-						{
-							"dimension": null,
-							"id": null,
-							"productNumber": null,
-							"modifiedBy": "gmackay@dcshoes.com",
-							"quantity": 0,
-							"modifiedDateTime": null,
-							"createdDateTime": "20141125",
-							"salesDocProductId": null,
-							"createdBy": "gmackay@dcshoes.com",
-							"cartProductSizeRdds": 
-							[
-								{
-									"requestedDeliveryDate": "20141225",
-									"id": null,
-									"originalRequestedDeliveryDate": "20141225",
-									"productSizeId": null,
-									"quantity": "1"
-								}
-							],
-
-							"size": "8.5 D"
-						},
-
-						{
-							"dimension": null,
-							"id": null,
-							"productNumber": null,
-							"modifiedBy": "gmackay@dcshoes.com",
-							"quantity": 0,
-							"modifiedDateTime": null,
-							"createdDateTime": "20141125",
-							"salesDocProductId": null,
-							"createdBy": "gmackay@dcshoes.com",
-							"cartProductSizeRdds": 
-							[
-								{
-									"requestedDeliveryDate": "20141225",
-									"id": null,
-									"originalRequestedDeliveryDate": "20141225",
-									"productSizeId": null,
-									"quantity": "1"
-								}
-							],
-
-							"size": "9   D"
-						}
-					],
-
-					"totalBasePrice": 0,
-					"mapPrice": 0,
-					"id": null,
-					"sequence": 1,
-					"autoAllocation": true,
-					"style": null,
-					"createdDateTime": "20141125",
-					"productNumber": "320361-103",
-					"season": "151",
-					"discount": 0,
-					"netPrice": 0,
-					"totalNetPrice": 0,
-					"totalMsrpPrice": 0,
-					"quantities": 0,
-					"lineItemNo": "",
-					"dimension": "",
-					"msrpPrice": 0
-				}
-			],
-
-			"submittedCartId": 0,
-			"methodCodeId": "1",
-			"referenceDocumentNumber": null,
-			"salesDocName": "jenni doc cart 11-25",
-			"totalBasePrice": 0,
-			"shipToNumber": "1004716",
-			"docTypeId": "ZSO",
-			"customerPoNumber": "jenni doc cart 11-25",
-			"cancelDt": "20141231",
-			"readyForSubmissionValue": "N",
-			"totalMapPrice": 0,
-			"totalQuantities": 0,
-			"iDocNumber": null,
-			"shippingInstructions": null,
-			"validTo": "20141231",
-			"externalStatus": null
+		{
+			"NAME": "CATEGORY_SEARCH",
+			"VALUE": "24"
 		}
-	]
+	],
+
+	"IT_MATERIAL_LIST": 
+	[
+		
+	],
+
+	"I_RDD": "",
+	"I_ORDER_TYPE": "ZSO",
+	"I_ATS_FLAG": "Y",
+	"I_BYPASS_PRICING": "",
+	"I_CHECK_AVAILABILITY": "X",
+	"I_SHOW_NOT_AVAILABLE": "",
+	"I_ROWS_FOR_PAGE": "50",
+	"I_ORDER_REASON": "004"
 }

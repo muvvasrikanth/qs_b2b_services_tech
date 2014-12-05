@@ -50,24 +50,24 @@ public class SeasonServiceImpl implements SeasonService {
 	public SAPPrebookSeasonList getSeasons(String salesRepId) throws JsonGenerationException, 
 								JsonMappingException, IOException {
 		SAPPrebookSeasonList prebookSeasons = sao.getRepPrebkSeasons(salesRepId);
-		logger.info("There are (" + prebookSeasons.getPrebookSeasons().size() + ") seasons from SAP");
+		if(logger.isDebugEnabled()){logger.debug("There are (" + prebookSeasons.getPrebookSeasons().size() + ") seasons from SAP");}
 		
 		ObjectMapper mapper = new ObjectMapper() ;
 		
 		List <SAPPrebookSeason> seasons = new ArrayList<SAPPrebookSeason>() ;
 		
 		for(SAPPrebookSeason sapSeason : prebookSeasons.getPrebookSeasons()){
-			logger.info("Checking season status for (SalesOrg=" + sapSeason.getSalesOrg() + ", Season=" + sapSeason.getSeason()+ ")") ;
+			if(logger.isDebugEnabled()){logger.debug("Checking season status for (SalesOrg=" + sapSeason.getSalesOrg() + ", Season=" + sapSeason.getSeason()+ ")") ;}
 			sapSeason.setStatuses(dao.getSeasonStatus(sapSeason.getSalesOrg(), sapSeason.getSeason()));
 		
 			if (! contains(seasons, sapSeason) && sapSeason.isActive()){
-				logger.info("Adding (" + mapper.writeValueAsString(sapSeason) + ")");
+				if(logger.isDebugEnabled()){logger.debug("Adding (" + mapper.writeValueAsString(sapSeason) + ")");}
 				seasons.add(sapSeason) ;
 			}
 			
 		}
 		
-		logger.info("There are (" + seasons.size() + ") seasons being returned");
+		if(logger.isDebugEnabled()){logger.debug("There are (" + seasons.size() + ") seasons being returned");}
 		
 		prebookSeasons.setPrebookSeasons(seasons);
 		
@@ -79,24 +79,24 @@ public class SeasonServiceImpl implements SeasonService {
 		ObjectMapper mapper = new ObjectMapper() ;
 		SAPActiveSeasonProductList products = null ;
 		try{
-			logger.info("Calling SAP with : " + mapper.writeValueAsString(salesRepBrandSeasons));
+			if(logger.isDebugEnabled()){logger.debug("Calling SAP with : " + mapper.writeValueAsString(salesRepBrandSeasons));}
 			products = sao.getSeasonProducts(salesRepBrandSeasons);
-			logger.info("Back from calling SAP");
+			if(logger.isDebugEnabled()){logger.debug("Back from calling SAP");}
 		} catch (IOException e){
 			logger.error(e.getMessage(), e) ;
 		} finally {
-			logger.info("Finally from calling SAP");
+			if(logger.isDebugEnabled()){logger.debug("Finally from calling SAP");}
 		}
 		
 		if(products != null){
 			BrandSeason bs = salesRepBrandSeasons.getBrandSeasons().get(0) ;
 			
-			logger.info("There are (" + products.getProducts().size() + ") products returned from SAP for (" + bs.getBrand() + "|" + bs.getSeason() + ")" ) ;
+			if(logger.isDebugEnabled()){logger.debug("There are (" + products.getProducts().size() + ") products returned from SAP for (" + bs.getBrand() + "|" + bs.getSeason() + ")" ) ;}
 			
 			try{
 				if(products != null && products.getProducts() != null && products.getProducts().size() > 0){
 					Map <String, ProductImage> productImages = productDao.getMediumHeroImageUrls(products.getProducts()) ;
-					logger.info("There are (" + productImages.keySet().size() + ") image urls for the provided products");
+					if(logger.isDebugEnabled()){logger.debug("There are (" + productImages.keySet().size() + ") image urls for the provided products");}
 					String baseUrl = config.getS3Url() ;
 					String url = null, productNumber = null ;
 					Date lastUpdate = null ;
@@ -105,7 +105,7 @@ public class SeasonServiceImpl implements SeasonService {
 						productNumber = products.getProducts().get(i).getProduct() ;
 						pi = productImages.get(productNumber) ;
 						if(pi != null){
-							logger.info(mapper.writeValueAsString(pi)) ;
+							if(logger.isDebugEnabled()){logger.debug(mapper.writeValueAsString(pi)) ;}
 							url = baseUrl + pi.getS3Path() ;
 							products.getProducts().get(i).setImageUrl(url);
 							lastUpdate = productImages.get(products.getProducts().get(i).getProduct()).getModifiedDateTime() ;
@@ -123,7 +123,7 @@ public class SeasonServiceImpl implements SeasonService {
 	
 	private boolean contains(List<SAPPrebookSeason> list, SAPPrebookSeason season){
 		for(SAPPrebookSeason s : list){
-			logger.info("s (" + s.getBrand() + ", " + s.getSalesOrg() + ", " + s.getSeason() + "): season (" + season.getBrand() + ", " + season.getSalesOrg() + ", " + season.getSeason() + ")") ;
+			if(logger.isDebugEnabled()){logger.debug("s (" + s.getBrand() + ", " + s.getSalesOrg() + ", " + s.getSeason() + "): season (" + season.getBrand() + ", " + season.getSalesOrg() + ", " + season.getSeason() + ")") ;}
 			if(s.compareTo(season) == 1){
 				return true ;
 			}

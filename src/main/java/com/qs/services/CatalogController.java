@@ -34,7 +34,7 @@ public class CatalogController {
 	public DataResult getCatalogs(@PathVariable String salesRepId, 
 	        HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
-		logger.info("Call to [GET] catalogs with salesRepId=" + salesRepId);
+		if(logger.isInfoEnabled()){logger.info("Call to [GET] catalogs with salesRepId=" + salesRepId);}
 		CatalogList catalogList = new CatalogList() ;
 		
 		try{

@@ -18,7 +18,7 @@ public class SecurityServiceImpl implements SecurityService {
 
 	@Override
 	public Boolean authenticate(String userId, String password) {
-		logger.info("Inside SecurityService.authenticate(...) : userId=" + userId + " password=" + password) ;
+		if(logger.isDebugEnabled()){logger.debug("Inside SecurityService.authenticate(...) : userId=" + userId + " password=" + password) ;}
 		
 		return true ;
 	}

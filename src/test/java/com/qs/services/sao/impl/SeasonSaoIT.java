@@ -128,15 +128,18 @@ public class SeasonSaoIT extends AbstractJUnit4SpringContextTests {
 		logger.info(new ObjectMapper().writeValueAsString(srbs));
 	}
 	
+	/**
+	 * This test is ignored unless we specifically want to test this function because 
+	 * it generates 250 or so image files on the operating system.
+	 * @throws JsonGenerationException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	@Ignore
 	@Test
 	public void testGetImages() throws JsonGenerationException, JsonMappingException, IOException, InterruptedException{
-		String salesRepId = "1002192" ;
-		SAPPrebookSeasonList pbkSeasons = sao.getRepPrebkSeasons(salesRepId) ;
-		assertNotNull(pbkSeasons) ;
-		logger.info(new ObjectMapper().writeValueAsString(pbkSeasons)) ;
-		
-		SAPActiveSeasonProductList asProducts = sao.getActiveSeasonProducts(salesRepId, pbkSeasons) ;
+		SAPActiveSeasonProductList asProducts = sao.getSeasonProducts(mockSalesRepBrandSeasons()) ;
 		assertNotNull(asProducts) ;
 		logger.info(new ObjectMapper().writeValueAsString(asProducts));
 		
@@ -165,7 +168,22 @@ public class SeasonSaoIT extends AbstractJUnit4SpringContextTests {
 		Date end = new Date() ;
 		logger.info("Image load for (" + productImages.keySet().size() + ") images: started=" + format.format(start) + " : finished=" + format.format(end));
 	}
+
 	
+	
+	private SalesRepBrandSeasons mockSalesRepBrandSeasons() {
+		SalesRepBrandSeasons srbs = new SalesRepBrandSeasons() ;
+		
+		srbs.setSalesRep("1002912");
+		srbs.setSince("");
+		BrandSeason bs = new BrandSeason() ;
+		bs.setBrand("02");
+		bs.setSeason("152");
+		srbs.getBrandSeasons().add(bs) ;
+		
+		return srbs ;
+}
+
 	private BufferedImage toBufferedImage(Image image) throws InterruptedException{
 		if(image instanceof BufferedImage){
 			return (BufferedImage) image ;

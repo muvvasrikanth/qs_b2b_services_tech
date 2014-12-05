@@ -45,7 +45,7 @@ public class CustomerSaoImpl implements CustomerSao {
 		String url = config.getSapServiceUrl() + "/BGX_AFS_1/CustomerDetails?sap-client=" + config.getSapClient() ;
 		String body = "{\"I_CUSTOMER_NUMBER\":\"" + customerNumber + "\"}" ;
 		HttpEntity <String> httpEntity = new HttpEntity <String> (body, createHeaders()) ;
-		logger.info("Calling Customer Detail service with " + body);
+		if(logger.isDebugEnabled()){logger.debug("Calling Customer Detail service with " + body);}
 		ResponseEntity<SAPCustomer> result = restTemplate.exchange(url, HttpMethod.POST, httpEntity, SAPCustomer.class) ;
 		return result.getBody() ;
 	}

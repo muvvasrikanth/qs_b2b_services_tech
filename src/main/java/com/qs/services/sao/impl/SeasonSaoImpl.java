@@ -38,13 +38,13 @@ public class SeasonSaoImpl implements SeasonSao {
 	public SAPPrebookSeasonList getRepPrebkSeasons(String salesRepId) {
 		String url = config.getSapServiceUrl() + "/CONNECT_MOBILE/RepPrebkSeasons?sap-client=" + config.getSapClient() ;
 		String body="{\"I_SALES_REP\":\"" + salesRepId + "\"}";
-		logger.info("Calling [ " + url + " ] with :: " + body);
+		if(logger.isDebugEnabled()){logger.debug("Calling [ " + url + " ] with :: " + body);}
 		HttpEntity<String> httpEntity = new HttpEntity<String>(body, serviceUtil.createHeaders()) ;
 		ResponseEntity<SAPPrebookSeasonList> result = restTemplate.exchange(url,  HttpMethod.POST, httpEntity, SAPPrebookSeasonList.class) ;
 
 		try {
-			logger.info("Returning results provided by SAP");
-			logger.debug(new ObjectMapper().writeValueAsString(result.getBody()));
+			if(logger.isDebugEnabled()){logger.debug("Returning results provided by SAP");
+			logger.debug(new ObjectMapper().writeValueAsString(result.getBody()));}
 		} catch (JsonProcessingException e) {
 			logger.error(e.getMessage(), e) ;
 		}
@@ -52,6 +52,7 @@ public class SeasonSaoImpl implements SeasonSao {
 		return result.getBody() ;
 	}
 
+	@Deprecated
 	@Override
 	public SAPActiveSeasonProductList getActiveSeasonProducts(String salesRepId, SAPPrebookSeasonList seasons) throws JsonProcessingException {
 		String url = config.getSapServiceUrl() + "/CONNECT_MOBILE/ActiveSeasnProd?sap-client=" + config.getSapClient() ;
@@ -67,15 +68,15 @@ public class SeasonSaoImpl implements SeasonSao {
 		String body = mapper.writeValueAsString(itSasonList) ;
 		
 		ResponseEntity<SAPActiveSeasonProductList> result = null ;
-		logger.info("Calling [ " + url + " ] with :: " + body);
+		if(logger.isDebugEnabled()){logger.debug("Calling [ " + url + " ] with :: " + body);}
 		try{
 			HttpEntity<String> httpEntity = new HttpEntity<String>(body, serviceUtil.createHeaders()) ;
 			result = restTemplate.exchange(url,  HttpMethod.POST, httpEntity, SAPActiveSeasonProductList.class) ;
 		} catch (Exception e){
 			logger.error(e.getMessage(), e);
 		} finally {
-			logger.info("The result status code = " + result.getStatusCode().getReasonPhrase());
-			logger.info("There are (" + result.getBody().getProducts().size() + ") products :: " + new ObjectMapper().writeValueAsString(result.getBody()));
+			if(logger.isDebugEnabled()){logger.debug("The result status code = " + result.getStatusCode().getReasonPhrase());}
+			if(logger.isDebugEnabled()){logger.debug("There are (" + result.getBody().getProducts().size() + ") products :: " + new ObjectMapper().writeValueAsString(result.getBody()));}
 		}
 		return (result != null ? result.getBody() : null) ;
 	}
@@ -84,7 +85,7 @@ public class SeasonSaoImpl implements SeasonSao {
 	public SAPActiveSeasonProductList getSeasonProducts(SalesRepBrandSeasons salesRepBrandSeasons) throws JsonProcessingException {
 		String url = config.getSapServiceUrl() + "/CONNECT_MOBILE/getSeasonProd?sap-client=" + config.getSapClient() ;
 		String body= new ObjectMapper().writeValueAsString(salesRepBrandSeasons) ;
-		logger.info("Calling [" + url + "] with :: " + body);
+		if(logger.isDebugEnabled()){logger.debug("Calling [" + url + "] with :: " + body);}
 		
 		ResponseEntity<SAPActiveSeasonProductList> result = null ;
 		try{
@@ -93,8 +94,8 @@ public class SeasonSaoImpl implements SeasonSao {
 		} catch (Exception e){
 			logger.error(e.getMessage(), e) ;
 		} finally {
-			logger.info("The result status code = " + result.getStatusCode().getReasonPhrase());
-			logger.info("There are (" + result.getBody().getProducts().size() + ") products :: " + new ObjectMapper().writeValueAsString(result.getBody()));
+			if(logger.isDebugEnabled()){logger.debug("The result status code = " + result.getStatusCode());}
+			if(logger.isDebugEnabled()){logger.debug("There are (" + result.getBody().getProducts().size() + ") products :: " + new ObjectMapper().writeValueAsString(result.getBody()));}
 		}
 		return (result != null ? result.getBody() : null) ;
 	}

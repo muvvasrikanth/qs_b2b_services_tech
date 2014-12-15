@@ -72,13 +72,11 @@ public class SAPBasicAuthenticationProvider implements AuthenticationProvider {
 					authorities.add(new SimpleGrantedAuthority("ROLE_USER")) ;
 					resultAuthentication = new UsernamePasswordAuthenticationToken(user, password, authorities) ;
 				} else {
-					if(logger.isDebugEnabled()){logger.debug("Response code was not (OK), was [" + responseCode + "] - " + reason) ;}
-//					resultAuthentication = null ;
+					if(logger.isWarnEnabled()){logger.warn("Attempt to authenticate (" + soapBody + ") response code was not (OK), was [" + responseCode + "] - " + reason) ;}
 					throw new BadCredentialsException("Authentication Failed") ;
 				}
 			} else {
-				if(logger.isDebugEnabled()){logger.debug("Response entity was null");}
-//				resultAuthentication = null ;
+				logger.error("Response entity was null");
 				throw new BadCredentialsException("Authentication Failed") ;
 			}
 		} catch (IOException e) {

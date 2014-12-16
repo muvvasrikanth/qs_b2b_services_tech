@@ -1,6 +1,8 @@
 package com.qs.services;
 
 import java.io.IOException;
+import java.text.Normalizer;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +21,7 @@ import com.qs.services.domain.CartList;
 import com.qs.services.domain.DataResult;
 import com.qs.services.service.CartService;
 import com.qs.services.util.ServiceUtil;
+import com.qs.services.util.StringUtil;
 
 @Controller
 public class CartController {
@@ -31,8 +34,10 @@ public class CartController {
 	@RequestMapping(value = "/carts", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public DataResult saveCarts(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		String json = IOUtils.toString(request.getInputStream()) ;
-		if(logger.isInfoEnabled()){logger.info("[Cart json: " + json + " ]");}
+		if(logger.isDebugEnabled()){logger.debug("ContentType=" + request.getContentType());}
+		String json = IOUtils.toString(request.getInputStream(), "UTF-8") ;
+		json = StringUtil.normalize(json) ;
+		if(logger.isDebugEnabled()){logger.debug("[Cart json: " + json + " ]");}
 		CartList cartList = new ObjectMapper().readValue(json, CartList.class) ;
 		service.insertCarts(cartList) ;
 		return ServiceUtil.successResult("OK");

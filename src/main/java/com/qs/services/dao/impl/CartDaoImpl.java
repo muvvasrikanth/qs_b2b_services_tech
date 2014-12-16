@@ -27,6 +27,7 @@ import com.qs.services.domain.CartProductSize;
 import com.qs.services.domain.CartProductSizeRdd;
 import com.qs.services.domain.SAPCustomer;
 import com.qs.services.sao.CustomerSao;
+import com.qs.services.util.StringUtil;
 
 @Component
 public class CartDaoImpl implements CartDao {

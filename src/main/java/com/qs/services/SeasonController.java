@@ -76,10 +76,15 @@ public class SeasonController {
 		
 		if(logger.isInfoEnabled()){
 			String msg = "Search criteria [SalesRepId=" + salesRepId + ", BrandId=" + brandId + ", SeasonId=" + seasonId + "] :: " ;
-			msg += "ET_SEASONS (" + productList.getSeasons().size() + "), ET_SEASON_PRODUCTS (" + productList.getActiveSeasons().size() + "), " ;
-			msg += "ET_PRODUCTS (" + productList.getProducts().size() + "), ET_PRODUCT_SIZES (" + productList.getProductSizes().size() + "), " ;
-			msg += "ET_PRODUCT_PRICES (" + productList.getProductPrices().size() + "), ET_LOOKUP_TABLE (" + productList.getLookups().size() + "), " ;
-			msg += "ET_PRODUCT_SALES_AREAS (" + productList.getProductSalesAreas().size() + ")" ;
+			if(productList != null){
+				msg += "ET_SEASONS (" + (productList.getSeasons() != null ? productList.getSeasons().size() : "Undefined") + ") ";
+				msg += "ET_SEASON_PRODUCTS (" + (productList.getActiveSeasons() != null ? productList.getActiveSeasons().size() : "Undefined") + ") " ;
+				msg += "ET_PRODUCTS (" + (productList.getProducts() != null ? productList.getProducts().size() : "Undefined") + ") " ;
+				msg += "ET_PRODUCT_SIZES (" + (productList.getProductSizes() != null ? productList.getProductSizes().size() : "Undefined") + ") " ;
+				msg += "ET_PRODUCT_PRICES (" + (productList.getProductPrices() != null ? productList.getProductPrices().size() : "Undefined") + ") " ;
+				msg += "ET_LOOKUP_TABLE (" + (productList.getLookups() != null ? productList.getLookups().size() : "Undefined") + ") " ;
+				msg += "ET_PRODUCT_SALES_AREAS (" + (productList.getProductSalesAreas() != null ? productList.getProductSalesAreas().size() : "Undefined") + ")" ;
+			}
 			logger.info(msg);
 		}
 		

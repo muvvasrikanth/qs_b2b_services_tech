@@ -2,6 +2,7 @@ package com.qs.services.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
@@ -139,6 +140,20 @@ public class Cart {
 	@JsonProperty("CUSTOMER_NAME")
 	private String customerName ;
 	
+	@JsonProperty("DRAFT_SALESDOC_GUID")
+	private String draftSalesDocGuid ;
+	
+	public String getDraftSalesDocGuid() {
+		if(draftSalesDocGuid == null){
+			draftSalesDocGuid = UUID.randomUUID().toString() ;
+		}
+		return draftSalesDocGuid;
+	}
+
+	public void setDraftSalesDocGuid(String draftSalesDocGuid) {
+		this.draftSalesDocGuid = draftSalesDocGuid;
+	}
+
 	@JsonProperty("ET_CART_PRODUCT")
 	private List<CartProduct> cartProducts = new ArrayList<CartProduct>() ;
 	

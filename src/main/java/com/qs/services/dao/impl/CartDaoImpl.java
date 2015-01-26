@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -42,11 +43,13 @@ public class CartDaoImpl implements CartDao {
 	@Autowired
 	private JdbcTemplate template ;
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public Integer insertCartHeader(Cart cart){
 		Integer retVal = null ;
+		logger.warn("Cart.draftSalesDocGuid="+ cart.getDraftSalesDocGuid());
 		try{
-			String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_HEADER] ([DOC_CATEGORY_ID],[METHOD_CODE_ID],[CUSTOMER_NUMBER],[SHIP_TO_NUMBER],[SALES_DOC_NAME],[CUSTOMER_PO_NUMBER],[REQUESTED_DELIVERY_DT],[CANCEL_DT],[READYFORSUBMISSION_VALUE],[DRAFTSALESDOC_STATUS_ID],[EXTENAL_STATUS],[INTERNAL_STATUS],[SHARED],[REFERENCE_DOCUMENT_NUMBER],[IDOC_NUMBER],[LATEST_IDOC_NUMBER],[SAP_ORDER_NUMBER],[CREATED_BY],[CREATED_ON],[LAST_UPDATE_BY],[LAST_UPDATE_ON],[NOTES],[VALID_FROM],[VALID_TO],[SHIPPING_INSTRUCTION],[CARRIER_NAME],[CARRIER_ACNO],[EXCEL_PATH],[EXCEL_FILE_NAME],[DOC_TYPE_ID],[ORDER_CONTEXT],[SEASON],[REASON],[UNITS],[TOTAL_QUANTITIES],[TOTAL_BASE_PRICE],[TOTAL_MSRP_PRICE],[TOTAL_MAP_PRICE],[TOTAL_NET_PRICE],[DELTA_FLAG],[SUBMITTED_CART_ID], [CUSTOMER_NAME]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)" ;
+			String sql0 = "INSERT INTO [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_HEADER] ([DOC_CATEGORY_ID],[METHOD_CODE_ID],[CUSTOMER_NUMBER],[SHIP_TO_NUMBER],[SALES_DOC_NAME],[CUSTOMER_PO_NUMBER],[REQUESTED_DELIVERY_DT],[CANCEL_DT],[READYFORSUBMISSION_VALUE],[DRAFTSALESDOC_STATUS_ID],[EXTENAL_STATUS],[INTERNAL_STATUS],[SHARED],[REFERENCE_DOCUMENT_NUMBER],[IDOC_NUMBER],[LATEST_IDOC_NUMBER],[SAP_ORDER_NUMBER],[CREATED_BY],[CREATED_ON],[LAST_UPDATE_BY],[LAST_UPDATE_ON],[NOTES],[VALID_FROM],[VALID_TO],[SHIPPING_INSTRUCTION],[CARRIER_NAME],[CARRIER_ACNO],[EXCEL_PATH],[EXCEL_FILE_NAME],[DOC_TYPE_ID],[ORDER_CONTEXT],[SEASON],[REASON],[UNITS],[TOTAL_QUANTITIES],[TOTAL_BASE_PRICE],[TOTAL_MSRP_PRICE],[TOTAL_MAP_PRICE],[TOTAL_NET_PRICE],[DELTA_FLAG],[SUBMITTED_CART_ID], [CUSTOMER_NAME], [DRAFT_SALESDOC_GUID]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)" ;
 			Object[] parms = {
 //				cart.getDocCatagoryId(),
 				(cart.getDocTypeId().equalsIgnoreCase("ZCQ") ? 2 : 3),
@@ -91,14 +94,22 @@ public class CartDaoImpl implements CartDao {
 				cart.getTotalNetPrice(),
 				cart.getDeltaFlag(),
 				cart.getSubmittedCartId(),
-				(cart.getCustomerName() != null ? cart.getCustomerName() : getCustomerName(cart.getCustomerNumber()))
+				(cart.getCustomerName() != null ? cart.getCustomerName() : getCustomerName(cart.getCustomerNumber())),
+				cart.getDraftSalesDocGuid()
 			} ;
 			if(logger.isDebugEnabled()){logger.debug("Executing : " + sql0);}
 			template.update(sql0, parms) ;
 			
-			String sql1 = "SELECT MAX(draft_salesdoc_header_id) FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_HEADER]" ;
-			if(logger.isDebugEnabled()){logger.debug("Executing : " + sql1);}
-			retVal = template.queryForInt(sql1) ;
+			String sql1 = "SELECT MAX(draft_salesdoc_header_id) FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_HEADER] WHERE CREATED_BY = ? AND CUSTOMER_NUMBER = ? AND SALES_DOC_NAME = ? AND DRAFT_SALESDOC_GUID = ?" ;
+			Object[] parms2 = {
+				cart.getCreatedBy(),
+				cart.getCustomerNumber(),
+				cart.getSalesDocName(),
+				cart.getDraftSalesDocGuid()
+			} ;
+			
+			if(logger.isDebugEnabled()){logger.debug("Executing : " + sql1 + " :: [CREATED_BY='" + cart.getCreatedBy() + "', CUSTOMER_NUMBER=" + cart.getCustomerNumber() + ", SALES_DOC_NAME='" + cart.getSalesDocName() + "', GUID='" + cart.getDraftSalesDocGuid() + "'");}
+			retVal = template.queryForInt(sql1, parms2) ;
 		} catch (ParseException e){
 			logger.error(e.getMessage(), e);
 		} catch (IOException e) {
@@ -117,6 +128,12 @@ public class CartDaoImpl implements CartDao {
 			customerName = sapCustomer.getSoldToName() ;
 		}
 		return customerName ;
+	}
+	
+	private String generateGuid(){
+		String uuidString = UUID.randomUUID().toString() ;
+		if(logger.isDebugEnabled()){logger.debug("Generating UUID: " + uuidString);}
+		return uuidString ;
 	}
 
 	@Override
@@ -165,6 +182,8 @@ public class CartDaoImpl implements CartDao {
 			template.update(sql0, parms) ;
 	
 			String sql1 = "SELECT id FROM [BXCONNECT_AFS].[dbo].[CC_DRAFT_SALESDOC_PRODUCT_MAPPING] WHERE [DRAFT_SALESDOC_HEADER_ID] = " + cartId + " AND [PRODUCT_NUMBER] = '" + product.getProductNumber() + "'" ;
+			
+			if(logger.isDebugEnabled()){logger.debug(sql1) ;}
 			
 			retVal = template.queryForInt(sql1) ;
 		} catch (ParseException e){

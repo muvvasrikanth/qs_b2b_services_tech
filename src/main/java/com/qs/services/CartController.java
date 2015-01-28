@@ -40,6 +40,7 @@ public class CartController {
 		if(logger.isDebugEnabled()){logger.debug("[Cart json: " + json + " ]");}
 		CartList cartList = new ObjectMapper().readValue(json, CartList.class) ;
 		service.insertCarts(cartList) ;
+		// Did something useful
 		return ServiceUtil.successResult("OK");
 	}
 }

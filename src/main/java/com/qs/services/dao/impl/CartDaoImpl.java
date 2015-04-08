@@ -54,7 +54,7 @@ public class CartDaoImpl implements CartDao {
 //				cart.getDocCatagoryId(),
 				(cart.getDocTypeId().equalsIgnoreCase("ZCQ") ? 2 : 3),
 //				cart.getMethodCodeId(), Temporarily hard coding the method to be 5 - Excel because of issues in QC
-				(cart.getDocTypeId().equalsIgnoreCase("ZCQ") ? 12 : 5),
+				(cart.getDocTypeId().equalsIgnoreCase("ZCQ") ? 28 : 27),
 				cart.getCustomerNumber(),
 				cart.getShipToNumber(),
 				cart.getSalesDocName(),

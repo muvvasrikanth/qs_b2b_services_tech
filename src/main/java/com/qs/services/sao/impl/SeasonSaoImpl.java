@@ -36,7 +36,7 @@ public class SeasonSaoImpl implements SeasonSao {
 	
 	@Override
 	public SAPPrebookSeasonList getRepPrebkSeasons(String salesRepId) {
-		String url = config.getSapServiceUrl() + "/CONNECT_MOBILE/RepPrebkSeasons?sap-client=" + config.getSapClient() ;
+		String url = config.getSapServiceUrl() + "/CONNECT_TECH/RepTechSeasons?sap-client=" + config.getSapClient() ;
 		String body="{\"I_SALES_REP\":\"" + salesRepId + "\"}";
 		if(logger.isDebugEnabled()){logger.debug("Calling [ " + url + " ] with :: " + body);}
 		HttpEntity<String> httpEntity = new HttpEntity<String>(body, serviceUtil.createHeaders()) ;
@@ -55,7 +55,7 @@ public class SeasonSaoImpl implements SeasonSao {
 	@Deprecated
 	@Override
 	public SAPActiveSeasonProductList getActiveSeasonProducts(String salesRepId, SAPPrebookSeasonList seasons) throws JsonProcessingException {
-		String url = config.getSapServiceUrl() + "/CONNECT_MOBILE/ActiveSeasnProd?sap-client=" + config.getSapClient() ;
+		String url = config.getSapServiceUrl() + "/CONNECT_TECH/ActiveSeasnProd?sap-client=" + config.getSapClient() ;
 		
 		ItSAPPrebookSeasonList itSasonList = new ItSAPPrebookSeasonList();
 		itSasonList.setSalesRep(salesRepId);
@@ -83,7 +83,7 @@ public class SeasonSaoImpl implements SeasonSao {
 
 	@Override
 	public SAPActiveSeasonProductList getSeasonProducts(SalesRepBrandSeasons salesRepBrandSeasons) throws JsonProcessingException {
-		String url = config.getSapServiceUrl() + "/CONNECT_MOBILE/getSeasonProd?sap-client=" + config.getSapClient() ;
+		String url = config.getSapServiceUrl() + "/CONNECT_TECH/getSeasonProd?sap-client=" + config.getSapClient() ;
 		String body= new ObjectMapper().writeValueAsString(salesRepBrandSeasons) ;
 		if(logger.isDebugEnabled()){logger.debug("Calling [" + url + "] with :: " + body);}
 		

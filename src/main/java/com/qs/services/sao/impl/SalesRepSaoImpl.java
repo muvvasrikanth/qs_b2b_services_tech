@@ -34,7 +34,7 @@ public class SalesRepSaoImpl  implements SalesRepSao {
 	
 	@Override
 	public SalesAreaList getSalesAreas(String salesRepId) {
-		String url = config.getSapServiceUrl() + "/CONNECT_MOBILE/RepSalesAreas?sap-client=" + config.getSapClient() ;
+		String url = config.getSapServiceUrl() + "/CONNECT_TECH/RepSalesAreas?sap-client=" + config.getSapClient() ;
 		String body="{\"I_SALES_REP\":\"" + salesRepId + "\"}";
 		if(logger.isDebugEnabled()){logger.debug("Calling (" + url + ") with [" + body + "]") ;}
 	    HttpEntity<String> httpEntity = new HttpEntity<String>(body, createHeaders());

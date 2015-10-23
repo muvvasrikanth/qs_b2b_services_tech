@@ -32,7 +32,7 @@ public class CustomerSaoImpl implements CustomerSao {
 	
 	@Override
 	public CustomerList getCustomers(String salesRepId) {
-		String url =config.getSapServiceUrl() + "/CONNECT_MOBILE/RepCustomers?sap-client=" + config.getSapClient();
+		String url =config.getSapServiceUrl() + "/CONNECT_TECH/RepCustomers?sap-client=" + config.getSapClient();
 		String body="{\"I_SALES_REP\":\"" + salesRepId + "\"}";
 	    HttpEntity<String> httpEntity = new HttpEntity<String>(body, createHeaders());
 		ResponseEntity<CustomerList> result = restTemplate.exchange(url, HttpMethod.POST, 

@@ -86,7 +86,7 @@ public class CartDaoImpl implements CartDao {
 				cart.getDocTypeId(),
 				cart.getOrderContext(),
 				cart.getSeason(),
-				cart.getReason(),
+				"004",
 				cart.getUnits(),
 				cart.getTotalQuantities(),
 				cart.getTotalBasePrice(),

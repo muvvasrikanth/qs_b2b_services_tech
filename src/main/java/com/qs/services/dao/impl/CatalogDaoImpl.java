@@ -126,7 +126,7 @@ class GetCatalogsSP extends StoredProcedure {
 	
 	@SuppressWarnings("rawtypes")
 	protected GetCatalogsSP(JdbcTemplate template){
-		super(template, "GET_CATALOGS") ;
+		super(template, "GET_COLLECTIONS") ;
 		
 		RowMapper mapper = new CatalogRowMapper() ;
 		

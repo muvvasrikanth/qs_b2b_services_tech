@@ -40,7 +40,7 @@
 			</property>
 			<property name="arguments">
 				<list>
-					<value>file:C:/qs_b2b_services/config/log4j.xml</value>
+					<value>file:C:/qs_b2b_services_tech/config/log4j.xml</value>
 					<value>60000</value>
 				</list>
 			</property>

@@ -11,7 +11,7 @@
 	</appender>
 
 	<appender name="dailyFileAppender" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="file" value="c:/qs_b2b_services/logs/qs_b2b_services.log"/>
+		<param name="file" value="c:/qs_b2b_services_tech/logs/qs_b2b_services_tech.log"/>
 		<param name="immediateFlush" value="true"/>
 		<param name="threshold" value="debug"/>
 		<param name="append" value="false"/>
